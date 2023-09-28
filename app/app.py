@@ -20,7 +20,7 @@ def users():
     user_collection = db.users
     users = user_collection.find()
     
-    users_list = [{'name': user['name'], 'surname': user['surname'], 'age': user['age']} for user in users]
+    users_list = {'users': [{'name': user['name'], 'surname': user['surname'], 'age': user['age']} for user in users]}
     return users_list
 
 if __name__ == '__main__':
