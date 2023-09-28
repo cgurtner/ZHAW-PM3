@@ -1,5 +1,8 @@
 version: '3'
 
+volumes:
+  mongodb_data:
+
 services:
   app:
     build:
@@ -9,3 +12,19 @@ services:
     volumes:
       - ./app:/app
     command: ["python", "app.py"]
+  importer:
+    build:
+      context: ./importer
+      dockerfile: Dockerfile
+    volumes:
+      - ./importer:/importer
+    depends_on:
+      - mongodb
+    command: ["python", "run.py"]
+  mongodb:
+    image: mongo:latest
+    restart: always
+    ports:
+      - 127.0.0.1:27017:27017
+    volumes:
+      - mongodb_data:/data/db
