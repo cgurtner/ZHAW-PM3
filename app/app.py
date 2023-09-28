@@ -1,6 +1,11 @@
 from flask import Flask
+from pymongo import MongoClient
 
 app = Flask(__name__)
+
+# mongodb client
+client = MongoClient('mongodb://mongodb:27017/')  
+db = client.pm3
 
 @app.route('/')
 def hello_world():
@@ -12,30 +17,11 @@ def search(id):
 
 @app.route('/api/users')
 def users():
-    return {
-            "users": [
-            {
-                "name": "John",
-                "surname": "Doe",
-                "age": 30
-            },
-            {
-                "name": "Jane",
-                "surname": "Smith",
-                "age": 25
-            },
-            {
-                "name": "Mike",
-                "surname": "Jordan",
-                "age": 55
-            },
-            {
-                "name": "Alice",
-                "surname": "Johnson",
-                "age": 35
-            }
-        ]
-    }
+    user_collection = db.users
+    users = user_collection.find()
+    
+    users_list = [{'name': user['name'], 'surname': user['surname'], 'age': user['age']} for user in users]
+    return users_list
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
