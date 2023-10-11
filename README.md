@@ -11,4 +11,4 @@ Start the docker-composition from git-repository root with `docker-compose up`. 
 
 ### Connect to Flask
 
-In your browser, go to `http://localhost:5000/static/users.html`. This will trigger the `@app.route('/api/users')` in `app.py` and request the users via `GET` and output them through JavaScript DOM manipulation.
+In your browser, go to http://localhost:5000/static/users.html. This will trigger the `@app.route('/api/users')` in `app.py` and request the users via `GET` and output them through JavaScript DOM manipulation.
