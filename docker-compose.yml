@@ -20,7 +20,7 @@ services:
       - ./frontend:/frontend
     ports:
       - 127.0.0.1:3000:3000
-    command: "npm run dev"
+    command: bash -c "npm install --verbose && npm run dev"
   importer:
     build:
       context: ./importer
