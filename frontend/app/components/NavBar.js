@@ -1,20 +1,33 @@
-const NavBar = () => (
-    <div className="w-full bg-violet-900 text-white p-4 justify-between mb-12 shadow-lg">
-        <div className="container mx-auto">
-            <div className="flex items-center">
-                <nav>
-                    <ul className="flex space-x-6">
-                        <li className="hover:bg-violet-600 transition duration-300 ease-in-out rounded-md px-4 py-2">
-                            <a href="/">Home</a>    
-                        </li>
-                        <li className="hover:bg-violet-600 transition duration-300 ease-in-out rounded-md px-4 py-2">   
-                            <a href="/team">Team</a>
-                        </li>
-                    </ul>
-                </nav>
+import Link from 'next/link';
+
+const NavBar = () => {
+    const navItems = [
+        { name: 'Home', path: '/' },
+        { name: 'Team', path: '/team' }
+    ]
+
+    return (
+        <div className="w-full bg-dark-dh text-white p-4 justify-between mb-12 shadow-lg">
+            <div className="container mx-auto">
+                <div className="flex items-center">
+                    <nav>
+                        <ul className="flex space-x-6">
+                            {
+                                navItems.map(item => (
+                                    <li
+                                        key={item.path}
+                                        className={'hover:bg-light-dh transition duration-300 ease-in-out rounded-md px-3 py-1'}
+                                    >
+                                        <Link href={item.path}>{item.name}</Link>
+                                    </li>
+                                ))
+                            }
+                        </ul>
+                    </nav>
+                </div>
             </div>
         </div>
-    </div>
-)
+    )
+}
 
 export default NavBar;
