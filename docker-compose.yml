@@ -31,7 +31,7 @@ services:
       - mongodb
     command: ["python", "run.py"]
   mongodb:
-    image: mongo:latest
+    image: mongo:7.0
     restart: always
     ports:
       - 127.0.0.1:27017:27017
