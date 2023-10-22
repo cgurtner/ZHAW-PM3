@@ -1,4 +1,6 @@
-import json, os, copy
+import json
+import os
+import copy
 from pymongo import MongoClient
 from helper import cast, delField, compare
 
