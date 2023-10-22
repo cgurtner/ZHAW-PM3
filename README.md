@@ -9,9 +9,26 @@ This repository contains the code for the `Software Projects 3 (PM3)` course at 
 | http://localhost:3000 | frontend | React Next.js Frontend |
 | mongodb://mongodb:27017/ | mongodb | MongoDB |
 
+## API
+
+| URL | Description |
+| :-------- |:---| :-------------|
+| http://localhost:5000/api/amenity-types | Fetch all types of amenities with how many there are. | 
+| http://localhost:5000/api/explore/<type> | Fetch which attribute exists how many times for an amenity. |
+
 ## Setup
 
 Start the docker-composition from git-repository root with `docker-compose up`. This will start all services and run the `importer/run.py` script to import the amenities.
+
+Wait until following output is shown in the docker log:
+
+```
+zhaw-pm3-importer-1  | There are 233314 entries ready for import...
+zhaw-pm3-importer-1  | There were 514 entries removed!...
+zhaw-pm3-importer-1  | 
+zhaw-pm3-importer-1  | Importing into amenities collection now...
+zhaw-pm3-importer-1  | Import finished! 233314 rows imported.
+```
 
 ### Connect to mongoDB
 
