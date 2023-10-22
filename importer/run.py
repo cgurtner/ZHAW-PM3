@@ -1,6 +1,7 @@
 import json
 import os
 import copy
+import urllib.request
 from pymongo import MongoClient
 from helper import cast, delField, compare
 
@@ -8,7 +9,12 @@ from helper import cast, delField, compare
 mongo_uri = 'mongodb://mongodb:27017/'
 client = MongoClient(mongo_uri)
 
+fileurl = 'http://cgurtner.ch/data/osm-output.json'
 filepath = os.path.join(os.getcwd(), 'data/osm-output.json')
+
+if not os.path.exists(filepath):
+        print('Downloading data-file from ' + fileurl)
+        urllib.request.urlretrieve(fileurl, filepath)
 
 with open(filepath, 'r') as file:
     osm = json.load(file)
@@ -58,7 +64,7 @@ for entry in osm['nodes']:
     cleaned_rows.append(entry)
 
 print('There are {} entries ready for import...'.format(len(cleaned_rows)))
-print('There were {} entries removed!...'.format(len(removed_rows)) + '\n')
+print('There were {} entries removed...'.format(len(removed_rows)) + '\n')
 
 print('Importing into amenities collection now...')
 
