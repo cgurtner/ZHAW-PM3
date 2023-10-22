@@ -11,7 +11,7 @@ This repository contains the code for the `Software Projects 3 (PM3)` course at 
 
 ## API
 
-| URL | Description |
+| Endpoint | Description |
 | :-------- | :--- |
 | http://localhost:5000/api/amenity-types | Fetch all types of amenities with how many there are. | 
 | http://localhost:5000/api/explore/<type> | Fetch which attribute exists how many times for an amenity. |
