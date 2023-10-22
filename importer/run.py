@@ -5,7 +5,7 @@ from pymongo import MongoClient
 from helper import cast, delField, compare
 
 # MongoDB connection string
-mongo_uri = "mongodb://mongodb:27017/"
+mongo_uri = 'mongodb://mongodb:27017/'
 client = MongoClient(mongo_uri)
 
 filepath = os.path.join(os.getcwd(), 'data/osm-output.json')
@@ -57,7 +57,14 @@ for entry in osm['nodes']:
     entry = cast('lon', 'float', entry)
     cleaned_rows.append(entry)
 
-print('There are {} entries ready for import!'.format(len(cleaned_rows)))
-print('There were {} entries removed!'.format(len(removed_rows)))
+print('There are {} entries ready for import...'.format(len(cleaned_rows)))
+print('There were {} entries removed!...'.format(len(removed_rows)) + '\n')
 
-db = client.get_database('pm3')
+print('Importing into amenities collection now...')
+
+db = client.get_database('osm')
+collection = db.get_collection('amenities')
+collection.delete_many({})
+collection.insert_many(cleaned_rows)
+
+print('Import finished! {} rows imported.'.format(collection.count_documents({})))
