@@ -11,7 +11,7 @@ filepath = os.path.join(os.getcwd(), 'data/osm-output.json')
 with open(filepath, 'r') as file:
     osm = json.load(file)
 
-cleaned_data, removed_rows_count = [], 0
+cleaned_rows, removed_rows = [], []
 for entry in osm['nodes']:
     # we don't want to alter the original entry in osm['nodes'] for further comparions and tests
     entry = copy.deepcopy(entry)
@@ -23,7 +23,7 @@ for entry in osm['nodes']:
     # https://wiki.openstreetmap.org/wiki/Key:fixme
     # test row: 257085086, 267053813, 271846258
     if 'fixme' in entry:
-        removed_rows_count += 1
+        removed_rows.append(entry)
         continue
 
     # rows have more than one attribute to indicate a website
@@ -53,6 +53,9 @@ for entry in osm['nodes']:
     entry = cast('id', 'int', entry)
     entry = cast('lat', 'float', entry)
     entry = cast('lon', 'float', entry)
-    cleaned_data.append(entry)
+    cleaned_rows.append(entry)
+
+print('There are {} entries ready for import!'.format(len(cleaned_rows)))
+print('There were {} entries removed!'.format(len(removed_rows)))
 
 db = client.get_database('pm3')
