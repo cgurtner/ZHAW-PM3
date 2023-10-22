@@ -5,7 +5,7 @@ This repository contains the code for the `Software Projects 3 (PM3)` course at 
 
 | URL | Name | Description |
 | :-------- |:---| :-------------|
-| http://localhost:5000/api/<route\> | api | Python Flask API |
+| http://localhost:5000/api/ | api | Python Flask API |
 | http://localhost:3000 | frontend | React Next.js Frontend |
 | mongodb://mongodb:27017/ | mongodb | MongoDB |
 
