@@ -29,7 +29,6 @@ def explore(type):
     amenities = list(db.amenities.find({'amenity': type}, {'_id': 0}))
     resp = {}
     for amenity in amenities:
-        resp['overall_count'] = resp.get('overall_count', 0) + 1
         for key in amenity:
             if key == 'amenity':
                 continue
