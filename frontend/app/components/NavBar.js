@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 const NavBar = () => {
     const navItems = [
-        { name: 'Home', path: '/' },
+        { name: 'Nearby', path: '/' },
         { name: 'Explore', path: '/explore'},
         { name: 'Team', path: '/team' }
     ]

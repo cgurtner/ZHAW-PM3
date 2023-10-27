@@ -9,7 +9,7 @@ const AmenityList = ({ sortedList }) => {
     async function fetchAttributes(type) {
             setType(type)
             
-            const res = await fetch(process.env.NEXT_PUBLIC_API_CLIENT_URL + 'explore/' + type)
+            const res = await fetch(process.env.NEXT_PUBLIC_API_CLIENT_URL + 'explore/attributes/' + type)
             const data = await res.json()
             
             const sortedList = Object.entries(data).sort((a, b) => b[1] - a[1]);
