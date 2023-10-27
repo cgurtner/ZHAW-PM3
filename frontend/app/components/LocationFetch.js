@@ -39,7 +39,7 @@ const LocationFetch = () => {
         <div className="w-full">
             <div className="flex justify-center">
                 <button className="text-4xl bg-dark-dh hover:bg-light-dh text-white font-bold py-4 px-8 mb-12" onClick={getLocation}>
-                    Get My Location
+                    Nearby
                 </button>
             </div>
             <div>
