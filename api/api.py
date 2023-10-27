@@ -25,8 +25,7 @@ def amenities():
 
     return res
 
-
-@app.route('/api/explore/<type>')
+@app.route('/api/explore/attributes/<type>')
 def explore(type):
     amenities = list(db.amenities.find({'amenity': type}, {'_id': 0}))
     resp = {}
