@@ -4,7 +4,7 @@ export default function Home() {
   return (
     <div className="container mt-12">
       <div className="grid grid-cols-1">
-        <div className="flex justify-center text-8xl mb-12">
+        <div className="flex justify-center text-8xl mb-12 font-semibold">
           <h1>Welcome!</h1>
         </div>
         <div className="flex justify-center text-4xl mb-12">

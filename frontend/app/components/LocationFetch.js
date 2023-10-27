@@ -36,28 +36,23 @@ const LocationFetch = () => {
     };
 
     return (
-        <div>
-            <div>
+        <div className="w-full">
+            <div className="flex justify-center">
                 <button className="text-4xl bg-dark-dh hover:bg-light-dh text-white font-bold py-4 px-8 mb-12" onClick={getLocation}>
                     Get My Location
                 </button>
-                {
-                    location && (
-                        <div className="mt-4">
-                            <h2 className="text-2xl mb-2">Your Location</h2>
-                            <p>Latitude: {location.latitude}</p>
-                            <p>Longitude: {location.longitude}</p>
-                        </div>
-                    )
-                }
+            </div>
+            <div>
                 {amenities.length > 0 && (
                     <div className="mt-4">
-                        <h2 className="text-2xl mb-2">Locations</h2>
-                        <ul>
-                            {amenities.map((amenity, index) => (
-                                <li key={index}>{amenity.name}</li>
-                            ))}
-                        </ul>
+                        <div className="flex justify-center">
+                            <h2 className="text-2xl text-4xl mb-6 font-medium">Locations</h2>
+                        </div>
+                        {amenities.map((amenity, index) => (
+                            <div className="w-full text-4xl bg-dark-dh text-white font-bold py-4 px-8 mb-2" key={amenity.id}>
+                                {amenity.name}
+                            </div>
+                        ))}
                     </div>
                 )}
             </div>
