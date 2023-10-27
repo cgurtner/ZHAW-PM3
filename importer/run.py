@@ -13,8 +13,8 @@ fileurl = 'http://cgurtner.ch/data/osm-output.json'
 filepath = os.path.join(os.getcwd(), 'data/osm-output.json')
 
 if not os.path.exists(filepath):
-        print('Downloading data-file from ' + fileurl)
-        urllib.request.urlretrieve(fileurl, filepath)
+    print('Downloading data-file from ' + fileurl)
+    urllib.request.urlretrieve(fileurl, filepath)
 
 with open(filepath, 'r') as file:
     osm = json.load(file)
@@ -61,6 +61,13 @@ for entry in osm['nodes']:
     entry = cast('id', 'int', entry)
     entry = cast('lat', 'float', entry)
     entry = cast('lon', 'float', entry)
+
+    # include geospatial field
+    entry['location'] = {
+        "type": 'Point',
+        "coordinates": [entry['lon'], entry['lat']]
+    }
+
     cleaned_rows.append(entry)
 
 print('There are {} entries ready for import...'.format(len(cleaned_rows)))
@@ -70,7 +77,12 @@ print('Importing into amenities collection now...')
 
 db = client.get_database('osm')
 collection = db.get_collection('amenities')
+
 collection.delete_many({})
 collection.insert_many(cleaned_rows)
 
-print('Import finished! {} rows imported.'.format(collection.count_documents({})))
+# add indexes
+collection.create_index([('location', '2dsphere')])
+
+print('Import finished! {} rows imported.'.format(
+    collection.count_documents({})))

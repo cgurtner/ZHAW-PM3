@@ -10,7 +10,7 @@ export default function Home() {
         <div className="flex justify-center text-4xl mb-12">
           <h2>You give us a click, we give you a dining experience!</h2>
         </div>
-        <div className="flex justify-center">
+        <div className="flex justify-center mb-12">
           <LocationFetch />
         </div>
       </div>
