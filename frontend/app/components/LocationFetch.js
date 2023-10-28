@@ -53,7 +53,7 @@ const LocationFetch = () => {
                         {amenities.map((amenity, index) => (
                             <div className="w-full text-4xl bg-dark-dh text-white py-4 px-8 mb-2 flex justify-between" key={amenity.id}>
                                 <span>{amenity.name}</span>
-                                <a href={`amenity/details/${amenity.id}`} className="text-right text-xl pt-1.5">Details</a>
+                                <a href={`amenity/${amenity.id}`} className="text-right text-xl pt-1.5">Details</a>
                             </div>
                         ))}
                     </div>
