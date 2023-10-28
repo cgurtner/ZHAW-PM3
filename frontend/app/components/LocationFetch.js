@@ -31,7 +31,6 @@ const LocationFetch = () => {
         try {
             const response = await fetch(`${process.env.NEXT_PUBLIC_API_CLIENT_URL}/nearby?lat=${lat}&lon=${lon}&types=${types.join(',')}&distance=${distance}`);
             const data = await response.json();
-            console.log(data)
             setAmenities(data);
         } catch (err) {
             setError('Error fetching amenities!');
