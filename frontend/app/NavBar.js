@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-const NavBar = () => {
+const NavBar = ({ amenity, setAmenity }) => {
     const navItems = [
         { name: 'Nearby', path: '/' },
         { name: 'Explore', path: '/explore' },
@@ -19,14 +19,18 @@ const NavBar = () => {
                 <nav>
                     <ul className="flex space-x-6">
                         {
-                            navItems.map(item => (
-                                <li
-                                    key={item.path}
-                                    className={'hover:bg-light-dh transition duration-300 ease-in-out rounded-md px-3 py-1'}
-                                >
-                                    <Link href={item.path}>{item.name}</Link>
-                                </li>
-                            ))
+                            navItems.map(item => {
+                                amenity = item.path == '/' ? false : amenity
+                                return (
+                                    <li
+                                        onClick={() => setAmenity(amenity)}
+                                        key={item.path}
+                                        className={'hover:bg-light-dh transition duration-300 ease-in-out rounded-md px-3 py-1'}
+                                    >
+                                        <Link href={item.path}>{item.name}</Link>
+                                    </li>
+                                )
+                            })
                         }
                     </ul>
                 </nav>

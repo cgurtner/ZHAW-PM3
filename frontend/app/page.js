@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react';
+import NavBar from './NavBar';
 import LocationFetch from './LocationFetch';
 import Amenity from './amenity/page';
 
@@ -8,7 +9,14 @@ export default function Home() {
   const [amenity, setAmenity] = useState(false);
   const PageComponent = amenity ? <PageAmenity amenity={amenity} /> : <PageNearby setAmenity={setAmenity} />
 
-  return PageComponent
+  return (
+    <main>
+      <NavBar amenity={amenity} setAmenity={setAmenity} />
+      <div className="flex justify-center">
+        {PageComponent}
+      </div>
+    </main>
+  )
 }
 
 const PageNearby = ({ setAmenity }) => (
