@@ -1,4 +1,4 @@
-import AmenityList from "./components/AmenityList";
+import AmenityList from "./AmenityList";
 
 export default async function Explore() {
   const res = await fetch(process.env.NEXT_PUBLIC_API_SERVER_URL + 'amenity-types')
