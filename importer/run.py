@@ -26,12 +26,24 @@ for entry in osm['nodes']:
     # change all keys to lowercase
     entry = {k.lower(): v for k, v in entry.items()}
 
+    skip = False
     # rows with fixme attribute should be removed
     # fixme is used to mark rows with errors or wrong data
     # https://wiki.openstreetmap.org/wiki/Key:fixme
     # test row: 257085086, 267053813, 271846258
     if 'fixme' in entry:
         removed_rows.append(entry)
+        continue
+
+    # Remove rows with no name, we can't use them for our tool.
+    amenity = entry['amenity']
+    for type_to_remove in ['restaurant', 'cafe', 'fast_food', 'biergarten']:
+        if amenity == type_to_remove and 'name' not in entry:
+            removed_rows.append(entry)
+            skip = True
+            break
+
+    if skip:
         continue
 
     # rows have more than one attribute to indicate a website

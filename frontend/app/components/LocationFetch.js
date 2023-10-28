@@ -16,7 +16,7 @@ const LocationFetch = () => {
             position => {
                 const { latitude, longitude } = position.coords;
                 setLocation({ latitude, longitude });
-                fetchAmenities(latitude, longitude, ["restaurant", "pub"], 1000);
+                fetchAmenities(latitude, longitude, ['restaurant', 'cafe', 'fast_food', 'biergarten'], 1000);
             },
             () => {
                 setError('Unable to retrieve your location!');
