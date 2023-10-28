@@ -25,6 +25,7 @@ def amenities():
 
     return res
 
+
 @app.route('/api/explore/attributes/<type>')
 def explore(type):
     amenities = list(db.amenities.find({'amenity': type}, {'_id': 0}))
@@ -36,12 +37,13 @@ def explore(type):
             resp[key] = resp.get(key, 0) + 1
     return resp
 
+
 @app.route('/api/nearby', methods=['GET'])
 def nearby():
     lat = float(request.args.get('lat'))
     lon = float(request.args.get('lon'))
     types = request.args.get('types').split(',')
-    distance_meters = float(request.args.get('distance'))  
+    distance_meters = float(request.args.get('distance'))
 
     pipeline = [
         {
@@ -61,9 +63,11 @@ def nearby():
     ]
 
     nearby_amenities = list(db.amenities.aggregate(pipeline))
-    result = [{"id": amenity['id'], "name": amenity['name'], "type": amenity['amenity'], "distance": amenity['distance']} for amenity in nearby_amenities]
+    result = [{"id": amenity['id'], "name": amenity['name'], "type": amenity['amenity'],
+               "distance": amenity['distance']} for amenity in nearby_amenities]
 
     return jsonify(result)
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
