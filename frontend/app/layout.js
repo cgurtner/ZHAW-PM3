@@ -5,8 +5,8 @@ import NavBar from './components/NavBar'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'ZHAW-PM3',
-  description: 'This app is powering our PM3 ideas',
+  title: 'YummiTummySearchy',
+  description: 'Next level search engine for your dining experience.',
 }
 
 export default function RootLayout({ children }) {
