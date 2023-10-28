@@ -1,4 +1,4 @@
-import LocationFetch from "./components/LocationFetch";
+import LocationFetch from './LocationFetch';
 
 export default function Home() {
   return (
