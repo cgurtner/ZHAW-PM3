@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 
-const LocationFetch = () => {
+const LocationFetch = ({ setAmenity }) => {
     const [location, setLocation] = useState()
     const [amenities, setAmenities] = useState([]);
 
@@ -16,7 +16,7 @@ const LocationFetch = () => {
             position => {
                 const { latitude, longitude } = process.env.NEXT_PUBLIC_API_OVERWRITE_NEARBY_COORDS ?
                     { 'latitude': 47.49729966574743, 'longitude': 8.729624890038204 } :
-                    position.coords 
+                    position.coords
 
                 setLocation({ latitude, longitude });
                 fetchAmenities(latitude, longitude, ['restaurant', 'cafe', 'fast_food', 'biergarten'], 1000);
@@ -53,7 +53,7 @@ const LocationFetch = () => {
                         {amenities.map((amenity, index) => (
                             <div className="w-full text-4xl bg-dark-dh text-white py-4 px-8 mb-2 flex justify-between" key={amenity.id}>
                                 <span>{amenity.name}</span>
-                                <a href={`amenity/${amenity.id}`} className="text-right text-xl pt-1.5">Details</a>
+                                <button className='hover:bg-light-dh transition duration-300 ease-in-out rounded-md px-3 py-1 pt-1.5 text-xl' onClick={() => setAmenity(amenity.id)}>Details</button>
                             </div>
                         ))}
                     </div>
