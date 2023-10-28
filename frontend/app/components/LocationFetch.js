@@ -14,7 +14,10 @@ const LocationFetch = () => {
 
         navigator.geolocation.getCurrentPosition(
             position => {
-                const { latitude, longitude } = position.coords;
+                const { latitude, longitude } = process.env.NEXT_PUBLIC_API_OVERWRITE_NEARBY_COORDS ?
+                    { 'latitude': 47.49729966574743, 'longitude': 8.729624890038204 } :
+                    position.coords 
+
                 setLocation({ latitude, longitude });
                 fetchAmenities(latitude, longitude, ['restaurant', 'cafe', 'fast_food', 'biergarten'], 1000);
             },
