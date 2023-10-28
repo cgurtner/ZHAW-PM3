@@ -37,7 +37,7 @@ for entry in osm['nodes']:
 
     # Remove rows with no name, we can't use them for our tool.
     amenity = entry['amenity']
-    for type_to_remove in ['restaurant', 'cafe', 'fast_food', 'biergarten']:
+    for type_to_remove in ['restaurant', 'cafe', 'fast_food', 'biergarten', 'bar', 'pub', 'nightclub', 'bicycle_parking', 'charging_station']:
         if amenity == type_to_remove and 'name' not in entry:
             removed_rows.append(entry)
             skip = True

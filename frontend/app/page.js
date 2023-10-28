@@ -12,7 +12,6 @@ export default function Home() {
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_CLIENT_URL}amenity/${id}`);
       const data = await response.json();
-      console.log(data)
       setAmenity(data);
   } catch (err) {
       setError('Error fetching amenities!');
