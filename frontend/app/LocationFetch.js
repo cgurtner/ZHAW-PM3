@@ -29,7 +29,7 @@ const LocationFetch = ({ setAmenity }) => {
 
     const fetchAmenities = async (lat, lon, types, distance) => {
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_CLIENT_URL}/nearby?lat=${lat}&lon=${lon}&types=${types.join(',')}&distance=${distance}`);
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_CLIENT_URL}nearby?lat=${lat}&lon=${lon}&types=${types.join(',')}&distance=${distance}`);
             const data = await response.json();
             setAmenities(data);
         } catch (err) {

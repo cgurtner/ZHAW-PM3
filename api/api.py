@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, request
+from bson.int64 import Int64
 from flask_cors import CORS
 from pymongo import MongoClient
 
@@ -7,7 +8,6 @@ CORS(app)
 
 client = MongoClient('mongodb://mongodb:27017/')
 db = client.osm
-
 
 @app.route('/api/amenity-types')
 def amenities():
@@ -25,7 +25,6 @@ def amenities():
 
     return res
 
-
 @app.route('/api/explore/attributes/<type>')
 def explore(type):
     amenities = list(db.amenities.find({'amenity': type}, {'_id': 0}))
@@ -36,7 +35,6 @@ def explore(type):
                 continue
             resp[key] = resp.get(key, 0) + 1
     return resp
-
 
 @app.route('/api/nearby', methods=['GET'])
 def nearby():
@@ -68,6 +66,10 @@ def nearby():
 
     return jsonify(result)
 
+@app.route('/api/amenity/<id>')
+def getAmenity(id):
+    amenity = db.amenities.find_one({'id': Int64(id)})
+    return {"id": amenity['id'], "name": amenity['name'], "lat": amenity['lat'], "lon": amenity['lon']}
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
