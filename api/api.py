@@ -61,7 +61,7 @@ def nearby():
     ]
 
     nearby_amenities = list(db.amenities.aggregate(pipeline))
-    result = [{"id": amenity['id'], "name": amenity['name'], "type": amenity['amenity'],
+    result = [{"id": amenity['id'], "name": amenity['name'], "type": amenity['amenity'], "cuisine": amenity['cuisine'],
                "distance": amenity['distance'], "lat": amenity['lat'], "lon": amenity['lon']} for amenity in nearby_amenities]
 
     return jsonify(result)
