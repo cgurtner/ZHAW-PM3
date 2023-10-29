@@ -8,7 +8,7 @@ export default function Amenity({ amenity }) {
   const [pointsOfInterest, setPointsOfInterest] = useState([])
 
   const fetchAmenities = async (lat, lon, distance) => {
-    const types = ['bar', 'pub', 'nightclub', 'bicycle_parking', 'charging_station']
+    const types = ['bar', 'pub', 'nightclub']
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_CLIENT_URL}nearby?lat=${lat}&lon=${lon}&types=${types.join(',')}&distance=${distance}`);
       const data = await response.json();

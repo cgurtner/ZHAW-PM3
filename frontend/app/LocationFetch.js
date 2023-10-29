@@ -51,9 +51,8 @@ const LocationFetch = ({ setAmenity }) => {
                             <h2 className="text-2xl text-4xl mb-6 font-medium">Locations</h2>
                         </div>
                         {amenities.map((amenity, index) => (
-                            <div className="w-full text-4xl bg-dark-dh text-white py-4 px-8 mb-2 flex justify-between" key={amenity.id}>
+                            <div className="w-full text-4xl bg-dark-dh text-white py-4 px-8 mb-2 flex justify-between hover:bg-light-dh transition hover:cursor-pointer duration-300 ease-in-out" key={amenity.id} onClick={() => setAmenity(amenity.id)}>
                                 <span>{amenity.name}</span>
-                                <button className='hover:bg-light-dh transition duration-300 ease-in-out rounded-md px-3 py-1 pt-1.5 text-xl' onClick={() => setAmenity(amenity.id)}>Details</button>
                             </div>
                         ))}
                     </div>

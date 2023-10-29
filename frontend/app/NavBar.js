@@ -22,7 +22,7 @@ const NavBar = ({ amenity, setAmenity }) => {
                                     <li
                                         onClick={() => setAmenity(amenity)}
                                         key={item.path}
-                                        className={'hover:bg-light-dh transition duration-300 ease-in-out rounded-md px-3 py-1'}
+                                        className={'hover:bg-light-dh transition duration-300 ease-in-out px-3 py-1'}
                                     >
                                         <Link href={item.path}>{item.name}</Link>
                                     </li>
