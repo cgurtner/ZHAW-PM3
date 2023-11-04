@@ -59,10 +59,12 @@ export default function Amenity({ amenity }) {
 
       pointsOfInterest.map((elem, key) => {
         const poiMarker = L.marker([elem.lat, elem.lon], { icon: greyIcon }).addTo(mapInstance);
-        poiMarker.bindPopup('<strong>' +  elem.type.toUpperCase() + '</strong><br/>' + elem.name);
+        poiMarker.bindPopup('<strong>' + elem.type.toUpperCase() + '</strong><br/>' + elem.name);
       })
     }
   }, [mapInstance, pointsOfInterest])
+
+  const website = amenity.website ? <><a href={amenity.website} className="hover:text-light-dh" target="_blank" rel="noopener noreferrer">Website</a></> : null
 
   return (
     <div className="container mt-12">
@@ -70,7 +72,48 @@ export default function Amenity({ amenity }) {
         <div className="flex justify-center text-8xl mb-12 font-semibold">
           <h1>{amenity.name}</h1>
         </div>
-        <div ref={mapRef} style={{ height: "750px", width: "100%" }}></div>
+        <div className="bg-dark-dh mb-6 p-3 text-white grid grid-cols-3">
+          <div>
+            <h2 className="font-semibold text-2xl mb-3">Address</h2>
+              {amenity.name}<br />
+              address<br />
+              e-mail<br />
+              {website}
+          </div>
+          <div>
+          <h2 className="font-semibold text-2xl mb-3">Details</h2>
+            cuisine<br />
+            opening hours
+          </div>
+          <div>
+          <h2 className="font-semibold text-2xl mb-3">Rating</h2>
+            Food: 5* <br />
+            Cuisine: 5* <br />
+            Service: 5* <br />
+            Comfort: 5* <br />
+            <span className="text-xs">
+              * This compares the ratings of this restaurant to nearby amenities of the same cuisine.
+            </span>
+          </div>
+        </div>
+        <div ref={mapRef} className="mb-6" style={{ height: "750px", width: "100%" }}></div>
+        <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-3">
+          <div className="bg-dark-dh text-white p-3">
+            Rating #1
+          </div>
+          <div className="bg-dark-dh text-white p-3">
+            Rating #2
+          </div>
+          <div className="bg-dark-dh text-white p-3">
+            Rating #3
+          </div>
+          <div className="bg-dark-dh text-white p-3">
+            Rating #4
+          </div>
+          <div className="bg-dark-dh text-white p-3">
+            Rating #5
+          </div>
+        </div>
       </div>
     </div>
   )

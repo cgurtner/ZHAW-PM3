@@ -3,7 +3,7 @@ import os
 import copy
 import urllib.request
 from pymongo import MongoClient
-from helper import cast, delField, compare
+from helper import cast, delField, addHttp
 
 # MongoDB connection string
 mongo_uri = 'mongodb://mongodb:27017/'
@@ -61,11 +61,11 @@ for entry in osm['nodes']:
     # test 3: 298715804, has only url => should be changed to website:
     website = False
     if 'website' in entry:
-        website = entry['website']
+        website = addHttp(entry['website'])
     elif 'contact:website' in entry:
-        website = entry['contact:website']
+        website = addHttp(entry['contact:website'])
     elif 'url' in entry:
-        website = entry['url']
+        website = addHttp(entry['url'])
 
     entry = delField('contact:website', entry)
     entry = delField('url', entry)
