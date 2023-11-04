@@ -19,7 +19,7 @@ This repository contains the code for the `Software Projects 3 (PM3)` course at 
 ## Setup
 
 ### Import
-Before the app can be used, the data needs to be imported. Execute `docker-compose up importer`. 
+Before the app can be used, the data needs to be imported. Execute `docker-compose up importer`. The data file `importer/data/osm-output.json` is automatically downloaded if it doesn't exist.
 
 If the import already was done and a db with amenities is present, this output will be visible in the docker log:
 ```
@@ -27,7 +27,7 @@ zhaw-pm3-importer-1  | ============================= DATA READY ================
 zhaw-pm3-importer-1  | 
 zhaw-pm3-importer-1  | 
 zhaw-pm3-importer-1  | 
-zhaw-pm3-importer-1  | There are already 22283 restaurants imported! 
+zhaw-pm3-importer-1  | There are already 22283 amenities imported! 
 zhaw-pm3-importer-1  | 
 zhaw-pm3-importer-1  | 
 zhaw-pm3-importer-1  | 
@@ -44,7 +44,7 @@ zhaw-pm3-importer-1  | There are 22283 entries ready for import...
 zhaw-pm3-importer-1  | There were 211545 entries removed...
 zhaw-pm3-importer-1  | 
 zhaw-pm3-importer-1  | Importing into amenities collection now...
-zhaw-pm3-importer-1  | Import finished! 22283 rows imported.
+zhaw-pm3-importer-1  | Import finished! 22283 amenities imported.
 zhaw-pm3-importer-1  | 
 zhaw-pm3-importer-1  | 
 zhaw-pm3-importer-1  | 
@@ -54,10 +54,5 @@ zhaw-pm3-importer-1  | ============================= DATA READY ================
 ### Project
 After the import is done and the `zhaw-pm3-importer-1` exits, start the whole composition with `docker-compose up`.
 
-### Connect to mongoDB
-
+## MongoDB
 `docker exec -it zhaw-pm3-mongodb-1 mongosh osm`  this will connect you to the db. `db.amenities.find()` will select all imported amenities.
-
-### Importer
-
-On startup, the `run.py` imports the amenities from `data/osm-output.json`. To re-run the script start and run bash inside the container `docker-compose run importer bash` and run `python run.py`. The collection `db.amenities` is always emptied before re-import.
