@@ -52,12 +52,10 @@ zhaw-pm3-importer-1  | ============================= DATA READY ================
 ```
 
 ### Project
-After the import is done and the `zhaw-pm3-importer-1` exits, start the whole composition.\
+After the import is done and the `zhaw-pm3-importer-1` exits, start the whole composition:\
+\
 `docker-compose up`
 
 ## MongoDB
-Connect to the database via terminal.\
-`docker exec -it zhaw-pm3-mongodb-1 mongosh osm` 
-
-Count all amenities.\
-`db.amenities.find()`
+Connect to the database via terminal with `docker exec -it zhaw-pm3-mongodb-1 mongosh osm`.
+Count all amenities with `db.amenities.find()`.
