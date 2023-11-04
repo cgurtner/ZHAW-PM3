@@ -18,7 +18,8 @@ This repository contains the code for the `Software Projects 3 (PM3)` course at 
 
 ## Setup
 
-Start the docker-composition from git-repository root with `docker-compose up`. This will start all services and run the `importer/run.py` script to import the amenities.
+### Import
+Before the app can be used, the data needs to be imported. Execute `docker-compose up importer`. 
 
 If the import already was done and a db with amenities is present, this output will be visible in the docker log:
 ```
@@ -49,6 +50,9 @@ zhaw-pm3-importer-1  |
 zhaw-pm3-importer-1  | 
 zhaw-pm3-importer-1  | ============================= DATA READY =============================
 ```
+
+### Project
+After the import is done and the `zhaw-pm3-importer-1` exits, start the whole composition with `docker-compose up`.
 
 ### Connect to mongoDB
 
