@@ -20,15 +20,34 @@ This repository contains the code for the `Software Projects 3 (PM3)` course at 
 
 Start the docker-composition from git-repository root with `docker-compose up`. This will start all services and run the `importer/run.py` script to import the amenities.
 
-Wait until following output is shown in the docker log:
-
+If the import already was done and a db with amenities is present, this output will be visible in the docker log:
 ```
-zhaw-pm3-importer-1  | Downloading data-file from http://cgurtner.ch/data/osm-output.json
-zhaw-pm3-importer-1  | There are 233314 entries ready for import...
-zhaw-pm3-importer-1  | There were 514 entries removed...
+zhaw-pm3-importer-1  | ============================= DATA READY =============================
+zhaw-pm3-importer-1  | 
+zhaw-pm3-importer-1  | 
+zhaw-pm3-importer-1  | 
+zhaw-pm3-importer-1  | There are already 22283 restaurants imported! 
+zhaw-pm3-importer-1  | 
+zhaw-pm3-importer-1  | 
+zhaw-pm3-importer-1  | 
+zhaw-pm3-importer-1  | ============================= DATA READY =============================
+```
+
+If a new import is needed, it will print the rows that are processed. At the end the docker log will output:
+```
+zhaw-pm3-importer-1  | ============================= DATA READY =============================
+zhaw-pm3-importer-1  | 
+zhaw-pm3-importer-1  | 
+zhaw-pm3-importer-1  | 
+zhaw-pm3-importer-1  | There are 22283 entries ready for import...
+zhaw-pm3-importer-1  | There were 211545 entries removed...
 zhaw-pm3-importer-1  | 
 zhaw-pm3-importer-1  | Importing into amenities collection now...
-zhaw-pm3-importer-1  | Import finished! 233314 rows imported.
+zhaw-pm3-importer-1  | Import finished! 22283 rows imported.
+zhaw-pm3-importer-1  | 
+zhaw-pm3-importer-1  | 
+zhaw-pm3-importer-1  | 
+zhaw-pm3-importer-1  | ============================= DATA READY =============================
 ```
 
 ### Connect to mongoDB
