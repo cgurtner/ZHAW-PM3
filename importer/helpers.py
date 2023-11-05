@@ -35,13 +35,15 @@ def get_address(entry):
             address[field] = entry[field]
         return address
     else:
-        lat = entry.get('lat')
-        lon = entry.get('lon')
-        if lat and lon:
-            fetched_address = fetch_address(lat, lon)
-            return fetched_address
-        else:
-            return None
+        address = {"addr:city": "City", "addr:housenumber": "3", "addr:postcode": "1234", "addr:street": "Street"}
+        return address
+        # lat = entry.get('lat')
+        # lon = entry.get('lon')
+        # if lat and lon:
+        #     fetched_address = fetch_address(lat, lon)
+        #     return fetched_address
+        # else:
+        #     return None
 
 def fetch_address(lat, lon):
     params = {"lat": lat, "lon": lon, "format": "json"}
