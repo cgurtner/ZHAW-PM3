@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import RatingStars from './RatingStars';
+import Rating from './Rating';
 
 export default function Amenity({ amenity }) {
   const mapRef = useRef(null);
@@ -66,8 +67,11 @@ export default function Amenity({ amenity }) {
   }, [mapInstance, pointsOfInterest])
 
   const website = amenity.website ? <><a href={amenity.website} className="hover:text-light-dh" target="_blank" rel="noopener noreferrer">Website</a></> : null
+  const phone = amenity.phone ? <>{amenity.phone}<br /></> : null  
+  const email = amenity.email ? <>{amenity.email}<br /></> : null  
   const street = amenity.address['addr:street'] + (amenity.address['addr:housenumber'] ? ' ' + amenity.address['addr:housenumber'] : '')
   const city = amenity.address['addr:postcode'] + ' ' + amenity.address['addr:city']
+  const openingHours = amenity.opening_hours ? <>{amenity.opening_hours}<br /></> : null  
 
   return (
     <div className="container mt-12">
@@ -84,52 +88,42 @@ export default function Amenity({ amenity }) {
           </div>
           <div>
             <h2 className="font-semibold text-2xl mb-3">Contact</h2>
-            phone<br />
-            e-mail<br />
+            {phone}
+            {email}
             {website}
           </div>
           <div>
             <h2 className="font-semibold text-2xl mb-3">Details</h2>
             cuisine<br />
-            opening hours
+            {openingHours}
           </div>
           <div>
             <h2 className="font-semibold text-2xl mb-3">Rating</h2>
             <div className="flex justify-between">
               <span>Food:</span>
-              <RatingStars rating={5} />
+              <RatingStars rating={amenity.averages.food} />
             </div>
             <div className="flex justify-between">
               <span>Service:</span>
-              <RatingStars rating={4} />
+              <RatingStars rating={amenity.averages.service} />
             </div>
             <div className="flex justify-between">
               <span>Comfort:</span>
-              <RatingStars rating={3} />
+              <RatingStars rating={amenity.averages.comfort} />
             </div>
             <div className="flex justify-between">
               <span>Location:</span>
-              <RatingStars rating={2} />
+              <RatingStars rating={amenity.averages.location} />
             </div>
           </div>
         </div>
         <div ref={mapRef} className="mb-6" style={{ height: "750px", width: "100%" }}></div>
         <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-3">
-          <div className="bg-dark-dh text-white p-3">
-            Rating #1
-          </div>
-          <div className="bg-dark-dh text-white p-3">
-            Rating #2
-          </div>
-          <div className="bg-dark-dh text-white p-3">
-            Rating #3
-          </div>
-          <div className="bg-dark-dh text-white p-3">
-            Rating #4
-          </div>
-          <div className="bg-dark-dh text-white p-3">
-            Rating #5
-          </div>
+          {
+            amenity.ratings.map((rating, key) => {
+              return <Rating rating={rating} key={"rating" + rating.id + rating.name}/>
+            })
+          }
         </div>
       </div>
     </div>
