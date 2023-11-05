@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import RatingStars from './RatingStars';
 
 export default function Amenity({ amenity }) {
   const mapRef = useRef(null);
@@ -65,7 +66,7 @@ export default function Amenity({ amenity }) {
   }, [mapInstance, pointsOfInterest])
 
   const website = amenity.website ? <><a href={amenity.website} className="hover:text-light-dh" target="_blank" rel="noopener noreferrer">Website</a></> : null
-  const street = amenity.address['addr:street'] + (amenity.address['addr:housenumber'] ? amenity.address['addr:housenumber'] : '')
+  const street = amenity.address['addr:street'] + (amenity.address['addr:housenumber'] ? ' ' + amenity.address['addr:housenumber'] : '')
   const city = amenity.address['addr:postcode'] + ' ' + amenity.address['addr:city']
 
   return (
@@ -85,7 +86,6 @@ export default function Amenity({ amenity }) {
             <h2 className="font-semibold text-2xl mb-3">Contact</h2>
             phone<br />
             e-mail<br />
-
             {website}
           </div>
           <div>
@@ -97,19 +97,19 @@ export default function Amenity({ amenity }) {
             <h2 className="font-semibold text-2xl mb-3">Rating</h2>
             <div className="flex justify-between">
               <span>Food:</span>
-              <span>5*</span>
+              <RatingStars rating={5} />
             </div>
             <div className="flex justify-between">
               <span>Service:</span>
-              <span>5*</span>
+              <RatingStars rating={4} />
             </div>
             <div className="flex justify-between">
               <span>Comfort:</span>
-              <span>5*</span>
+              <RatingStars rating={3} />
             </div>
             <div className="flex justify-between">
               <span>Location:</span>
-              <span>5*</span>
+              <RatingStars rating={2} />
             </div>
           </div>
         </div>
