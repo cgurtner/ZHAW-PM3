@@ -70,6 +70,7 @@ export default function Amenity({ amenity }) {
   const email = amenity.email ? <>{amenity.email}<br /></> : null  
   const street = amenity.address['addr:street'] + (amenity.address['addr:housenumber'] ? ' ' + amenity.address['addr:housenumber'] : '')
   const city = amenity.address['addr:postcode'] + ' ' + amenity.address['addr:city']
+  const openingHours = amenity.opening_hours ? <>{amenity.opening_hours}<br /></> : null  
 
   return (
     <div className="container mt-12">
@@ -93,7 +94,7 @@ export default function Amenity({ amenity }) {
           <div>
             <h2 className="font-semibold text-2xl mb-3">Details</h2>
             cuisine<br />
-            opening hours
+            {openingHours}
           </div>
           <div>
             <h2 className="font-semibold text-2xl mb-3">Rating</h2>
