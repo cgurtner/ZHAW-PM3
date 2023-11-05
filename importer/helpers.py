@@ -65,8 +65,8 @@ def get_random_rating(amenity_id):
         'id': amenity_id, 
         'name': f'User{random.randint(1, 10000)}',  
         'text': 'Random review text ' + str(random.randint(1, 10000)),
-        'Food': random.randint(1, 5),
-        'Service': random.randint(1, 5),
-        'Comfort': random.randint(1, 5),
-        'Location': random.randint(1, 5)
+        'food': random.randint(1, 5),
+        'service': random.randint(1, 5),
+        'comfort': random.randint(1, 5),
+        'location': random.randint(1, 5)
     }

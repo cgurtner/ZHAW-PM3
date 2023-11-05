@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import RatingStars from './RatingStars';
+import Rating from './Rating';
 
 export default function Amenity({ amenity }) {
   const mapRef = useRef(null);
@@ -118,21 +119,11 @@ export default function Amenity({ amenity }) {
         </div>
         <div ref={mapRef} className="mb-6" style={{ height: "750px", width: "100%" }}></div>
         <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-3">
-          <div className="bg-dark-dh text-white p-3">
-            Rating #1
-          </div>
-          <div className="bg-dark-dh text-white p-3">
-            Rating #2
-          </div>
-          <div className="bg-dark-dh text-white p-3">
-            Rating #3
-          </div>
-          <div className="bg-dark-dh text-white p-3">
-            Rating #4
-          </div>
-          <div className="bg-dark-dh text-white p-3">
-            Rating #5
-          </div>
+          {
+            amenity.ratings.map((rating, key) => {
+              return <Rating rating={rating} key={"rating" + rating.id + rating.name}/>
+            })
+          }
         </div>
       </div>
     </div>

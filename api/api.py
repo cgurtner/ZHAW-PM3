@@ -69,7 +69,11 @@ def nearby():
 @app.route('/api/amenity/<id>')
 def getAmenity(id):
     amenity = db.amenities.find_one({'id': Int64(id)})
-    return {
+
+    ratings_cursor = db.ratings.find({'id': Int64(id)}, {'_id': 0})
+    ratings = list(ratings_cursor)
+
+    resp = {
         "id": amenity['id'], 
         "name": amenity['name'], 
         "website": amenity['website'],
@@ -78,8 +82,11 @@ def getAmenity(id):
         "email": amenity['email'],
         "opening_hours": amenity['opening_hours'],
         "lat": amenity['lat'], 
-        "lon": amenity['lon']
+        "lon": amenity['lon'],
+        "ratings": ratings
     }
+
+    return jsonify(resp)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
