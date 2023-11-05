@@ -66,7 +66,7 @@ const PageNearby = ({ fetchAmenity, selectedCuisine, onCuisineChange, setError }
 const PageAmenity = ({ amenity }) => (
   <div className="container mt-12">
     <div className="grid grid-cols-1">
-      <div className="flex justify-center mb-12">
+      <div className="flex mb-12">
         <Amenity amenity={amenity} />
       </div>
     </div>

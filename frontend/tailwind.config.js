@@ -10,6 +10,10 @@ module.exports = {
       backgroundColor: {
         'dark-dh': '#252840',
         'light-dh': '#00b470'
+      },
+      colors: {
+        'dark-dh': '#252840',
+        'light-dh': '#00b470'
       }
     },
   },

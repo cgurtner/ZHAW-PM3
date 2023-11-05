@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import RatingStars from './RatingStars';
 
 export default function Amenity({ amenity }) {
   const mapRef = useRef(null);
@@ -47,7 +48,7 @@ export default function Amenity({ amenity }) {
   }, []);
 
   useEffect(() => {
-    if (mapInstance  && pointsOfInterest.length > 0) {
+    if (mapInstance && pointsOfInterest.length > 0) {
       const greyIcon = new L.Icon({
         iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-grey.png',
         shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
@@ -59,10 +60,14 @@ export default function Amenity({ amenity }) {
 
       pointsOfInterest.map((elem, key) => {
         const poiMarker = L.marker([elem.lat, elem.lon], { icon: greyIcon }).addTo(mapInstance);
-        poiMarker.bindPopup('<strong>' +  elem.type.toUpperCase() + '</strong><br/>' + elem.name);
+        poiMarker.bindPopup('<strong>' + elem.type.toUpperCase() + '</strong><br/>' + elem.name);
       })
     }
   }, [mapInstance, pointsOfInterest])
+
+  const website = amenity.website ? <><a href={amenity.website} className="hover:text-light-dh" target="_blank" rel="noopener noreferrer">Website</a></> : null
+  const street = amenity.address['addr:street'] + (amenity.address['addr:housenumber'] ? ' ' + amenity.address['addr:housenumber'] : '')
+  const city = amenity.address['addr:postcode'] + ' ' + amenity.address['addr:city']
 
   return (
     <div className="container mt-12">
@@ -70,7 +75,62 @@ export default function Amenity({ amenity }) {
         <div className="flex justify-center text-8xl mb-12 font-semibold">
           <h1>{amenity.name}</h1>
         </div>
-        <div ref={mapRef} style={{ height: "750px", width: "100%" }}></div>
+        <div className="bg-dark-dh mb-6 p-3 text-white grid grid-cols-4">
+          <div>
+            <h2 className="font-semibold text-2xl mb-3">Address</h2>
+            {amenity.name}<br />
+            {street}<br />
+            {city}
+          </div>
+          <div>
+            <h2 className="font-semibold text-2xl mb-3">Contact</h2>
+            phone<br />
+            e-mail<br />
+            {website}
+          </div>
+          <div>
+            <h2 className="font-semibold text-2xl mb-3">Details</h2>
+            cuisine<br />
+            opening hours
+          </div>
+          <div>
+            <h2 className="font-semibold text-2xl mb-3">Rating</h2>
+            <div className="flex justify-between">
+              <span>Food:</span>
+              <RatingStars rating={5} />
+            </div>
+            <div className="flex justify-between">
+              <span>Service:</span>
+              <RatingStars rating={4} />
+            </div>
+            <div className="flex justify-between">
+              <span>Comfort:</span>
+              <RatingStars rating={3} />
+            </div>
+            <div className="flex justify-between">
+              <span>Location:</span>
+              <RatingStars rating={2} />
+            </div>
+          </div>
+        </div>
+        <div ref={mapRef} className="mb-6" style={{ height: "750px", width: "100%" }}></div>
+        <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-3">
+          <div className="bg-dark-dh text-white p-3">
+            Rating #1
+          </div>
+          <div className="bg-dark-dh text-white p-3">
+            Rating #2
+          </div>
+          <div className="bg-dark-dh text-white p-3">
+            Rating #3
+          </div>
+          <div className="bg-dark-dh text-white p-3">
+            Rating #4
+          </div>
+          <div className="bg-dark-dh text-white p-3">
+            Rating #5
+          </div>
+        </div>
       </div>
     </div>
   )

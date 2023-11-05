@@ -66,7 +66,14 @@ def nearby():
 @app.route('/api/amenity/<id>')
 def getAmenity(id):
     amenity = db.amenities.find_one({'id': Int64(id)})
-    return {"id": amenity['id'], "name": amenity['name'], "lat": amenity['lat'], "lon": amenity['lon']}
+    return {
+        "id": amenity['id'], 
+        "name": amenity['name'], 
+        "website": amenity['website'],
+        "address": amenity['address'],
+        "lat": amenity['lat'], 
+        "lon": amenity['lon']
+    }
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
