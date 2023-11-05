@@ -67,11 +67,17 @@ export default function Amenity({ amenity }) {
   }, [mapInstance, pointsOfInterest])
 
   const website = amenity.website ? <><a href={amenity.website} className="hover:text-light-dh" target="_blank" rel="noopener noreferrer">Website</a></> : null
-  const phone = amenity.phone ? <>{amenity.phone}<br /></> : null  
-  const email = amenity.email ? <>{amenity.email}<br /></> : null  
+  const phone = amenity.phone ? <>{amenity.phone}<br /></> : null
+  const email = amenity.email ? <>{amenity.email}<br /></> : null
   const street = amenity.address['addr:street'] + (amenity.address['addr:housenumber'] ? ' ' + amenity.address['addr:housenumber'] : '')
   const city = amenity.address['addr:postcode'] + ' ' + amenity.address['addr:city']
-  const openingHours = amenity.opening_hours ? <>{amenity.opening_hours}<br /></> : null  
+
+  const hours = amenity.opening_hours ? amenity.opening_hours.split(';') : []
+  const openingHours = amenity.opening_hours ? <>{
+    hours.map((line, index) => (
+      <p key={'opening-hours-' + index}>{line}</p>
+    ))
+  }<br /></> : null
 
   return (
     <div className="container mt-12">
@@ -79,7 +85,7 @@ export default function Amenity({ amenity }) {
         <div className="flex justify-center text-8xl mb-12 font-semibold">
           <h1>{amenity.name}</h1>
         </div>
-        <div className="bg-dark-dh mb-6 p-3 text-white grid grid-cols-4">
+        <div className={"bg-dark-dh mb-6 p-3 text-white grid " + (hours.length > 0 ? "grid-cols-4" : "grid-cols-3 gap-48")}>
           <div>
             <h2 className="font-semibold text-2xl mb-3">Address</h2>
             {amenity.name}<br />
@@ -92,11 +98,12 @@ export default function Amenity({ amenity }) {
             {email}
             {website}
           </div>
-          <div>
-            <h2 className="font-semibold text-2xl mb-3">Details</h2>
-            cuisine<br />
-            {openingHours}
-          </div>
+          {
+            hours.length > 0 ? <div>
+              <h2 className="font-semibold text-2xl mb-3">Opening Hours</h2>
+              {openingHours}
+            </div> : null
+          }
           <div>
             <h2 className="font-semibold text-2xl mb-3">Rating</h2>
             <div className="flex justify-between">
@@ -121,7 +128,7 @@ export default function Amenity({ amenity }) {
         <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-3">
           {
             amenity.ratings.map((rating, key) => {
-              return <Rating rating={rating} key={"rating" + rating.id + rating.name}/>
+              return <Rating rating={rating} key={"rating" + rating.id + rating.name} />
             })
           }
         </div>
