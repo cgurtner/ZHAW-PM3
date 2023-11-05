@@ -101,19 +101,19 @@ export default function Amenity({ amenity }) {
             <h2 className="font-semibold text-2xl mb-3">Rating</h2>
             <div className="flex justify-between">
               <span>Food:</span>
-              <RatingStars rating={5} />
+              <RatingStars rating={amenity.averages.food} />
             </div>
             <div className="flex justify-between">
               <span>Service:</span>
-              <RatingStars rating={4} />
+              <RatingStars rating={amenity.averages.service} />
             </div>
             <div className="flex justify-between">
               <span>Comfort:</span>
-              <RatingStars rating={3} />
+              <RatingStars rating={amenity.averages.comfort} />
             </div>
             <div className="flex justify-between">
               <span>Location:</span>
-              <RatingStars rating={2} />
+              <RatingStars rating={amenity.averages.location} />
             </div>
           </div>
         </div>

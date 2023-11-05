@@ -73,6 +73,16 @@ def getAmenity(id):
     ratings_cursor = db.ratings.find({'id': Int64(id)}, {'_id': 0})
     ratings = list(ratings_cursor)
 
+    if ratings:
+        sums = { "food": 0, "service": 0, "comfort": 0, "location": 0 }
+        counts = { "food": 0, "service": 0, "comfort": 0, "location": 0 }
+        for rating in ratings:
+            for category in sums.keys():
+                if category in rating:
+                    sums[category] += rating[category]
+                    counts[category] += 1
+        averages = {category: sums[category] / counts[category] for category in sums if counts[category] > 0}
+
     resp = {
         "id": amenity['id'], 
         "name": amenity['name'], 
@@ -83,7 +93,8 @@ def getAmenity(id):
         "opening_hours": amenity['opening_hours'],
         "lat": amenity['lat'], 
         "lon": amenity['lon'],
-        "ratings": ratings
+        "ratings": ratings,
+        "averages": averages
     }
 
     return jsonify(resp)
