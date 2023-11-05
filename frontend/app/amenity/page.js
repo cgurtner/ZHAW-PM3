@@ -47,7 +47,7 @@ export default function Amenity({ amenity }) {
   }, []);
 
   useEffect(() => {
-    if (mapInstance  && pointsOfInterest.length > 0) {
+    if (mapInstance && pointsOfInterest.length > 0) {
       const greyIcon = new L.Icon({
         iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-grey.png',
         shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
@@ -65,6 +65,8 @@ export default function Amenity({ amenity }) {
   }, [mapInstance, pointsOfInterest])
 
   const website = amenity.website ? <><a href={amenity.website} className="hover:text-light-dh" target="_blank" rel="noopener noreferrer">Website</a></> : null
+  const street = amenity.address['addr:street'] + (amenity.address['addr:housenumber'] ? amenity.address['addr:housenumber'] : '')
+  const city = amenity.address['addr:postcode'] + ' ' + amenity.address['addr:city']
 
   return (
     <div className="container mt-12">
@@ -72,28 +74,43 @@ export default function Amenity({ amenity }) {
         <div className="flex justify-center text-8xl mb-12 font-semibold">
           <h1>{amenity.name}</h1>
         </div>
-        <div className="bg-dark-dh mb-6 p-3 text-white grid grid-cols-3">
+        <div className="bg-dark-dh mb-6 p-3 text-white grid grid-cols-4">
           <div>
             <h2 className="font-semibold text-2xl mb-3">Address</h2>
-              {amenity.name}<br />
-              address<br />
-              e-mail<br />
-              {website}
+            {amenity.name}<br />
+            {street}<br />
+            {city}
           </div>
           <div>
-          <h2 className="font-semibold text-2xl mb-3">Details</h2>
+            <h2 className="font-semibold text-2xl mb-3">Contact</h2>
+            phone<br />
+            e-mail<br />
+
+            {website}
+          </div>
+          <div>
+            <h2 className="font-semibold text-2xl mb-3">Details</h2>
             cuisine<br />
             opening hours
           </div>
           <div>
-          <h2 className="font-semibold text-2xl mb-3">Rating</h2>
-            Food: 5* <br />
-            Cuisine: 5* <br />
-            Service: 5* <br />
-            Comfort: 5* <br />
-            <span className="text-xs">
-              * This compares the ratings of this restaurant to nearby amenities of the same cuisine.
-            </span>
+            <h2 className="font-semibold text-2xl mb-3">Rating</h2>
+            <div className="flex justify-between">
+              <span>Food:</span>
+              <span>5*</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Service:</span>
+              <span>5*</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Comfort:</span>
+              <span>5*</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Location:</span>
+              <span>5*</span>
+            </div>
           </div>
         </div>
         <div ref={mapRef} className="mb-6" style={{ height: "750px", width: "100%" }}></div>

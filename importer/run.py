@@ -3,11 +3,23 @@ import os
 import copy
 import urllib.request
 from pymongo import MongoClient
-from helper import cast, delField, addHttp
+from helpers import cast, del_field, add_http, get_address
+
+amenities_to_import = ['restaurant', 'cafe', 'fast_food', 'biergarten', 'bar', 'pub', 'nightclub']
 
 # MongoDB connection string
 mongo_uri = 'mongodb://mongodb:27017/'
 client = MongoClient(mongo_uri)
+
+db = client.get_database('osm')
+collection = db.get_collection('amenities')
+restaurant_count = collection.count_documents({})
+if restaurant_count == 22283:
+    print('============================= DATA READY =============================')
+    print('\n\n\nThere are already {} amenities imported! \n\n\n'.format(restaurant_count))
+    print('============================= DATA READY =============================')
+    client.close()
+    exit()
 
 fileurl = 'http://cgurtner.ch/data/osm-output.json'
 filepath = os.path.join(os.getcwd(), 'data/osm-output.json')
@@ -23,31 +35,28 @@ cleaned_rows, removed_rows = [], []
 for entry in osm['nodes']:
     # we don't want to alter the original entry in osm['nodes'] for further comparions and tests
     entry = copy.deepcopy(entry)
+
     # change all keys to lowercase
     entry = {k.lower(): v for k, v in entry.items()}
 
-    skip = False
+    if entry['amenity'] not in amenities_to_import:
+        removed_rows.append(entry)
+        continue
+
     # rows with fixme attribute should be removed
     # fixme is used to mark rows with errors or wrong data
-    # https://wiki.openstreetmap.org/wiki/Key:fixme
-    # test row: 257085086, 267053813, 271846258
     if 'fixme' in entry:
         removed_rows.append(entry)
         continue
 
     # Remove rows with no name, we can't use them for our tool.
-    amenity = entry['amenity']
-    for type_to_remove in ['restaurant', 'cafe', 'fast_food', 'biergarten', 'bar', 'pub', 'nightclub']:
-        if amenity == type_to_remove:
-            if 'name' not in entry:
-                removed_rows.append(entry)
-                skip = True
-                break
-            if 'cuisine' not in entry:
-                entry['cuisine'] = 'unknown'
-
-    if skip:
+    if 'name' not in entry:
+        removed_rows.append(entry)
         continue
+
+    # Add cuisine for consistency
+    if 'cuisine' not in entry:
+        entry['cuisine'] = None
 
     # rows have more than one attribute to indicate a website
     # "website":
@@ -56,21 +65,24 @@ for entry in osm['nodes']:
     # according to the wiki, the priority is "website":, "contact:website":, "url":
     # "url": is the most open tag: https://wiki.openstreetmap.org/wiki/Key:url
     # therefore we save in that order, which is available in "website":
-    # test 1: 1014954, has url and website => url should be removed, website should stay the same
-    # test 2: 3020881761, has website and contact:website => website should be taken, contact:website removed
-    # test 3: 298715804, has only url => should be changed to website:
-    website = False
+    website = None
     if 'website' in entry:
-        website = addHttp(entry['website'])
+        website = add_http(entry['website'])
     elif 'contact:website' in entry:
-        website = addHttp(entry['contact:website'])
+        website = add_http(entry['contact:website'])
     elif 'url' in entry:
-        website = addHttp(entry['url'])
+        website = add_http(entry['url'])
 
-    entry = delField('contact:website', entry)
-    entry = delField('url', entry)
+    entry = del_field('contact:website', entry)
+    entry = del_field('url', entry)
 
     entry['website'] = website
+
+    # clean address
+    # check if addr:city, addr:street, addr:housenumber, addr:postcode exist
+    # if yes, use them
+    # if no, fetch address with lat, lon
+    entry['address'] = get_address(entry)
 
     # datatype casts
     entry = cast('id', 'int', entry)
@@ -78,26 +90,21 @@ for entry in osm['nodes']:
     entry = cast('lon', 'float', entry)
 
     # include geospatial field
-    entry['location'] = {
-        "type": 'Point',
-        "coordinates": [entry['lon'], entry['lat']]
-    }
-
+    entry['location'] = {"type": 'Point', "coordinates": [entry['lon'], entry['lat']]}
     cleaned_rows.append(entry)
+    print(entry)
 
-print('There are {} entries ready for import...'.format(len(cleaned_rows)))
+print('============================= DATA READY =============================')
+print('\n\n\nThere are {} entries ready for import...'.format(len(cleaned_rows)))
 print('There were {} entries removed...'.format(len(removed_rows)) + '\n')
 
 print('Importing into amenities collection now...')
 
-db = client.get_database('osm')
-collection = db.get_collection('amenities')
-
 collection.delete_many({})
 collection.insert_many(cleaned_rows)
-
-# add indexes
 collection.create_index([('location', '2dsphere')])
 
-print('Import finished! {} rows imported.'.format(
-    collection.count_documents({})))
+print('Import finished! {} amenities imported.\n\n\n'.format(
+    collection.count_documents({}))
+)
+print('============================= DATA READY =============================')
