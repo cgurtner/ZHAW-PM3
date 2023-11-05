@@ -74,6 +74,8 @@ def getAmenity(id):
         "name": amenity['name'], 
         "website": amenity['website'],
         "address": amenity['address'],
+        "phone": amenity['phone'],
+        "email": amenity['email'],
         "lat": amenity['lat'], 
         "lon": amenity['lon']
     }

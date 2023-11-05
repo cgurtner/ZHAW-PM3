@@ -66,6 +66,8 @@ export default function Amenity({ amenity }) {
   }, [mapInstance, pointsOfInterest])
 
   const website = amenity.website ? <><a href={amenity.website} className="hover:text-light-dh" target="_blank" rel="noopener noreferrer">Website</a></> : null
+  const phone = amenity.phone ? <>{amenity.phone}<br /></> : null  
+  const email = amenity.email ? <>{amenity.email}<br /></> : null  
   const street = amenity.address['addr:street'] + (amenity.address['addr:housenumber'] ? ' ' + amenity.address['addr:housenumber'] : '')
   const city = amenity.address['addr:postcode'] + ' ' + amenity.address['addr:city']
 
@@ -84,8 +86,8 @@ export default function Amenity({ amenity }) {
           </div>
           <div>
             <h2 className="font-semibold text-2xl mb-3">Contact</h2>
-            phone<br />
-            e-mail<br />
+            {phone}
+            {email}
             {website}
           </div>
           <div>

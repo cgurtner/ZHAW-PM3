@@ -54,9 +54,18 @@ for entry in osm['nodes']:
         removed_rows.append(entry)
         continue
 
-    # Add cuisine for consistency
+    # Add fields for consistency
     if 'cuisine' not in entry:
         entry['cuisine'] = None
+    
+    if 'phone' not in entry:
+        entry['phone'] = None
+
+    if 'email' not in entry:
+        entry['email'] = None
+
+    if 'opening_hours' not in entry:
+        entry['opening_hours'] = None
 
     # rows have more than one attribute to indicate a website
     # "website":
