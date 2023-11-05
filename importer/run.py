@@ -3,7 +3,7 @@ import os
 import copy
 import urllib.request
 from pymongo import MongoClient
-from helpers import cast, del_field, add_http, get_address
+from helpers import cast, del_field, add_http, get_address, get_random_rating
 
 amenities_to_import = ['restaurant', 'cafe', 'fast_food', 'biergarten', 'bar', 'pub', 'nightclub']
 
@@ -116,4 +116,15 @@ collection.create_index([('location', '2dsphere')])
 print('Import finished! {} amenities imported.\n\n\n'.format(
     collection.count_documents({}))
 )
+
+print('Import ratings...')
+collection_ratings = db.get_collection('ratings')
+collection_ratings.delete_many({})
+for amenity in collection.find():
+    amenity_id = amenity['id']
+    print('Rating for: {}'.format(amenity['name']))
+    for i in range(6): 
+        random_rating = get_random_rating(amenity_id)
+        collection_ratings.insert_one(random_rating)
+
 print('============================= DATA READY =============================')

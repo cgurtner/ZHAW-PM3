@@ -1,5 +1,4 @@
-import re
-import requests
+import requests, random, re
 from urllib.parse import urlencode
 
 def cast(name, type, entry):
@@ -60,3 +59,14 @@ def fetch_address(lat, lon):
         }
     else:
         return None
+
+def get_random_rating(amenity_id):
+    return {
+        'id': amenity_id, 
+        'name': f'User{random.randint(1, 10000)}',  
+        'text': 'Random review text ' + str(random.randint(1, 10000)),
+        'Food': random.randint(1, 5),
+        'Service': random.randint(1, 5),
+        'Comfort': random.randint(1, 5),
+        'Location': random.randint(1, 5)
+    }
