@@ -30,7 +30,9 @@ def explore(type):
     amenities = list(db.amenities.find({'amenity': type}, {'_id': 0}))
     resp = {}
     for amenity in amenities:
-        resp[amenity['cuisine']] = amenity['cuisine']
+        if amenity['cuisine'] is not None:
+            if amenity['cuisine'] not in resp:
+                resp[amenity['cuisine']] = amenity['cuisine']
     return resp
 
 @app.route('/api/nearby', methods=['GET'])
