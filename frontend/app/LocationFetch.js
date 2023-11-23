@@ -1,11 +1,13 @@
 'use client'
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import CuisineFilter from './CuisineFilter';
 
 const LocationFetch = ({ setAmenity, selectedCuisine, onCuisineChange, setError }) => {
     const [location, setLocation] = useState();
     const [amenities, setAmenities] = useState([]);
+    const [availableCuisines, setAvailableCuisines] = useState([]);
+    const [showFilter, setShowFilter] = useState(false);
 
     useEffect(() => {
         if (location) {
@@ -18,6 +20,8 @@ const LocationFetch = ({ setAmenity, selectedCuisine, onCuisineChange, setError 
             setError('Geolocation is not supported by your browser!');
             return;
         }
+
+        setShowFilter(true);
 
         navigator.geolocation.getCurrentPosition(
             position => {
@@ -35,23 +39,33 @@ const LocationFetch = ({ setAmenity, selectedCuisine, onCuisineChange, setError 
     }
 
     const fetchAmenities = async (lat, lon, types, distance) => {
-        try {
-            const url = `${process.env.NEXT_PUBLIC_API_CLIENT_URL}nearby?lat=${lat}&lon=${lon}&types=${types.join(',')}&distance=${distance}`;
-            const response = await fetch(url);
-            let data = await response.json();
-
-            if (selectedCuisine && selectedCuisine !== 'all') {
-                data = data.filter(amenity => amenity.cuisine?.toLowerCase() === selectedCuisine.toLowerCase());
-            }
-
-            setAmenities(data);
-        } catch (err) {
-            console.error('Error fetching amenities:', err);
-            setError('Error fetching amenities!');
-        }
-    };
-
-    return (
+      try {
+          const url = `${process.env.NEXT_PUBLIC_API_CLIENT_URL}nearby?lat=${lat}&lon=${lon}&types=${types.join(',')}&distance=${distance}`;
+          const response = await fetch(url);
+          let data = await response.json();
+  
+          // Process cuisine types
+          let fetchedCuisines = data.flatMap(amenity => 
+              amenity.cuisine?.split(';').map(cuisine => cuisine.trim().toLowerCase()) || []
+          ).filter(Boolean);
+  
+          let uniqueCuisines = ['all', ...new Set(fetchedCuisines)];
+          setAvailableCuisines(uniqueCuisines);
+  
+          if (selectedCuisine && selectedCuisine !== 'all') {
+              data = data.filter(amenity => 
+                  amenity.cuisine?.toLowerCase().split(';').map(cuisine => cuisine.trim()).includes(selectedCuisine.toLowerCase())
+              );
+          }
+  
+          setAmenities(data);
+      } catch (err) {
+          console.error('Error fetching amenities:', err);
+          setError('Error fetching amenities!');
+      }
+  };
+  
+  return (
         <div className="w-full flex flex-col items-center">
           <div className="mb-4">
             <button
@@ -61,13 +75,18 @@ const LocationFetch = ({ setAmenity, selectedCuisine, onCuisineChange, setError 
               Nearby
             </button>
           </div>
-          <p className="text-xl mb-2 font-semibold text-center">What type of food are you looking for?</p>
-          <div className="mb-6">
-            <CuisineFilter
-              selectedCuisine={selectedCuisine}
-              onCuisineChange={onCuisineChange}
-            />
-          </div>
+          {showFilter && (
+            <>
+              <p className="text-xl mb-2 font-semibold text-center">Looking for a specific type of food?</p>
+              <div className="mb-6">
+                <CuisineFilter
+                  selectedCuisine={selectedCuisine}
+                  onCuisineChange={onCuisineChange}
+                  cuisines={availableCuisines}
+                />
+              </div>
+            </>
+          )}
           {amenities.length > 0 && (
             <div className="mt-4 w-full">
               <div className="flex justify-center">
