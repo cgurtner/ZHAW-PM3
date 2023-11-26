@@ -8,6 +8,13 @@ export default function Amenity({ amenity }) {
   const mapRef = useRef(null);
   const [mapInstance, setMapInstance] = useState(null)
   const [pointsOfInterest, setPointsOfInterest] = useState([])
+  const [ratingFields, setRatingFields] = useState({
+    text: '',
+    food: 0,
+    service: 0,
+    comfort: 0,
+    location: 0
+  });
 
   const fetchAmenities = async (lat, lon, distance) => {
     const types = ['bar', 'pub', 'nightclub']
@@ -79,6 +86,14 @@ export default function Amenity({ amenity }) {
     ))
   }<br /></> : null
 
+
+  const setRatingField = (category, newRating) => {
+    setRatingFields(prevRatings => ({
+      ...prevRatings,
+      [category]: newRating
+    }));
+  };
+
   return (
     <div className="container mt-12">
       <div className="grid grid-cols-1">
@@ -126,6 +141,43 @@ export default function Amenity({ amenity }) {
         </div>
         <div ref={mapRef} className="mb-6" style={{ height: "750px", width: "100%" }}></div>
         <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-3">
+          <div className="bg-light-dh p-3">
+            <h3 className="text-xl mb-3">UserRandom</h3>
+            <form>
+              <div className="mb-3">
+                <textarea 
+                className="w-full h-32 p-1 border border-dark-dh bg-light-dh" 
+                placeholder="" 
+                defaultValue={ratingFields.text}
+                onChange={(e) => setRatingField('text', e.target.value)}
+                >
+                </textarea>
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="flex justify-between">
+                  <span>Food:</span>
+                  <RatingStars rating={ratingFields.food} category={'food'} setRating={setRatingField} />
+                </div>
+                <div className="flex justify-between">
+                  <span>Service:</span>
+                  <RatingStars rating={ratingFields.service} category={'service'} setRating={setRatingField} />
+                </div>
+                <div className="flex justify-between">
+                  <span>Comfort:</span>
+                  <RatingStars rating={ratingFields.comfort} category={'comfort'} setRating={setRatingField} />
+                </div>
+                <div className="flex justify-between">
+                  <span>Location:</span>
+                  <RatingStars rating={ratingFields.location} category={'location'} setRating={setRatingField} />
+                </div>
+              </div>
+              <div className="mt-3 flex justify-end">
+                <button className="bg-dark-dh hover:bg-light-dh text-white py-2 px-4">
+                  Rate!
+                </button>
+              </div>
+            </form>
+          </div>
           {
             amenity.ratings.map((rating, key) => {
               return <Rating rating={rating} key={"rating" + rating.id + rating.name} />
