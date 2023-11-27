@@ -61,7 +61,6 @@ const LocationFetch = ({ setAmenity, selectedCuisine, onCuisineChange, setError 
           setAmenities(data);
       } catch (err) {
           console.error('Error fetching amenities:', err);
-          setError('Error fetching amenities!');
       }
   };
   
