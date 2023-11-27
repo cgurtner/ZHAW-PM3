@@ -7,19 +7,21 @@ import Amenity from './amenity/page';
 import CuisineFilter from './CuisineFilter';
 
 export default function Home() {
-  const [amenity, setAmenity] = useState(null);
+  const [amenity, setAmenity] = useState(false);
   const [selectedCuisine, setSelectedCuisine] = useState('all'); 
   const [error, setError] = useState('');
 
   const fetchAmenity = async (id) => {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_CLIENT_URL}amenity/${id}`);
-      const data = await response.json();
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_CLIENT_URL}amenity/${id}`)
+      const data = await response.json()
       setAmenity(data);
     } catch (err) {
       setError('Error fetching amenities!');
     }
   }
+
+  const PageComponent = amenity ? <PageAmenity amenity={amenity} /> : <PageNearby fetchAmenity={fetchAmenity} />
 
   return (
     <main>
