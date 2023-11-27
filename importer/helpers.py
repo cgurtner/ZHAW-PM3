@@ -1,4 +1,5 @@
 import requests, random, re
+from datetime import datetime
 from urllib.parse import urlencode
 
 def cast(name, type, entry):
@@ -68,5 +69,6 @@ def get_random_rating(amenity_id):
         'food': round(random.uniform(1, 5), 1),
         'service': round(random.uniform(1, 5), 1),
         'comfort': round(random.uniform(1, 5), 1),
-        'location': round(random.uniform(1, 5), 1)
+        'location': round(random.uniform(1, 5), 1),
+        'created': datetime.utcnow()
     }

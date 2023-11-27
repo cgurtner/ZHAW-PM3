@@ -6,16 +6,16 @@ import LocationFetch from './LocationFetch';
 import Amenity from './amenity/page';
 
 export default function Home() {
-  const [amenity, setAmenity] = useState(false);
-
+  const [amenity, setAmenity] = useState(false)
+  
   const fetchAmenity = async (id) => {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_CLIENT_URL}amenity/${id}`);
-      const data = await response.json();
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_CLIENT_URL}amenity/${id}`)
+      const data = await response.json()
       setAmenity(data);
-  } catch (err) {
+    } catch (err) {
       setError('Error fetching amenities!');
-  }
+    }
   }
 
   const PageComponent = amenity ? <PageAmenity amenity={amenity} /> : <PageNearby fetchAmenity={fetchAmenity} />
@@ -46,7 +46,7 @@ const PageNearby = ({ fetchAmenity }) => (
   </div>
 )
 
-const PageAmenity = ({ amenity }) => (
+const PageAmenity = ({ amenity, setSavedRating }) => (
   <div className="container mt-12">
     <div className="grid grid-cols-1">
       <div className="flex mb-12">

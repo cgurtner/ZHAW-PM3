@@ -1,13 +1,15 @@
 import RatingStars from './RatingStars';
 
-const Rating = ({rating}) => {
-    const {name, text, food, service, comfort, location} = rating
-    
+const Rating = ({ rating }) => {
+    const { text, food, service, comfort, location, created } = rating
+
     return (
-        <div className="bg-dark-dh text-white p-3">
-            <h3 className="text-xl mb-3">{name}</h3>
-            <div className="mb-3">
-                {text}
+        <div className="bg-dark-dh text-white p-3 flex flex-col justify-between h-full">
+            <div>
+                <h3 className="text-xl mb-3">Created on {created}</h3>
+                <div className="mb-3">
+                    {text}
+                </div>
             </div>
             <div className="grid grid-cols-2 gap-3">
                 <div className="flex justify-between">

@@ -2,37 +2,41 @@ import { useState, useEffect, useRef } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import RatingStars from './RatingStars';
-import Rating from './Rating';
+import Ratings from './Ratings';
 
 export default function Amenity({ amenity }) {
-  const mapRef = useRef(null);
+  const mapRef = useRef(null)
   const [mapInstance, setMapInstance] = useState(null)
   const [pointsOfInterest, setPointsOfInterest] = useState([])
-  const [ratingFields, setRatingFields] = useState({
-    text: '',
-    food: 0,
-    service: 0,
-    comfort: 0,
-    location: 0
-  });
+  const [ratings, setRatings] = useState([])
+  const [ratingFields, setRatingFields] = useState({ text: '', food: 0, service: 0, comfort: 0, location: 0 })
+  const [ratingSaved, setRatingSaved] = useState(false)
 
   const fetchAmenities = async (lat, lon, distance) => {
     const types = ['bar', 'pub', 'nightclub']
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_CLIENT_URL}nearby?lat=${lat}&lon=${lon}&types=${types.join(',')}&distance=${distance}`);
-      const data = await response.json();
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_CLIENT_URL}nearby?lat=${lat}&lon=${lon}&types=${types.join(',')}&distance=${distance}`)
+      const data = await response.json()
       setPointsOfInterest(data)
     } catch (err) {
-      setError('Error fetching amenities!');
+      setError('Error fetching amenities!')
     }
   };
 
-  useEffect(() => {
-    fetchAmenities(amenity.lat, amenity.lon, 1000);
-  }, []);
+  const fetchRatings = async (id) => {
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_CLIENT_URL}ratings/${id}`)
+      const data = await response.json()
+      setRatings(data)
+    } catch (err) {
+      console.error('Error fetching amenity ratings!')
+    }
+  }
 
   useEffect(() => {
-    const map = L.map(mapRef.current).setView([amenity.lat, amenity.lon], 17);
+    fetchAmenities(amenity.lat, amenity.lon, 1000)
+    fetchRatings(amenity.id)
+    const map = L.map(mapRef.current).setView([amenity.lat, amenity.lon], 17)
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -86,12 +90,39 @@ export default function Amenity({ amenity }) {
     ))
   }<br /></> : null
 
-
   const setRatingField = (category, newRating) => {
     setRatingFields(prevRatings => ({
       ...prevRatings,
       [category]: newRating
     }));
+  };
+
+  const submitRating = async (event) => {
+    event.preventDefault();
+
+    const postData = {
+      id: amenity.id,
+      ...ratingFields
+    }
+
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_CLIENT_URL}add-rating`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(postData),
+      });
+      if (response.ok) {
+        const jsonResponse = await response.json();
+        setRatingSaved(true)
+        fetchRatings(amenity.id)
+      } else {
+        console.error('Server responded with non-OK status');
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+    }
   };
 
   return (
@@ -141,48 +172,48 @@ export default function Amenity({ amenity }) {
         </div>
         <div ref={mapRef} className="mb-6" style={{ height: "750px", width: "100%" }}></div>
         <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-3">
-          <div className="bg-light-dh p-3">
-            <h3 className="text-xl mb-3">UserRandom</h3>
-            <form>
-              <div className="mb-3">
-                <textarea 
-                className="w-full h-32 p-1 border border-dark-dh bg-light-dh" 
-                placeholder="" 
-                defaultValue={ratingFields.text}
-                onChange={(e) => setRatingField('text', e.target.value)}
-                >
-                </textarea>
-              </div>
-              <div className="grid grid-cols-2 gap-3">
-                <div className="flex justify-between">
-                  <span>Food:</span>
-                  <RatingStars rating={ratingFields.food} category={'food'} setRating={setRatingField} />
-                </div>
-                <div className="flex justify-between">
-                  <span>Service:</span>
-                  <RatingStars rating={ratingFields.service} category={'service'} setRating={setRatingField} />
-                </div>
-                <div className="flex justify-between">
-                  <span>Comfort:</span>
-                  <RatingStars rating={ratingFields.comfort} category={'comfort'} setRating={setRatingField} />
-                </div>
-                <div className="flex justify-between">
-                  <span>Location:</span>
-                  <RatingStars rating={ratingFields.location} category={'location'} setRating={setRatingField} />
-                </div>
-              </div>
-              <div className="mt-3 flex justify-end">
-                <button className="bg-dark-dh hover:bg-light-dh text-white py-2 px-4">
-                  Rate!
-                </button>
-              </div>
-            </form>
-          </div>
           {
-            amenity.ratings.map((rating, key) => {
-              return <Rating rating={rating} key={"rating" + rating.id + rating.name} />
-            })
+            ratingSaved ? <></> : (
+              <div className="bg-light-dh p-3">
+                <h3 className="text-xl mb-3">Leave your rating here!</h3>
+                <form>
+                  <div className="mb-3">
+                    <textarea
+                      className="w-full h-32 p-1 border border-dark-dh bg-light-dh"
+                      placeholder=""
+                      defaultValue={ratingFields.text}
+                      onChange={(e) => setRatingField('text', e.target.value)}
+                    >
+                    </textarea>
+                  </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="flex justify-between">
+                      <span>Food:</span>
+                      <RatingStars rating={ratingFields.food} category={'food'} setRating={setRatingField} />
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Service:</span>
+                      <RatingStars rating={ratingFields.service} category={'service'} setRating={setRatingField} />
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Comfort:</span>
+                      <RatingStars rating={ratingFields.comfort} category={'comfort'} setRating={setRatingField} />
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Location:</span>
+                      <RatingStars rating={ratingFields.location} category={'location'} setRating={setRatingField} />
+                    </div>
+                  </div>
+                  <div className="mt-3 flex justify-end">
+                    <button className="bg-dark-dh hover:bg-light-dh text-white py-2 px-4" onClick={submitRating}>
+                      Rate!
+                    </button>
+                  </div>
+                </form>
+              </div>
+            )
           }
+          <Ratings ratings={ratings} />
         </div>
       </div>
     </div>
