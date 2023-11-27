@@ -4,106 +4,96 @@ import { useState, useEffect } from 'react';
 import CuisineFilter from './CuisineFilter';
 
 const LocationFetch = ({ setAmenity, selectedCuisine, onCuisineChange, setError }) => {
-    const [location, setLocation] = useState();
-    const [amenities, setAmenities] = useState([]);
-    const [availableCuisines, setAvailableCuisines] = useState([]);
-    const [showFilter, setShowFilter] = useState(false);
+  const [location, setLocation] = useState();
+  const [amenities, setAmenities] = useState([]);
+  const [availableCuisines, setAvailableCuisines] = useState([]);
 
-    useEffect(() => {
-        if (location) {
-          fetchAmenities(location.latitude, location.longitude, ['restaurant', 'cafe', 'fast_food', 'biergarten'], 1000);
-        }
-      }, [location, selectedCuisine]);
-    
-    const getLocation = () => {
-        if (!navigator.geolocation) {
-            setError('Geolocation is not supported by your browser!');
-            return;
-        }
+  useEffect(() => {
+    if (location) {
+      fetchAmenities(location.latitude, location.longitude, ['restaurant', 'cafe', 'fast_food', 'biergarten'], 1000);
+    }
+  }, [location, selectedCuisine]);
 
-        setShowFilter(true);
-
-        navigator.geolocation.getCurrentPosition(
-            position => {
-                const { latitude, longitude } = process.env.NEXT_PUBLIC_API_OVERWRITE_NEARBY_COORDS ?
-                    { 'latitude': 47.49729966574743, 'longitude': 8.729624890038204 } :
-                    position.coords;
-
-                setLocation({ latitude, longitude });
-                fetchAmenities(latitude, longitude, ['restaurant', 'cafe', 'fast_food', 'biergarten'], 1000);
-            },
-            () => {
-                setError('Unable to retrieve your location!');
-            }
-        );
+  const getLocation = () => {
+    if (!navigator.geolocation) {
+      setError('Geolocation is not supported by your browser!');
+      return;
     }
 
-    const fetchAmenities = async (lat, lon, types, distance) => {
-      try {
-          const url = `${process.env.NEXT_PUBLIC_API_CLIENT_URL}nearby?lat=${lat}&lon=${lon}&types=${types.join(',')}&distance=${distance}`;
-          const response = await fetch(url);
-          let data = await response.json();
-  
-          // Process cuisine types
-          let fetchedCuisines = data.flatMap(amenity => 
-              amenity.cuisine?.split(';').map(cuisine => cuisine.trim().toLowerCase()) || []
-          ).filter(Boolean);
-  
-          let uniqueCuisines = ['all', ...new Set(fetchedCuisines)];
-          setAvailableCuisines(uniqueCuisines);
-  
-          if (selectedCuisine && selectedCuisine !== 'all') {
-              data = data.filter(amenity => 
-                  amenity.cuisine?.toLowerCase().split(';').map(cuisine => cuisine.trim()).includes(selectedCuisine.toLowerCase())
-              );
-          }
-  
-          setAmenities(data);
-      } catch (err) {
-          console.error('Error fetching amenities:', err);
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        const { latitude, longitude } = process.env.NEXT_PUBLIC_API_OVERWRITE_NEARBY_COORDS ?
+          { 'latitude': 47.49729966574743, 'longitude': 8.729624890038204 } :
+          position.coords;
+
+        setLocation({ latitude, longitude });
+        fetchAmenities(latitude, longitude, ['restaurant', 'cafe', 'fast_food', 'biergarten'], 1000);
+      },
+      () => {
+        setError('Unable to retrieve your location!');
       }
+    );
+  }
+
+  const fetchAmenities = async (lat, lon, types, distance) => {
+    try {
+      const url = `${process.env.NEXT_PUBLIC_API_CLIENT_URL}nearby?lat=${lat}&lon=${lon}&types=${types.join(',')}&distance=${distance}`;
+      const response = await fetch(url);
+      let data = await response.json();
+
+      // Process cuisine types
+      let fetchedCuisines = data.flatMap(amenity =>
+        amenity.cuisine?.split(';').map(cuisine => cuisine.trim().toLowerCase()) || []
+      ).filter(Boolean);
+
+      let uniqueCuisines = ['all', ...new Set(fetchedCuisines)];
+      setAvailableCuisines(uniqueCuisines);
+
+      if (selectedCuisine && selectedCuisine !== 'all') {
+        data = data.filter(amenity =>
+          amenity.cuisine?.toLowerCase().split(';').map(cuisine => cuisine.trim()).includes(selectedCuisine.toLowerCase())
+        );
+      }
+
+      setAmenities(data);
+    } catch (err) {
+      console.error('Error fetching amenities:', err);
+    }
   };
-  
+
   return (
-        <div className="w-full flex flex-col items-center">
-          <div className="mb-4">
-            <button
-              className="text-4xl bg-dark-dh hover:bg-light-dh text-white font-bold py-4 px-8"
-              onClick={getLocation}
-            >
-              Nearby
-            </button>
+    <div className="w-full flex flex-col items-center">
+      <div className="mb-6">
+        <button
+          className="text-4xl bg-dark-dh hover:bg-light-dh text-white font-bold py-4 px-8"
+          onClick={getLocation}
+        >
+          Nearby
+        </button>
+      </div>
+      {amenities.length > 0 && (
+        <div className="mt-4 w-full">
+          <div className="flex justify-between mb-3">
+            <h2 className="text-4xl font-medium pt-3">Locations</h2>
+            <CuisineFilter
+              selectedCuisine={selectedCuisine}
+              onCuisineChange={onCuisineChange}
+              cuisines={availableCuisines}
+            />
           </div>
-          {showFilter && (
-            <>
-              <p className="text-xl mb-2 font-semibold text-center">Looking for a specific type of food?</p>
-              <div className="mb-6">
-                <CuisineFilter
-                  selectedCuisine={selectedCuisine}
-                  onCuisineChange={onCuisineChange}
-                  cuisines={availableCuisines}
-                />
-              </div>
-            </>
-          )}
-          {amenities.length > 0 && (
-            <div className="mt-4 w-full">
-              <div className="flex justify-center">
-                <h2 className="text-2xl text-4xl mb-6 font-medium">Locations</h2>
-              </div>
-              {amenities.map((amenity, index) => (
-                <div
-                  className="w-full text-4xl bg-dark-dh text-white py-4 px-8 mb-2 flex justify-between hover:bg-light-dh transition hover:cursor-pointer duration-300 ease-in-out"
-                  key={amenity.id}
-                  onClick={() => setAmenity(amenity.id)}
-                >
-                  <span>{amenity.name}</span>
-                </div>
-              ))}
+          {amenities.map((amenity, index) => (
+            <div
+              className="w-full text-4xl bg-dark-dh text-white py-4 px-8 mb-2 flex justify-between hover:bg-light-dh transition hover:cursor-pointer duration-300 ease-in-out"
+              key={amenity.id}
+              onClick={() => setAmenity(amenity.id)}
+            >
+              <span>{amenity.name}</span>
             </div>
-          )}
+          ))}
         </div>
-      )      
+      )}
+    </div>
+  )
 }
 
 export default LocationFetch
