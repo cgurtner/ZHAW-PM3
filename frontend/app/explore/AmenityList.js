@@ -40,7 +40,7 @@ const AmenityList = ({ sortedList }) => {
                 <ul>
                     {
                         amenityAttr.map((val, key) => {
-                            return (<li key={key}>{val[0] + ': ' + val[1]}</li>)
+                            return (<li key={key}>{val[1]}</li>)
                         })
                     }
                 </ul>
