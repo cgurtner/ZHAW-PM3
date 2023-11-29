@@ -73,8 +73,7 @@ const LocationFetch = ({ setAmenity, selectedCuisine, onCuisineChange, setError 
       </div>
       {amenities.length > 0 && (
         <div className="mt-4 w-full">
-          <div className="flex justify-between mb-3">
-            <h2 className="text-4xl font-medium pt-3">Locations</h2>
+          <div className="flex justify-end mb-3">
             <CuisineFilter
               selectedCuisine={selectedCuisine}
               onCuisineChange={onCuisineChange}
