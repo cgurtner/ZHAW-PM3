@@ -3,13 +3,11 @@
 import { useState } from 'react';
 import NavBar from './NavBar';
 import LocationFetch from './LocationFetch';
-import Amenity from './amenity/page';
-import CuisineFilter from './CuisineFilter';
+import Amenity from './amenity/Amenity';
 
 export default function Home() {
   const [amenity, setAmenity] = useState(false);
-  const [selectedCuisine, setSelectedCuisine] = useState('all'); 
-  const [error, setError] = useState('');
+  const [selectedCuisine, setSelectedCuisine] = useState('all');
 
   const fetchAmenity = async (id) => {
     try {
@@ -17,16 +15,13 @@ export default function Home() {
       const data = await response.json()
       setAmenity(data);
     } catch (err) {
-      setError('Error fetching amenities!');
+      console.error('Error fetching amenities!');
     }
   }
-
-  const PageComponent = amenity ? <PageAmenity amenity={amenity} /> : <PageNearby fetchAmenity={fetchAmenity} />
 
   return (
     <main>
       <NavBar amenity={amenity} setAmenity={setAmenity} />
-      {/* CuisineFilter is removed from here */}
       <div className="flex justify-center">
         {amenity ? (
           <PageAmenity amenity={amenity} />
@@ -35,16 +30,14 @@ export default function Home() {
             fetchAmenity={fetchAmenity}
             selectedCuisine={selectedCuisine}
             onCuisineChange={setSelectedCuisine}
-            setError={setError}
           />
         )}
       </div>
-      {error && <p className="error">{error}</p>}
     </main>
   );
 }
 
-const PageNearby = ({ fetchAmenity, selectedCuisine, onCuisineChange, setError }) => (
+const PageNearby = ({ fetchAmenity, selectedCuisine, onCuisineChange }) => (
   <div className="container mt-12">
     <div className="grid grid-cols-1">
       <div className="flex justify-center text-8xl mb-12 font-semibold">
@@ -58,7 +51,6 @@ const PageNearby = ({ fetchAmenity, selectedCuisine, onCuisineChange, setError }
           setAmenity={fetchAmenity}
           selectedCuisine={selectedCuisine}
           onCuisineChange={onCuisineChange}
-          setError={setError}
         />
       </div>
     </div>
