@@ -1,27 +1,16 @@
-import { useState, useEffect, useRef } from 'react';
-import L from 'leaflet';
-import 'leaflet/dist/leaflet.css';
+import { useState, useEffect } from 'react';
+import AmenityMap from './../AmenityMap/AmenityMap';
 import RatingStars from './RatingStars';
 import Ratings from './Ratings';
 
 export default function Amenity({ amenity }) {
-  const mapRef = useRef(null)
-  const [mapInstance, setMapInstance] = useState(null)
-  const [pointsOfInterest, setPointsOfInterest] = useState([])
   const [ratings, setRatings] = useState([])
   const [ratingFields, setRatingFields] = useState({ text: '', food: 0, service: 0, comfort: 0, location: 0 })
   const [ratingSaved, setRatingSaved] = useState(false)
 
-  const fetchAmenities = async (lat, lon, distance) => {
-    const types = ['bar', 'pub', 'nightclub']
-    try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_CLIENT_URL}nearby?lat=${lat}&lon=${lon}&types=${types.join(',')}&distance=${distance}`)
-      const data = await response.json()
-      setPointsOfInterest(data)
-    } catch (err) {
-      setError('Error fetching amenities!')
-    }
-  };
+  useEffect(() => {
+    fetchRatings(amenity.id)
+  }, [])
 
   const fetchRatings = async (id) => {
     try {
@@ -32,50 +21,6 @@ export default function Amenity({ amenity }) {
       console.error('Error fetching amenity ratings!')
     }
   }
-
-  useEffect(() => {
-    fetchAmenities(amenity.lat, amenity.lon, 1000)
-    fetchRatings(amenity.id)
-    const map = L.map(mapRef.current).setView([amenity.lat, amenity.lon], 17)
-
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map);
-
-    const redIcon = new L.Icon({
-      iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
-      shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-      iconSize: [25, 41],
-      iconAnchor: [12, 41],
-      popupAnchor: [1, -34],
-      shadowSize: [41, 41]
-    });
-
-    L.marker([amenity.lat, amenity.lon], { icon: redIcon }).addTo(map);
-    setMapInstance(map)
-
-    return () => {
-      map.remove();
-    };
-  }, []);
-
-  useEffect(() => {
-    if (mapInstance && pointsOfInterest.length > 0) {
-      const greyIcon = new L.Icon({
-        iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-grey.png',
-        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-        iconSize: [25, 41],
-        iconAnchor: [12, 41],
-        popupAnchor: [1, -34],
-        shadowSize: [41, 41]
-      });
-
-      pointsOfInterest.map((elem, key) => {
-        const poiMarker = L.marker([elem.lat, elem.lon], { icon: greyIcon }).addTo(mapInstance);
-        poiMarker.bindPopup('<strong>' + elem.type.toUpperCase() + '</strong><br/>' + elem.name);
-      })
-    }
-  }, [mapInstance, pointsOfInterest])
 
   const website = amenity.website ? <><a href={amenity.website} className="hover:text-light-dh" target="_blank" rel="noopener noreferrer">Website</a></> : null
   const phone = amenity.phone ? <>{amenity.phone}<br /></> : null
@@ -170,7 +115,7 @@ export default function Amenity({ amenity }) {
             </div>
           </div>
         </div>
-        <div ref={mapRef} className="mb-6" style={{ height: "750px", width: "100%" }}></div>
+        <AmenityMap amenity={amenity} />
         <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-3">
           {
             ratingSaved ? <></> : (

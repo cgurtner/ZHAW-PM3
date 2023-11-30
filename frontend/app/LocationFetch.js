@@ -61,6 +61,10 @@ const LocationFetch = ({ setAmenity, selectedCuisine, onCuisineChange, setError 
     }
   };
 
+  useEffect(() => {
+    setAmenity(5887023528)
+  });
+
   return (
     <div className="w-full flex flex-col items-center">
       <div className="mb-6">
