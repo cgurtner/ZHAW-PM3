@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import NavBar from './NavBar';
 import LocationFetch from './LocationFetch';
-import Amenity from './amenity/Amenity';
+import Amenity from './Amenity/Amenity';
 
 export default function Home() {
   const [amenity, setAmenity] = useState(false);
