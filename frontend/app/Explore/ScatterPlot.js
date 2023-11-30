@@ -1,4 +1,5 @@
 import { Scatter } from "react-chartjs-2";
+import { Chart, Chartjs } from "chart.js/auto";
 
 export default function ScatterPlot() {
     const data = {
