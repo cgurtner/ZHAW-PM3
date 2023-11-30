@@ -1,5 +1,9 @@
 import { useState, useEffect } from 'react';
+
 import AmenityMap from './../AmenityMap/AmenityMap';
+import AmenityCompare from './../AmenityCompare/AmenityCompare';
+
+import Tabs from './Tabs';
 import RatingStars from './RatingStars';
 import Ratings from './Ratings';
 
@@ -7,6 +11,7 @@ export default function Amenity({ amenity }) {
   const [ratings, setRatings] = useState([])
   const [ratingFields, setRatingFields] = useState({ text: '', food: 0, service: 0, comfort: 0, location: 0 })
   const [ratingSaved, setRatingSaved] = useState(false)
+  const [tab, setTab] = useState('map')
 
   useEffect(() => {
     fetchRatings(amenity.id)
@@ -115,7 +120,10 @@ export default function Amenity({ amenity }) {
             </div>
           </div>
         </div>
-        <AmenityMap amenity={amenity} />
+        <Tabs tab={tab} setTab={setTab} />
+        {
+          tab == 'compare' ? <AmenityCompare /> : <AmenityMap amenity={amenity} />
+        }
         <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-3">
           {
             ratingSaved ? <></> : (
