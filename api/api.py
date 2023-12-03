@@ -44,6 +44,23 @@ def explore(type):
                 resp[amenity['cuisine']] = amenity['cuisine']
     return resp
 
+def calculate_averages(id):
+    ratings_cursor = db.ratings.find({'id': Int64(id)}, {'_id': 0})
+    ratings = list(ratings_cursor)
+    averages = {}
+    if ratings:
+        sums = {"food": 0, "service": 0, "comfort": 0, "location": 0, "pricePerformance": 0}
+        counts = {"food": 0, "service": 0, "comfort": 0, "location": 0, "pricePerformance": 0}
+        for rating in ratings:
+            for category in sums.keys():
+                if category in rating:
+                    sums[category] += rating[category]
+                    counts[category] += 1
+        averages = {category: sums[category] / counts[category] for category in sums if counts[category] > 0}
+        total_average = sum(averages.values()) / len(averages)
+        averages['overall'] = total_average
+    return averages
+
 @app.route('/api/nearby', methods=['GET'])
 def nearby():
     lat = float(request.args.get('lat'))
@@ -69,8 +86,20 @@ def nearby():
     ]
 
     nearby_amenities = list(db.amenities.aggregate(pipeline))
-    result = [{"id": amenity['id'], "name": amenity['name'], "type": amenity['amenity'], "cuisine": amenity['cuisine'],
-               "distance": amenity['distance'], "lat": amenity['lat'], "lon": amenity['lon']} for amenity in nearby_amenities]
+
+    result = []
+    for amenity in nearby_amenities:
+        averages = calculate_averages(amenity['id'])
+        result.append({
+            "id": amenity['id'],
+            "name": amenity['name'],
+            "type": amenity['amenity'],
+            "cuisine": amenity['cuisine'],
+            "distance": amenity['distance'],
+            "lat": amenity['lat'],
+            "lon": amenity['lon'],
+            "averages": averages 
+        })
 
     return jsonify(result)
 
@@ -79,31 +108,34 @@ def getAmenity(id):
     amenity = db.amenities.find_one({'id': Int64(id)})
     ratings_cursor = db.ratings.find({'id': Int64(id)}, {'_id': 0})
     ratings = list(ratings_cursor)
+    averages = {}
     if ratings:
-        sums = { "food": 0, "service": 0, "comfort": 0, "location": 0, "pricePerformance": 0 }  
-        counts = { "food": 0, "service": 0, "comfort": 0, "location": 0, "pricePerformance": 0 }  
+        sums = {"food": 0, "service": 0, "comfort": 0, "location": 0, "pricePerformance": 0}
+        counts = {"food": 0, "service": 0, "comfort": 0, "location": 0, "pricePerformance": 0}
         for rating in ratings:
             for category in sums.keys():
                 if category in rating:
                     sums[category] += rating[category]
                     counts[category] += 1
         averages = {category: sums[category] / counts[category] for category in sums if counts[category] > 0}
-    
+
+        total_average = sum(averages.values()) / len(averages)
+        averages['overall'] = total_average
+
     resp = {
-        "id": amenity['id'], 
-        "name": amenity['name'], 
+        "id": amenity['id'],
+        "name": amenity['name'],
         "website": amenity['website'],
         "address": amenity['address'],
         "phone": amenity['phone'],
         "email": amenity['email'],
         "opening_hours": amenity['opening_hours'],
-        "lat": amenity['lat'], 
+        "lat": amenity['lat'],
         "lon": amenity['lon'],
         "ratings": ratings,
         "averages": averages
     }
     return jsonify(resp)
-
 
 @app.route('/api/ratings/<id>')
 def getRatings(id):

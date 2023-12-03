@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import CuisineFilter from './CuisineFilter';
+import RatingStars from './Amenity/RatingStars';
 
 const LocationFetch = ({ setAmenity, selectedCuisine, onCuisineChange, setError }) => {
   const [location, setLocation] = useState();
@@ -40,26 +41,28 @@ const LocationFetch = ({ setAmenity, selectedCuisine, onCuisineChange, setError 
       const url = `${process.env.NEXT_PUBLIC_API_CLIENT_URL}nearby?lat=${lat}&lon=${lon}&types=${types.join(',')}&distance=${distance}`;
       const response = await fetch(url);
       let data = await response.json();
-
-      // Process cuisine types
+  
       let fetchedCuisines = data.flatMap(amenity =>
         amenity.cuisine?.split(';').map(cuisine => cuisine.trim().toLowerCase()) || []
       ).filter(Boolean);
-
+  
       let uniqueCuisines = ['all', ...new Set(fetchedCuisines)];
       setAvailableCuisines(uniqueCuisines);
-
+  
       if (selectedCuisine && selectedCuisine !== 'all') {
         data = data.filter(amenity =>
           amenity.cuisine?.toLowerCase().split(';').map(cuisine => cuisine.trim()).includes(selectedCuisine.toLowerCase())
         );
       }
-
+  
+      data.sort((a, b) => (b.averages?.overall || 0) - (a.averages?.overall || 0));
+  
       setAmenities(data);
     } catch (err) {
       console.error('Error fetching amenities:', err);
     }
   };
+  
 
   // useEffect(() => {
   //   setAmenity(5887023528)
@@ -91,11 +94,14 @@ const LocationFetch = ({ setAmenity, selectedCuisine, onCuisineChange, setError 
               onClick={() => setAmenity(amenity.id)}
             >
               <span>{amenity.name}</span>
+              <div className="overall-rating">
+                <RatingStars rating={amenity.averages.overall} />
             </div>
-          ))}
-        </div>
-      )}
-    </div>
+          </div>
+        ))}
+      </div>
+    )}
+  </div>
   )
 }
 
