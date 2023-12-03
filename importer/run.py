@@ -123,7 +123,7 @@ collection_ratings.delete_many({})
 for amenity in collection.find():
     amenity_id = amenity['id']
     print('Rating for: {}'.format(amenity['name']))
-    for i in range(6): 
+    for i in range(7): 
         random_rating = get_random_rating(amenity_id)
         collection_ratings.insert_one(random_rating)
 

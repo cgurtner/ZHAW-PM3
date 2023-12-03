@@ -9,7 +9,7 @@ import Ratings from './Ratings';
 
 export default function Amenity({ amenity }) {
   const [ratings, setRatings] = useState([])
-  const [ratingFields, setRatingFields] = useState({ text: '', food: 0, service: 0, comfort: 0, location: 0 })
+  const [ratingFields, setRatingFields] = useState({ text: '', food: 0, service: 0, comfort: 0, location: 0, pricePerformance: 0 })
   const [ratingSaved, setRatingSaved] = useState(false)
   const [tab, setTab] = useState('map')
 
@@ -118,6 +118,10 @@ export default function Amenity({ amenity }) {
               <span>Location:</span>
               <RatingStars rating={amenity.averages.location} />
             </div>
+            <div className="flex justify-between">
+              <span>Price-Performance:</span>
+              <RatingStars rating={amenity.averages.pricePerformance} />
+            </div>
           </div>
         </div>
         <Tabs tab={tab} setTab={setTab} />
@@ -155,6 +159,11 @@ export default function Amenity({ amenity }) {
                     <div className="flex justify-between">
                       <span>Location:</span>
                       <RatingStars rating={ratingFields.location} category={'location'} setRating={setRatingField} />
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Price-Performance:</span>
+                      <RatingStars
+                        rating={ratingFields.pricePerformance} category={'pricePerformance'} setRating={setRatingField} />
                     </div>
                   </div>
                   <div className="mt-3 flex justify-end">
