@@ -96,12 +96,12 @@ const LocationFetch = ({ setAmenity, selectedCuisine, onCuisineChange, setError 
               <span>{amenity.name}</span>
               <div className="overall-rating">
                 <RatingStars rating={amenity.averages.overall} />
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
-    )}
-  </div>
+          ))}
+        </div>
+      )}
+    </div>
   )
 }
 

@@ -28,10 +28,8 @@ def amenities():
             }
         }
     ]
-
     res = db.amenities.aggregate(condition)
     res = {item['_id']: item['count'] for item in res}
-
     return res
 
 @app.route('/api/explore/attributes/<type>')
@@ -49,8 +47,8 @@ def calculate_averages(id):
     ratings = list(ratings_cursor)
     averages = {}
     if ratings:
-        sums = {"food": 0, "service": 0, "comfort": 0, "location": 0, "pricePerformance": 0}
-        counts = {"food": 0, "service": 0, "comfort": 0, "location": 0, "pricePerformance": 0}
+        sums = {"food": 0, "service": 0, "comfort": 0, "location": 0, "price": 0}
+        counts = {"food": 0, "service": 0, "comfort": 0, "location": 0, "price": 0}
         for rating in ratings:
             for category in sums.keys():
                 if category in rating:
@@ -67,7 +65,6 @@ def nearby():
     lon = float(request.args.get('lon'))
     types = request.args.get('types').split(',')
     distance_meters = float(request.args.get('distance'))
-
     pipeline = [
         {
             "$geoNear": {
@@ -84,9 +81,7 @@ def nearby():
             }
         }
     ]
-
     nearby_amenities = list(db.amenities.aggregate(pipeline))
-
     result = []
     for amenity in nearby_amenities:
         averages = calculate_averages(amenity['id'])
@@ -100,7 +95,6 @@ def nearby():
             "lon": amenity['lon'],
             "averages": averages 
         })
-
     return jsonify(result)
 
 @app.route('/api/amenity/<id>')
@@ -108,20 +102,7 @@ def getAmenity(id):
     amenity = db.amenities.find_one({'id': Int64(id)})
     ratings_cursor = db.ratings.find({'id': Int64(id)}, {'_id': 0})
     ratings = list(ratings_cursor)
-    averages = {}
-    if ratings:
-        sums = {"food": 0, "service": 0, "comfort": 0, "location": 0, "pricePerformance": 0}
-        counts = {"food": 0, "service": 0, "comfort": 0, "location": 0, "pricePerformance": 0}
-        for rating in ratings:
-            for category in sums.keys():
-                if category in rating:
-                    sums[category] += rating[category]
-                    counts[category] += 1
-        averages = {category: sums[category] / counts[category] for category in sums if counts[category] > 0}
-
-        total_average = sum(averages.values()) / len(averages)
-        averages['overall'] = total_average
-
+    averages = calculate_averages(amenity['id'])
     resp = {
         "id": amenity['id'],
         "name": amenity['name'],

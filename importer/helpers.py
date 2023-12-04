@@ -70,6 +70,6 @@ def get_random_rating(amenity_id):
         'service': round(random.uniform(1, 5), 1),
         'comfort': round(random.uniform(1, 5), 1),
         'location': round(random.uniform(1, 5), 1),
-        'pricePerformance': round(random.uniform(1, 5), 1),
+        'price': round(random.uniform(1, 5), 1),
         'created': datetime.utcnow()
     }

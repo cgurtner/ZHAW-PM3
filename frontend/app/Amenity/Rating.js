@@ -1,7 +1,7 @@
 import RatingStars from './RatingStars';
 
 const Rating = ({ rating }) => {
-    const { text, food, service, comfort, location, pricePerformance, created } = rating
+    const { text, food, service, comfort, location, price, created } = rating
 
     return (
         <div className="bg-dark-dh text-white p-3 flex flex-col justify-between h-full">
@@ -29,8 +29,8 @@ const Rating = ({ rating }) => {
                     <RatingStars rating={location} />
                 </div>
                 <div className="flex justify-between">
-                    <span>Price-Performance:</span>
-                    <RatingStars rating={pricePerformance} />
+                    <span>Price:</span>
+                    <RatingStars rating={price} />
                 </div>
             </div>
         </div>
