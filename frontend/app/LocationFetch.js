@@ -1,11 +1,8 @@
-'use client'
-
 import { useState, useEffect } from 'react';
 import CuisineFilter from './CuisineFilter';
 import RatingStars from './Amenity/RatingStars';
 
-const LocationFetch = ({ setAmenity, selectedCuisine, onCuisineChange, setError }) => {
-  const [location, setLocation] = useState();
+const LocationFetch = ({ setAmenity, selectedCuisine, onCuisineChange, setError, location, setLocation }) => {
   const [amenities, setAmenities] = useState([]);
   const [availableCuisines, setAvailableCuisines] = useState([]);
 

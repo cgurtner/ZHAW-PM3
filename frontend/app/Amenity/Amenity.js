@@ -7,7 +7,7 @@ import Tabs from './Tabs';
 import RatingStars from './RatingStars';
 import Ratings from './Ratings';
 
-export default function Amenity({ amenity }) {
+export default function Amenity({ amenity, myLocation }) {
   const [ratings, setRatings] = useState([])
   const [ratingFields, setRatingFields] = useState({ text: '', food: 0, service: 0, comfort: 0, location: 0, price: 0 })
   const [ratingSaved, setRatingSaved] = useState(false)
@@ -126,7 +126,7 @@ export default function Amenity({ amenity }) {
         </div>
         <Tabs tab={tab} setTab={setTab} />
         {
-          tab == 'compare' ? <AmenityCompare /> : <AmenityMap amenity={amenity} />
+          tab == 'compare' ? <AmenityCompare /> : <AmenityMap amenity={amenity} myLocation={myLocation} />
         }
         <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-3">
           {

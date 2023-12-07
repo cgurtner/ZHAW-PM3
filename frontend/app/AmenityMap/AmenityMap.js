@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
-export default function AmenityMap({amenity}) {
+export default function AmenityMap({amenity, myLocation}) {
     const mapRef = useRef(null)
     const [mapInstance, setMapInstance] = useState(null)
     const [pointsOfInterest, setPointsOfInterest] = useState([])
