@@ -89,7 +89,7 @@ const LocationFetch = ({ setAmenity, selectedCuisine, onCuisineChange, setError 
           </div>
           {amenities.map((amenity, index) => (
             <div
-              className="w-full text-4xl bg-dark-dh text-white py-4 px-8 mb-2 flex justify-between hover:bg-light-dh transition hover:cursor-pointer duration-300 ease-in-out"
+              className="w-full text-4xl bg-dark-dh text-white py-4 px-8 mb-2 flex justify-between hover:bg-light-dh transition hover:cursor-pointer duration-300 ease-in-out items-center"
               key={amenity.id}
               onClick={() => setAmenity(amenity.id)}
             >
