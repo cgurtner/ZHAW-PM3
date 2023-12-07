@@ -8,6 +8,7 @@ import Amenity from './Amenity/Amenity';
 export default function Home() {
   const [amenity, setAmenity] = useState(false);
   const [selectedCuisine, setSelectedCuisine] = useState('All');
+  const [location, setLocation] = useState();
 
   const fetchAmenity = async (id) => {
     try {
@@ -24,12 +25,14 @@ export default function Home() {
       <NavBar amenity={amenity} setAmenity={setAmenity} />
       <div className="flex justify-center">
         {amenity ? (
-          <PageAmenity amenity={amenity} />
+          <PageAmenity amenity={amenity} location={location} />
         ) : (
           <PageNearby
             fetchAmenity={fetchAmenity}
             selectedCuisine={selectedCuisine}
             onCuisineChange={setSelectedCuisine}
+            location={location}
+            setLocation={setLocation}
           />
         )}
       </div>
@@ -37,7 +40,7 @@ export default function Home() {
   );
 }
 
-const PageNearby = ({ fetchAmenity, selectedCuisine, onCuisineChange }) => (
+const PageNearby = ({ fetchAmenity, selectedCuisine, onCuisineChange, location, setLocation }) => (
   <div className="container mt-12">
     <div className="grid grid-cols-1">
       <div className="flex justify-center text-8xl mb-12 font-semibold">
@@ -51,17 +54,19 @@ const PageNearby = ({ fetchAmenity, selectedCuisine, onCuisineChange }) => (
           setAmenity={fetchAmenity}
           selectedCuisine={selectedCuisine}
           onCuisineChange={onCuisineChange}
+          location={location}
+          setLocation={setLocation}
         />
       </div>
     </div>
   </div>
 );
 
-const PageAmenity = ({ amenity }) => (
+const PageAmenity = ({ amenity, location }) => (
   <div className="container mt-12">
     <div className="grid grid-cols-1">
       <div className="flex mb-12">
-        <Amenity amenity={amenity} />
+        <Amenity amenity={amenity} myLocation={location} />
       </div>
     </div>
   </div>
