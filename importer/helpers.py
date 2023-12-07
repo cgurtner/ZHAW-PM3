@@ -73,3 +73,10 @@ def get_random_rating(amenity_id):
         'price': round(random.uniform(1, 5), 1),
         'created': datetime.utcnow()
     }
+
+def parse_cuisine_list(amenity):
+    cuisine = []
+    if 'cuisine' in amenity and isinstance(amenity['cuisine'], str):
+        items = amenity['cuisine'].split(';')
+        cuisine = [item.capitalize() for item in items]
+    return cuisine

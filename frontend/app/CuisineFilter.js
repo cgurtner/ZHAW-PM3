@@ -1,7 +1,4 @@
 const CuisineFilter = ({ selectedCuisine, onCuisineChange, cuisines }) => {
-
-  const capitalizeFirstLetter = (string) => string.charAt(0).toUpperCase() + string.slice(1);
-
   return (
     <div className="cuisine-filter">
       <select
@@ -10,7 +7,7 @@ const CuisineFilter = ({ selectedCuisine, onCuisineChange, cuisines }) => {
         onChange={(e) => onCuisineChange(e.target.value)}
       >
         {cuisines.map(cuisine => (
-          <option key={cuisine} value={cuisine}>{capitalizeFirstLetter(cuisine)}</option>
+          <option key={cuisine} value={cuisine}>{cuisine}</option>
         ))}
       </select>
     </div>

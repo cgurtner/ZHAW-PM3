@@ -3,7 +3,7 @@ import os
 import copy
 import urllib.request
 from pymongo import MongoClient
-from helpers import cast, del_field, add_http, get_address, get_random_rating
+from helpers import cast, del_field, add_http, get_address, get_random_rating, parse_cuisine_list
 
 amenities_to_import = ['restaurant', 'cafe', 'fast_food', 'biergarten', 'bar', 'pub', 'nightclub']
 
@@ -55,8 +55,7 @@ for entry in osm['nodes']:
         continue
 
     # Add fields for consistency
-    if 'cuisine' not in entry:
-        entry['cuisine'] = None
+    entry['cuisine'] = parse_cuisine_list(entry)
     
     if 'phone' not in entry:
         entry['phone'] = None

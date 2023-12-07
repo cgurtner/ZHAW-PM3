@@ -113,6 +113,7 @@ def getAmenity(id):
         "opening_hours": amenity['opening_hours'],
         "lat": amenity['lat'],
         "lon": amenity['lon'],
+        "cuisine": amenity['cuisine'],
         "ratings": ratings,
         "averages": averages
     }

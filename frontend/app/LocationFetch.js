@@ -41,28 +41,21 @@ const LocationFetch = ({ setAmenity, selectedCuisine, onCuisineChange, setError 
       const url = `${process.env.NEXT_PUBLIC_API_CLIENT_URL}nearby?lat=${lat}&lon=${lon}&types=${types.join(',')}&distance=${distance}`;
       const response = await fetch(url);
       let data = await response.json();
-  
-      let fetchedCuisines = data.flatMap(amenity =>
-        amenity.cuisine?.split(';').map(cuisine => cuisine.trim().toLowerCase()) || []
-      ).filter(Boolean);
-  
-      let uniqueCuisines = ['all', ...new Set(fetchedCuisines)];
+      let fetchedCuisines = data.flatMap(amenity => amenity.cuisine).filter(Boolean);
+      let uniqueCuisines = ['All', ...new Set(fetchedCuisines)];
       setAvailableCuisines(uniqueCuisines);
-  
-      if (selectedCuisine && selectedCuisine !== 'all') {
-        data = data.filter(amenity =>
-          amenity.cuisine?.toLowerCase().split(';').map(cuisine => cuisine.trim()).includes(selectedCuisine.toLowerCase())
-        );
+
+      if (selectedCuisine && selectedCuisine !== 'All') {
+        data = data.filter(amenity => amenity.cuisine.includes(selectedCuisine));
       }
-  
+
       data.sort((a, b) => (b.averages?.overall || 0) - (a.averages?.overall || 0));
-  
+
       setAmenities(data);
     } catch (err) {
       console.error('Error fetching amenities:', err);
     }
   };
-  
 
   // useEffect(() => {
   //   setAmenity(5887023528)
