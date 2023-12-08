@@ -10,8 +10,8 @@ const NavBar = ({ amenity, setAmenity }) => {
         <div className="w-full bg-dark-dh text-white p-4 justify-between mb-12 shadow-lg">
             <div className="container flex justify-between mx-auto">
                 <div className="px-3 py-1 flex">
-                    <img src="/nav-logo.png" alt="Logo NightNav" className="inline h-5" />&nbsp;
-                    NightNav
+                    <img src="/nav-logo.png" alt="Logo NearbAI" className="inline h-5" />&nbsp;
+                    NearbAI
                 </div>
                 <nav>
                     <ul className="flex space-x-6">
