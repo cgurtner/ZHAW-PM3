@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
 
 import L from 'leaflet';
+import 'leaflet-routing-machine';
 import 'leaflet/dist/leaflet.css';
 
-export default function AmenityMap({amenity, myLocation}) {
+export default function AmenityMap({ amenity, myLocation }) {
     const mapRef = useRef(null)
     const [mapInstance, setMapInstance] = useState(null)
     const [pointsOfInterest, setPointsOfInterest] = useState([])
@@ -45,12 +46,36 @@ export default function AmenityMap({amenity, myLocation}) {
             shadowSize: [41, 41]
         });
 
-        const myMarker = L.marker([myLocation.latitude, myLocation.longitude], { icon: redIcon }).addTo(map);
-        const amenityMarker = L.marker([amenity.lat, amenity.lon], { icon: blueIcon }).addTo(map);
-        const group = new L.featureGroup([myMarker, amenityMarker]);
+        const routingControl = L.Routing.control({
+            waypoints: [
+                L.latLng(myLocation.latitude, myLocation.longitude),
+                L.latLng(amenity.lat, amenity.lon)
+            ],
+            routeWhileDragging: true,
+            draggableWaypoints: false,
+            show: false,
+            createMarker: function (i, waypoint, n) {
+                const icon = i === 0 ? redIcon : blueIcon;
 
-        map.fitBounds(group.getBounds(), {
-            padding: [50, 50]
+                return L.marker(waypoint.latLng, {
+                    icon: icon
+                });
+            }
+        }).addTo(map);
+
+        routingControl._container.style.display = 'None';
+
+        routingControl.on('routesfound', function(e) {
+            var routes = e.routes;
+            var bounds = L.latLngBounds();
+    
+            routes.forEach(route => {
+                bounds.extend(route.coordinates);
+            });
+    
+            map.fitBounds(bounds, {
+                padding: [50, 50]
+            });
         });
 
         setMapInstance(map)
@@ -62,21 +87,21 @@ export default function AmenityMap({amenity, myLocation}) {
 
     useEffect(() => {
         if (mapInstance && pointsOfInterest.length > 0) {
-          const greyIcon = new L.Icon({
-            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-grey.png',
-            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-            iconSize: [25, 41],
-            iconAnchor: [12, 41],
-            popupAnchor: [1, -34],
-            shadowSize: [41, 41]
-          });
-    
-          pointsOfInterest.map((elem, key) => {
-            const poiMarker = L.marker([elem.lat, elem.lon], { icon: greyIcon }).addTo(mapInstance);
-            poiMarker.bindPopup('<strong>' + elem.type.toUpperCase() + '</strong><br/>' + elem.name);
-          })
+            const greyIcon = new L.Icon({
+                iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-grey.png',
+                shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34],
+                shadowSize: [41, 41]
+            });
+
+            pointsOfInterest.map((elem, key) => {
+                const poiMarker = L.marker([elem.lat, elem.lon], { icon: greyIcon }).addTo(mapInstance);
+                poiMarker.bindPopup('<strong>' + elem.type.toUpperCase() + '</strong><br/>' + elem.name);
+            })
         }
-      }, [mapInstance, pointsOfInterest])
+    }, [mapInstance, pointsOfInterest])
 
     return (
         <>
