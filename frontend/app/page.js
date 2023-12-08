@@ -7,7 +7,7 @@ import Amenity from './Amenity/Amenity';
 
 export default function Home() {
   const [amenity, setAmenity] = useState(false);
-  const [selectedCuisine, setSelectedCuisine] = useState('all');
+  const [selectedCuisine, setSelectedCuisine] = useState('All');
   const [location, setLocation] = useState();
 
   const fetchAmenity = async (id) => {

@@ -32,6 +32,7 @@ export default function Amenity({ amenity, myLocation }) {
   const email = amenity.email ? <>{amenity.email}<br /></> : null
   const street = amenity.address['addr:street'] + (amenity.address['addr:housenumber'] ? ' ' + amenity.address['addr:housenumber'] : '')
   const city = amenity.address['addr:postcode'] + ' ' + amenity.address['addr:city']
+  const cuisine = amenity.cuisine.length > 0 ? amenity.cuisine.join(', ') : undefined
 
   const hours = amenity.opening_hours ? amenity.opening_hours.split(';') : []
   const openingHours = amenity.opening_hours ? <>{
@@ -84,7 +85,14 @@ export default function Amenity({ amenity, myLocation }) {
         <div className={"bg-dark-dh mb-6 p-3 text-white grid " + (hours.length > 0 ? "grid-cols-4" : "grid-cols-3 gap-48")}>
           <div>
             <h2 className="font-semibold text-2xl mb-3">Address</h2>
-            {amenity.name}<br />
+            <span className="font-semibold">{amenity.name}</span><br />
+            {
+              cuisine ? (
+                <>
+                  <span className="font-semibold">{cuisine}</span><br />
+                </>
+              ) : null
+            }
             {street}<br />
             {city}
           </div>
