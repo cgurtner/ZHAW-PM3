@@ -31,16 +31,18 @@ export default function AmenityCompare({ selectedAmenityData, amenitiesData }) {
         scales: {
             x: {
                 type: 'category',
-                labels: categories 
+                labels: categories
             },
             y: {
                 beginAtZero: true
             }
         },
         legend: {
-            display: false 
+            display: false
         }
     };
 
-    return <ScatterPlot data={scatterData} options={chartOptions} />;
+    return <div className="mb-1.5">
+        <ScatterPlot data={scatterData} options={chartOptions} />
+    </div>
 }
