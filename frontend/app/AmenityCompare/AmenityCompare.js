@@ -1,4 +1,4 @@
-import ScatterPlot from "./../Explore/ScatterPlot";
+import ScatterPlot from "./Plot/ScatterPlot";
 
 export default function AmenityCompare({ selectedAmenityData, amenitiesData }) {
     const defaultColor = 'rgba(75,192,192,0.5)';
