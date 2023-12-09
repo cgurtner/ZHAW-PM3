@@ -22,7 +22,7 @@ export default function Home() {
   }
 
   const searchInLocation = async () => {
-    const url = `${process.env.NEXT_PUBLIC_API_CLIENT_URL}nearby?lat=${location.latitude}&lon=${location.longitude}&types=${['restaurant', 'cafe', 'fast_food', 'biergarten'].join(',')}&distance=5`;
+    const url = `${process.env.NEXT_PUBLIC_API_CLIENT_URL}nearby?lat=${location.latitude}&lon=${location.longitude}&types=${['restaurant', 'cafe', 'fast_food', 'biergarten'].join(',')}&distance=10`;
     const response = await fetch(url);
     let data = await response.json();
     if (data.length > 0) {
@@ -39,7 +39,7 @@ export default function Home() {
     navigator.geolocation.getCurrentPosition(
       position => {
         const { latitude, longitude } = process.env.NEXT_PUBLIC_API_OVERWRITE_NEARBY_COORDS ?
-          { 'latitude': 47.49729966574743, 'longitude': 8.729624890038204 } :
+          { 'latitude': 47.50023364984366, 'longitude': 8.726595818720604 } :
           position.coords;
         setLocation({ latitude, longitude });
       },
