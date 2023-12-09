@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import CuisineFilter from './CuisineFilter';
 import RatingStars from './Amenity/RatingStars';
 
-const LocationFetch = ({ setAmenity, selectedCuisine, onCuisineChange, location, getLocation}) => {
+const LocationFetch = ({ setAmenity, selectedCuisine, onCuisineChange, location, getLocation, setAllAmenitiesData}) => {
   const [amenities, setAmenities] = useState([]);
   const [availableCuisines, setAvailableCuisines] = useState([]);
 
@@ -28,6 +28,7 @@ const LocationFetch = ({ setAmenity, selectedCuisine, onCuisineChange, location,
       data.sort((a, b) => (b.averages?.overall || 0) - (a.averages?.overall || 0));
 
       setAmenities(data);
+      setAllAmenitiesData(data);
     } catch (err) {
       console.error('Error fetching amenities:', err);
     }

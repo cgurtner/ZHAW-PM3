@@ -6,18 +6,19 @@ import LocationFetch from './LocationFetch';
 import Amenity from './Amenity/Amenity';
 
 export default function Home() {
-  const [amenity, setAmenity] = useState(false);
+  const [amenity, setAmenity] = useState(null);
   const [selectedCuisine, setSelectedCuisine] = useState('All');
   const [location, setLocation] = useState();
   const [inLocation, setInLocation] = useState();
+  const [allAmenitiesData, setAllAmenitiesData] = useState([]);
 
   const fetchAmenity = async (id) => {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_CLIENT_URL}amenity/${id}`)
-      const data = await response.json()
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_CLIENT_URL}amenity/${id}`);
+      const data = await response.json();
       setAmenity(data);
     } catch (err) {
-      console.error('Error fetching amenities!');
+      console.error('Error fetching amenities!', err);
     }
   }
 
@@ -64,7 +65,7 @@ export default function Home() {
       <NavBar amenity={amenity} setAmenity={setAmenity} />
       <div className="flex justify-center">
         {amenity ? (
-          <PageAmenity amenity={amenity} location={location} />
+          <PageAmenity amenity={amenity} location={location} allAmenitiesData={allAmenitiesData} />
         ) : (
           <PageNearby
             setAmenity={setAmenity}
@@ -73,6 +74,7 @@ export default function Home() {
             selectedCuisine={selectedCuisine}
             onCuisineChange={setSelectedCuisine}
             location={location}
+            setAllAmenitiesData={setAllAmenitiesData}
             getLocation={getLocation}
           />
         )}
@@ -81,7 +83,7 @@ export default function Home() {
   );
 }
 
-const PageNearby = ({ inLocation, fetchAmenity, selectedCuisine, onCuisineChange, location, getLocation }) => (
+const PageNearby = ({ inLocation, fetchAmenity, selectedCuisine, onCuisineChange, location, getLocation, setAllAmenitiesData }) => (
   <div className="container mt-12">
     <div className="grid grid-cols-1">
       <div className="flex justify-center text-8xl mb-12 font-semibold">
@@ -109,6 +111,7 @@ const PageNearby = ({ inLocation, fetchAmenity, selectedCuisine, onCuisineChange
           selectedCuisine={selectedCuisine}
           onCuisineChange={onCuisineChange}
           location={location}
+          setAllAmenitiesData={setAllAmenitiesData}
           getLocation={getLocation}
         />
       </div>
@@ -116,12 +119,16 @@ const PageNearby = ({ inLocation, fetchAmenity, selectedCuisine, onCuisineChange
   </div>
 );
 
-const PageAmenity = ({ amenity, location }) => (
+const PageAmenity = ({ amenity, location, allAmenitiesData }) => (
   <div className="container mt-12">
     <div className="grid grid-cols-1">
       <div className="flex mb-12">
-        <Amenity amenity={amenity} myLocation={location} />
+        <Amenity 
+          amenity={amenity} 
+          myLocation={location} 
+          allAmenitiesData={allAmenitiesData}
+        />
       </div>
     </div>
   </div>
-)
+);
