@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import CuisineFilter from './CuisineFilter';
 import RatingStars from './Amenity/RatingStars';
 
-const LocationFetch = ({ setAmenity, selectedCuisine, onCuisineChange, setError, location, setLocation }) => {
+const LocationFetch = ({ setAmenity, selectedCuisine, onCuisineChange, location, getLocation}) => {
   const [amenities, setAmenities] = useState([]);
   const [availableCuisines, setAvailableCuisines] = useState([]);
 
@@ -11,28 +11,7 @@ const LocationFetch = ({ setAmenity, selectedCuisine, onCuisineChange, setError,
       fetchAmenities(location.latitude, location.longitude, ['restaurant', 'cafe', 'fast_food', 'biergarten'], 1000);
     }
   }, [location, selectedCuisine]);
-
-  const getLocation = () => {
-    if (!navigator.geolocation) {
-      setError('Geolocation is not supported by your browser!');
-      return;
-    }
-
-    navigator.geolocation.getCurrentPosition(
-      position => {
-        const { latitude, longitude } = process.env.NEXT_PUBLIC_API_OVERWRITE_NEARBY_COORDS ?
-          { 'latitude': 47.49729966574743, 'longitude': 8.729624890038204 } :
-          position.coords;
-
-        setLocation({ latitude, longitude });
-        fetchAmenities(latitude, longitude, ['restaurant', 'cafe', 'fast_food', 'biergarten'], 1000);
-      },
-      () => {
-        setError('Unable to retrieve your location!');
-      }
-    );
-  }
-
+  
   const fetchAmenities = async (lat, lon, types, distance) => {
     try {
       const url = `${process.env.NEXT_PUBLIC_API_CLIENT_URL}nearby?lat=${lat}&lon=${lon}&types=${types.join(',')}&distance=${distance}`;

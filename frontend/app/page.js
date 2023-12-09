@@ -30,8 +30,28 @@ export default function Home() {
     }
   }
 
+  const getLocation = () => {
+    if (!navigator.geolocation) {
+      setError('Geolocation is not supported by your browser!');
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        const { latitude, longitude } = process.env.NEXT_PUBLIC_API_OVERWRITE_NEARBY_COORDS ?
+          { 'latitude': 47.49729966574743, 'longitude': 8.729624890038204 } :
+          position.coords;
+        setLocation({ latitude, longitude });
+      },
+      () => {
+        console.err('Unable to retrieve your location!');
+      }
+    );
+  }
+
   useEffect(() => {
     if (!location) {
+      getLocation()
       return
     }
     if (!inLocation) {
@@ -53,7 +73,7 @@ export default function Home() {
             selectedCuisine={selectedCuisine}
             onCuisineChange={setSelectedCuisine}
             location={location}
-            setLocation={setLocation}
+            getLocation={getLocation}
           />
         )}
       </div>
@@ -61,7 +81,7 @@ export default function Home() {
   );
 }
 
-const PageNearby = ({ inLocation, fetchAmenity, selectedCuisine, onCuisineChange, location, setLocation }) => (
+const PageNearby = ({ inLocation, fetchAmenity, selectedCuisine, onCuisineChange, location, getLocation }) => (
   <div className="container mt-12">
     <div className="grid grid-cols-1">
       <div className="flex justify-center text-8xl mb-12 font-semibold">
@@ -89,7 +109,7 @@ const PageNearby = ({ inLocation, fetchAmenity, selectedCuisine, onCuisineChange
           selectedCuisine={selectedCuisine}
           onCuisineChange={onCuisineChange}
           location={location}
-          setLocation={setLocation}
+          getLocation={getLocation}
         />
       </div>
     </div>
