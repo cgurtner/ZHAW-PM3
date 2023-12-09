@@ -7,25 +7,25 @@ import Tabs from './Tabs';
 import RatingStars from './RatingStars';
 import Ratings from './Ratings';
 
-export default function Amenity({ amenity, myLocation }) {
-  const [ratings, setRatings] = useState([])
-  const [ratingFields, setRatingFields] = useState({ text: '', food: 0, service: 0, comfort: 0, location: 0, price: 0 })
-  const [ratingSaved, setRatingSaved] = useState(false)
-  const [tab, setTab] = useState('map')
+export default function Amenity({ amenity, myLocation, allAmenitiesData }) {
+  const [ratings, setRatings] = useState([]);
+  const [ratingFields, setRatingFields] = useState({ text: '', food: 0, service: 0, comfort: 0, location: 0, price: 0 });
+  const [ratingSaved, setRatingSaved] = useState(false);
+  const [tab, setTab] = useState('map');
 
   useEffect(() => {
-    fetchRatings(amenity.id)
-  }, [])
+    fetchRatings(amenity.id);
+  }, [amenity.id]);
 
   const fetchRatings = async (id) => {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_CLIENT_URL}ratings/${id}`)
-      const data = await response.json()
-      setRatings(data)
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_CLIENT_URL}ratings/${id}`);
+      const data = await response.json();
+      setRatings(data);
     } catch (err) {
-      console.error('Error fetching amenity ratings!')
+      console.error('Error fetching amenity ratings!', err);
     }
-  }
+  };
 
   const website = amenity.website ? <><a href={amenity.website} className="hover:text-light-dh" target="_blank" rel="noopener noreferrer">Website</a></> : null
   const phone = amenity.phone ? <>{amenity.phone}<br /></> : null
@@ -134,7 +134,7 @@ export default function Amenity({ amenity, myLocation }) {
         </div>
         <Tabs tab={tab} setTab={setTab} />
         {
-          tab == 'compare' ? <AmenityCompare /> : <AmenityMap amenity={amenity} myLocation={myLocation} />
+          tab == 'compare' ? <AmenityCompare selectedAmenityData={amenity} amenitiesData={allAmenitiesData} /> : <AmenityMap amenity={amenity} myLocation={myLocation} />        
         }
         <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-3">
           {
