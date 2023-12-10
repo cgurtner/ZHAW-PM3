@@ -45,7 +45,7 @@ export default function Home() {
         setLocation({ latitude, longitude });
       },
       () => {
-        console.err('Unable to retrieve your location!');
+        console.error('Unable to retrieve your location!');
       }
     );
   }
