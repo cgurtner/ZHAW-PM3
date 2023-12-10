@@ -63,7 +63,7 @@ export default function Home() {
   return (
     <main>
       <NavBar amenity={amenity} setAmenity={setAmenity} />
-      <div className="flex justify-center">
+      <div className="flex justify-center px-2">
         {amenity ? (
           <PageAmenity amenity={amenity} location={location} allAmenitiesData={allAmenitiesData} />
         ) : (
@@ -86,18 +86,18 @@ export default function Home() {
 const PageNearby = ({ inLocation, fetchAmenity, selectedCuisine, onCuisineChange, location, getLocation, setAllAmenitiesData }) => (
   <div className="container mt-12">
     <div className="grid grid-cols-1">
-      <div className="flex justify-center text-8xl mb-12 font-semibold">
+      <div className="flex justify-center text-6xl md:text-8xl mb-12 font-semibold">
         <h1>Welcome!</h1>
       </div>
-      <div className="flex justify-center text-4xl mb-12">
+      <div className="flex justify-center text-center text-2xl md:text-6xl mb-12">
         <h2>You give us a click, we give you a dining experience!</h2>
       </div>
       {
         inLocation ? (
-          <div className="flex justify-center text-4xl mb-12 items-center">
+          <div className="flex justify-center text-2xl md:text-4xl mb-12 items-center">
             <h2>Are you here?</h2>&nbsp;
             <button
-                className="text-4xl bg-dark-dh hover:bg-light-dh text-white font-bold py-4 px-8"
+                className="text-xl md:text-2xl bg-dark-dh hover:bg-light-dh text-white font-bold py-2 px-4"
                 onClick={() => {fetchAmenity(inLocation.id)}}
               >
                 {inLocation.name}

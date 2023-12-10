@@ -2,7 +2,7 @@ const CuisineFilter = ({ selectedCuisine, onCuisineChange, cuisines }) => {
   return (
     <div className="cuisine-filter">
       <select
-        className="text-2xl bg-dark-dh hover:bg-light-dh text-white font-bold py-4 px-8 cursor-pointer"
+        className="text-xl md:text-2xl bg-dark-dh hover:bg-light-dh text-white font-bold py-2 px-4 cursor-pointer"
         value={selectedCuisine} 
         onChange={(e) => onCuisineChange(e.target.value)}
       >
