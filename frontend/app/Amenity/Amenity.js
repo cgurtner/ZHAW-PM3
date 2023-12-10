@@ -77,115 +77,113 @@ export default function Amenity({ amenity, myLocation, allAmenitiesData }) {
   };
 
   return (
-    <div className="container mt-12">
-      <div className="grid grid-cols-1">
-        <div className="flex justify-center text-8xl mb-12 font-semibold">
-          <h1>{amenity.name}</h1>
-        </div>
-        <div className={"bg-dark-dh mb-6 p-3 text-white grid " + (hours.length > 0 ? "grid-cols-4" : "grid-cols-3 gap-48")}>
-          <div>
-            <h2 className="font-semibold text-2xl mb-3">Address</h2>
-            <span className="font-semibold">{amenity.name}</span><br />
-            {
-              cuisine ? (
-                <>
-                  <span className="font-semibold">{cuisine}</span><br />
-                </>
-              ) : null
-            }
-            {street}<br />
-            {city}
-          </div>
-          <div>
-            <h2 className="font-semibold text-2xl mb-3">Contact</h2>
-            {phone}
-            {email}
-            {website}
-          </div>
+    <>
+      <div className="flex justify-center text-center text-6xl md:text-8xl mb-12 font-semibold">
+        <h1>{amenity.name}</h1>
+      </div>
+      <div className={"bg-dark-dh mb-6 p-3 text-white grid grid-cols-2 gap-y-3 md:" + (hours.length > 0 ? "grid-cols-4" : "grid-cols-3 gap-48")}>
+        <div>
+          <h2 className="font-semibold text-2xl mb-3">Address</h2>
+          <span className="font-semibold">{amenity.name}</span><br />
           {
-            hours.length > 0 ? <div>
-              <h2 className="font-semibold text-2xl mb-3">Opening Hours</h2>
-              {openingHours}
-            </div> : null
+            cuisine ? (
+              <>
+                <span className="font-semibold">{cuisine}</span><br />
+              </>
+            ) : null
           }
-          <div>
-            <h2 className="font-semibold text-2xl mb-3">Rating</h2>
-            <div className="flex justify-between">
-              <span>Food:</span>
-              <RatingStars rating={amenity.averages.food} />
-            </div>
-            <div className="flex justify-between">
-              <span>Service:</span>
-              <RatingStars rating={amenity.averages.service} />
-            </div>
-            <div className="flex justify-between">
-              <span>Comfort:</span>
-              <RatingStars rating={amenity.averages.comfort} />
-            </div>
-            <div className="flex justify-between">
-              <span>Location:</span>
-              <RatingStars rating={amenity.averages.location} />
-            </div>
-            <div className="flex justify-between">
-              <span>Price:</span>
-              <RatingStars rating={amenity.averages.price} />
-            </div>
-          </div>
+          {street}<br />
+          {city}
         </div>
-        <Tabs tab={tab} setTab={setTab} />
+        <div>
+          <h2 className="font-semibold text-2xl mb-3">Contact</h2>
+          {phone}
+          {email}
+          {website}
+        </div>
         {
-          tab == 'compare' ? <AmenityCompare selectedAmenityData={amenity} amenitiesData={allAmenitiesData} /> : <AmenityMap amenity={amenity} myLocation={myLocation} />        
+          hours.length > 0 ? <div>
+            <h2 className="font-semibold text-2xl mb-3">Hours</h2>
+            {openingHours}
+          </div> : null
         }
-        <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-3">
-          {
-            ratingSaved ? <></> : (
-              <div className="bg-light-dh p-3">
-                <h3 className="text-xl mb-3">Leave your rating here!</h3>
-                <form>
-                  <div className="mb-3">
-                    <textarea
-                      className="w-full h-32 p-1 border border-dark-dh bg-light-dh"
-                      placeholder=""
-                      defaultValue={ratingFields.text}
-                      onChange={(e) => setRatingField('text', e.target.value)}
-                    >
-                    </textarea>
-                  </div>
-                  <div className="grid grid-cols-2 gap-3">
-                    <div className="flex justify-between">
-                      <span>Food:</span>
-                      <RatingStars rating={ratingFields.food} category={'food'} setRating={setRatingField} />
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Service:</span>
-                      <RatingStars rating={ratingFields.service} category={'service'} setRating={setRatingField} />
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Comfort:</span>
-                      <RatingStars rating={ratingFields.comfort} category={'comfort'} setRating={setRatingField} />
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Location:</span>
-                      <RatingStars rating={ratingFields.location} category={'location'} setRating={setRatingField} />
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Price:</span>
-                      <RatingStars
-                        rating={ratingFields.price} category={'price'} setRating={setRatingField} />
-                    </div>
-                  </div>
-                  <div className="mt-3 flex justify-end">
-                    <button className="bg-dark-dh hover:bg-light-dh text-white py-2 px-4" onClick={submitRating}>
-                      Rate!
-                    </button>
-                  </div>
-                </form>
-              </div>
-            )
-          }
-          <Ratings ratings={ratings} />
+        <div>
+          <h2 className="font-semibold text-2xl mb-3">Rating</h2>
+          <div className="flex justify-between">
+            <span>Food:</span>
+            <RatingStars rating={amenity.averages.food} />
+          </div>
+          <div className="flex justify-between">
+            <span>Service:</span>
+            <RatingStars rating={amenity.averages.service} />
+          </div>
+          <div className="flex justify-between">
+            <span>Comfort:</span>
+            <RatingStars rating={amenity.averages.comfort} />
+          </div>
+          <div className="flex justify-between">
+            <span>Location:</span>
+            <RatingStars rating={amenity.averages.location} />
+          </div>
+          <div className="flex justify-between">
+            <span>Price:</span>
+            <RatingStars rating={amenity.averages.price} />
+          </div>
         </div>
       </div>
-    </div>
+      <Tabs tab={tab} setTab={setTab} />
+      {
+        tab == 'compare' ? <AmenityCompare selectedAmenityData={amenity} amenitiesData={allAmenitiesData} /> : <AmenityMap amenity={amenity} myLocation={myLocation} />
+      }
+      <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-3">
+        {
+          ratingSaved ? <></> : (
+            <div className="bg-light-dh p-3">
+              <h3 className="text-xl mb-3">Leave your rating here!</h3>
+              <form>
+                <div className="mb-3">
+                  <textarea
+                    className="w-full h-32 p-1 border border-dark-dh bg-light-dh"
+                    placeholder=""
+                    defaultValue={ratingFields.text}
+                    onChange={(e) => setRatingField('text', e.target.value)}
+                  >
+                  </textarea>
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="flex justify-between">
+                    <span>Food:</span>
+                    <RatingStars rating={ratingFields.food} category={'food'} setRating={setRatingField} />
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Service:</span>
+                    <RatingStars rating={ratingFields.service} category={'service'} setRating={setRatingField} />
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Comfort:</span>
+                    <RatingStars rating={ratingFields.comfort} category={'comfort'} setRating={setRatingField} />
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Location:</span>
+                    <RatingStars rating={ratingFields.location} category={'location'} setRating={setRatingField} />
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Price:</span>
+                    <RatingStars
+                      rating={ratingFields.price} category={'price'} setRating={setRatingField} />
+                  </div>
+                </div>
+                <div className="mt-3 flex justify-end">
+                  <button className="bg-dark-dh hover:bg-light-dh text-white py-2 px-4" onClick={submitRating}>
+                    Rate!
+                  </button>
+                </div>
+              </form>
+            </div>
+          )
+        }
+        <Ratings ratings={ratings} />
+      </div>
+    </>
   )
 }

@@ -97,11 +97,11 @@ const PageNearby = ({ inLocation, fetchAmenity, selectedCuisine, onCuisineChange
           <div className="flex justify-center text-2xl md:text-4xl mb-12 items-center">
             <h2>Are you here?</h2>&nbsp;
             <button
-                className="text-xl md:text-2xl bg-dark-dh hover:bg-light-dh text-white font-bold py-2 px-4"
-                onClick={() => {fetchAmenity(inLocation.id)}}
-              >
-                {inLocation.name}
-              </button>
+              className="text-xl md:text-2xl bg-dark-dh hover:bg-light-dh text-white font-bold py-2 px-4"
+              onClick={() => { fetchAmenity(inLocation.id) }}
+            >
+              {inLocation.name}
+            </button>
           </div>
         ) : <></>
       }
@@ -122,13 +122,11 @@ const PageNearby = ({ inLocation, fetchAmenity, selectedCuisine, onCuisineChange
 const PageAmenity = ({ amenity, location, allAmenitiesData }) => (
   <div className="container mt-12">
     <div className="grid grid-cols-1">
-      <div className="flex mb-12">
-        <Amenity 
-          amenity={amenity} 
-          myLocation={location} 
-          allAmenitiesData={allAmenitiesData}
-        />
-      </div>
+      <Amenity
+        amenity={amenity}
+        myLocation={location}
+        allAmenitiesData={allAmenitiesData}
+      />
     </div>
   </div>
 );
