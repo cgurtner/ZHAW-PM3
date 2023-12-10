@@ -7,7 +7,8 @@ const nextConfig = {
             destination: '/Explore',
           },
         ]
-      }
+      },
+      output: 'standalone'
 }
 
 module.exports = nextConfig
