@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 const NavBar = ({ amenity, setAmenity }) => {
     const navItems = [
-        { name: 'Nearby', path: '/' }
+        { name: 'Search', path: '/' }
     ]
 
     return (
