@@ -81,7 +81,7 @@ export default function Amenity({ amenity, myLocation, allAmenitiesData }) {
       <div className="flex justify-center text-center text-6xl md:text-8xl mb-12 font-semibold">
         <h1>{amenity.name}</h1>
       </div>
-      <div className={"bg-dark-dh mb-6 p-3 text-white grid grid-cols-2 gap-y-3 md:" + (hours.length > 0 ? "grid-cols-4" : "grid-cols-3 gap-48")}>
+      <div className={"bg-dark-dh mb-6 p-3 text-white grid grid-cols-2 gap-y-3 " + (hours.length > 0 ? "md:grid-cols-4" : "md:grid-cols-3 md:gap-48")}>
         <div>
           <h2 className="font-semibold text-2xl mb-3">Address</h2>
           <span className="font-semibold">{amenity.name}</span><br />
