@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 
-import AmenityExplore from '../AmenityExplore/AmenityExplore';
+import AmenityExplore from './../AmenityExplore/AmenityExplore';
+import AmenityCompare from './../AmenityCompare/AmenityCompare';
 import AmenityMapWrapper from './../AmenityMap/AmenityMapWrapper';
 
 import Tabs from './Tabs';
@@ -133,7 +134,7 @@ export default function Amenity({ amenity, myLocation, allAmenitiesData }) {
       </div>
       <Tabs tab={tab} setTab={setTab} />
       {
-        tab == 'compare' ? <AmenityCompare selectedAmenityData={amenity} amenitiesData={allAmenitiesData} /> : tab == 'explore' ?
+        tab == 'compare' ? <AmenityCompare amenity={amenity}  amenityList={allAmenitiesData} /> : tab == 'explore' ?
           <AmenityExplore selectedAmenityData={amenity} amenitiesData={allAmenitiesData} /> : <AmenityMapWrapper amenity={amenity} myLocation={myLocation} />
       }
       <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-3">
