@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
-import dynamic from 'next/dynamic';
 
-import AmenityCompare from './../AmenityCompare/AmenityCompare';
+import AmenityExplore from '../AmenityExplore/AmenityExplore';
 import AmenityMapWrapper from './../AmenityMap/AmenityMapWrapper';
 
 import Tabs from './Tabs';
@@ -13,7 +12,7 @@ export default function Amenity({ amenity, myLocation, allAmenitiesData }) {
   const [ratingFields, setRatingFields] = useState({ text: '', food: 0, service: 0, comfort: 0, location: 0, price: 0 });
   const [ratingSaved, setRatingSaved] = useState(false);
   const [tab, setTab] = useState('map');
-  
+
   useEffect(() => {
     fetchRatings(amenity.id);
   }, [amenity.id]);
@@ -134,7 +133,8 @@ export default function Amenity({ amenity, myLocation, allAmenitiesData }) {
       </div>
       <Tabs tab={tab} setTab={setTab} />
       {
-        tab == 'compare' ? <AmenityCompare selectedAmenityData={amenity} amenitiesData={allAmenitiesData} /> : <AmenityMapWrapper amenity={amenity} myLocation={myLocation} />
+        tab == 'compare' ? <AmenityCompare selectedAmenityData={amenity} amenitiesData={allAmenitiesData} /> : tab == 'explore' ?
+          <AmenityExplore selectedAmenityData={amenity} amenitiesData={allAmenitiesData} /> : <AmenityMapWrapper amenity={amenity} myLocation={myLocation} />
       }
       <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-3">
         {
