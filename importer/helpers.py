@@ -1,4 +1,4 @@
-import requests, random, re
+import requests, random, re, json
 from datetime import datetime
 from urllib.parse import urlencode
 
@@ -61,16 +61,35 @@ def fetch_address(lat, lon):
     else:
         return None
 
+def load_reviews():
+    with open('data/reviews.json', 'r') as file:
+        return json.load(file)
+
+def get_random_review(average_rating, reviews):
+    positive_reviews = [review['text'] for review in reviews if review['label'] == 'positive']
+    negative_reviews = [review['text'] for review in reviews if review['label'] == 'negative']
+    if average_rating > 2.5:
+        return random.choice(positive_reviews)
+    else:
+        return random.choice(negative_reviews)
+
 def get_random_rating(amenity_id):
-    return {
-        'id': amenity_id, 
-        'name': f'User{random.randint(1, 10000)}',  
-        'text': 'Random review text ' + str(random.randint(1, 10000)),
+    ratings = {
         'food': round(random.uniform(1, 5), 1),
         'service': round(random.uniform(1, 5), 1),
         'comfort': round(random.uniform(1, 5), 1),
         'location': round(random.uniform(1, 5), 1),
-        'price': round(random.uniform(1, 5), 1),
+        'price': round(random.uniform(1, 5), 1)
+    }
+    average_rating = sum(ratings.values()) / len(ratings)
+    reviews = load_reviews()
+    review_text = get_random_review(average_rating, reviews)
+
+    return {
+        'id': amenity_id, 
+        'name': f'User{random.randint(1, 10000)}',  
+        'text': review_text,
+        **ratings,
         'created': datetime.utcnow()
     }
 
