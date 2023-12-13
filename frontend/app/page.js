@@ -15,6 +15,9 @@ export default function Home() {
   const fetchAmenity = async (id) => {
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_CLIENT_URL}amenity/${id}`);
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} ${response.statusText}`);
+      }
       const data = await response.json();
       setAmenity(data);
     } catch (err) {
@@ -33,7 +36,7 @@ export default function Home() {
 
   const getLocation = () => {
     if (!navigator.geolocation) {
-      setError('Geolocation is not supported by your browser!');
+      console.error('Geolocation is not supported by your browser!');
       return;
     }
 

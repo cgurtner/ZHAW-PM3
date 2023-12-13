@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import CuisineFilter from './CuisineFilter';
 import RatingStars from './Amenity/RatingStars';
 
-const LocationFetch = ({ setAmenity, selectedCuisine, onCuisineChange, location, getLocation, setAllAmenitiesData}) => {
+const LocationFetch = ({ setAmenity, selectedCuisine, onCuisineChange, location, getLocation, setAllAmenitiesData }) => {
   const [amenities, setAmenities] = useState([]);
   const [availableCuisines, setAvailableCuisines] = useState([]);
 
@@ -11,11 +11,14 @@ const LocationFetch = ({ setAmenity, selectedCuisine, onCuisineChange, location,
       fetchAmenities(location.latitude, location.longitude, ['restaurant', 'cafe', 'fast_food', 'biergarten'], 1000);
     }
   }, [location, selectedCuisine]);
-  
+
   const fetchAmenities = async (lat, lon, types, distance) => {
     try {
       const url = `${process.env.NEXT_PUBLIC_API_CLIENT_URL}nearby?lat=${lat}&lon=${lon}&types=${types.join(',')}&distance=${distance}`;
       const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} ${response.statusText}`);
+      }
       let data = await response.json();
       let fetchedCuisines = data.flatMap(amenity => amenity.cuisine).filter(Boolean);
       let uniqueCuisines = ['All', ...new Set(fetchedCuisines)];

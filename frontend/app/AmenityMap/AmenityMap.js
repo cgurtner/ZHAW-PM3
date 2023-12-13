@@ -13,6 +13,9 @@ export default function AmenityMap({ amenity, myLocation }) {
         const types = ['bar', 'pub', 'nightclub']
         try {
             const response = await fetch(`${process.env.NEXT_PUBLIC_API_CLIENT_URL}nearby?lat=${lat}&lon=${lon}&types=${types.join(',')}&distance=${distance}`)
+            if (!response.ok) {
+                throw new Error(`Error: ${response.status} ${response.statusText}`);
+            }
             const data = await response.json()
             setPointsOfInterest(data)
         } catch (err) {
@@ -65,14 +68,14 @@ export default function AmenityMap({ amenity, myLocation }) {
 
         routingControl._container.style.display = 'None';
 
-        routingControl.on('routesfound', function(e) {
+        routingControl.on('routesfound', function (e) {
             var routes = e.routes;
             var bounds = L.latLngBounds();
-    
+
             routes.forEach(route => {
                 bounds.extend(route.coordinates);
             });
-    
+
             map.fitBounds(bounds, {
                 padding: [50, 50]
             });

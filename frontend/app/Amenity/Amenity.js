@@ -22,6 +22,9 @@ export default function Amenity({ amenity, myLocation, allAmenitiesData }) {
   const fetchRatings = async (id) => {
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_CLIENT_URL}ratings/${id}`);
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} ${response.statusText}`);
+      }
       const data = await response.json();
       setRatings(data);
     } catch (err) {
@@ -98,7 +101,7 @@ export default function Amenity({ amenity, myLocation, allAmenitiesData }) {
       <div className="flex justify-center text-center text-6xl md:text-8xl mb-12 font-semibold">
         <h1>{amenity.name}</h1>
       </div>
-      <div className={"bg-dark-dh flex mb-6 p-3 text-white grid grid-cols-2 gap-y-3 " + ("md:grid-cols-" + numCols + (numCols < 4 ? " justify-between": ""))}>
+      <div className={"bg-dark-dh flex mb-6 p-3 text-white grid grid-cols-2 gap-y-3 " + ("md:grid-cols-" + numCols + (numCols < 4 ? " justify-between" : ""))}>
         <div>
           <h2 className="font-semibold text-2xl mb-3">Address</h2>
           <span className="font-semibold">{amenity.name}</span><br />
