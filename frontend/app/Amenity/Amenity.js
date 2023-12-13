@@ -11,6 +11,7 @@ import Ratings from './Ratings';
 export default function Amenity({ amenity, myLocation, allAmenitiesData }) {
   const [ratings, setRatings] = useState([]);
   const [ratingFields, setRatingFields] = useState({ text: '', food: 0, service: 0, comfort: 0, location: 0, price: 0 });
+  const [textareaError, setTextareaError] = useState('');
   const [ratingSaved, setRatingSaved] = useState(false);
   const [tab, setTab] = useState('map');
 
@@ -51,6 +52,12 @@ export default function Amenity({ amenity, myLocation, allAmenitiesData }) {
 
   const submitRating = async (event) => {
     event.preventDefault();
+
+    if (!ratingFields.text.trim()) {
+      setTextareaError('Please enter your rating text.');
+      return;
+    }
+    setTextareaError('');
 
     const postData = {
       id: amenity.id,
@@ -134,7 +141,7 @@ export default function Amenity({ amenity, myLocation, allAmenitiesData }) {
       </div>
       <Tabs tab={tab} setTab={setTab} />
       {
-        tab == 'compare' ? <AmenityCompare amenity={amenity}  amenityList={allAmenitiesData} /> : tab == 'explore' ?
+        tab == 'compare' ? <AmenityCompare amenity={amenity} amenityList={allAmenitiesData} /> : tab == 'explore' ?
           <AmenityExplore selectedAmenityData={amenity} amenitiesData={allAmenitiesData} /> : <AmenityMapWrapper amenity={amenity} myLocation={myLocation} />
       }
       <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-3">
@@ -151,6 +158,7 @@ export default function Amenity({ amenity, myLocation, allAmenitiesData }) {
                     onChange={(e) => setRatingField('text', e.target.value)}
                   >
                   </textarea>
+                  {textareaError && <div className="text-red-500 text-sm mt-1">{textareaError}</div>}
                 </div>
                 <div className="grid grid-cols-2 gap-3">
                   <div className="flex justify-between">
