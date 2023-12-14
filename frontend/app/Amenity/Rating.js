@@ -11,25 +11,25 @@ const Rating = ({ rating }) => {
                     {text}
                 </div>
             </div>
-            <div className="grid grid-cols-2 gap-3">
-                <div className="flex justify-between">
+            <div className="grid grid-cols-2 gap-3 text-sm">
+                <div className="flex justify-between items-center">
                     <span>Essen:</span>
                     <RatingStars rating={food} />
                 </div>
-                <div className="flex justify-between">
-                    <span>Bedienung:</span>
+                <div className="flex justify-between items-center">
+                    <span>Service:</span>
                     <RatingStars rating={service} />
                 </div>
-                <div className="flex justify-between">
+                <div className="flex justify-between items-center">
                     <span>Komfort:</span>
                     <RatingStars rating={comfort} />
                 </div>
-                <div className="flex justify-between">
+                <div className="flex justify-between items-center">
                     <span>Standort:</span>
                     <RatingStars rating={location} />
                 </div>
-                <div className="flex justify-between">
-                    <span>$-Leistung:</span>
+                <div className="flex justify-between items-center">
+                    <span>Value:</span>
                     <RatingStars rating={price} />
                 </div>
             </div>
