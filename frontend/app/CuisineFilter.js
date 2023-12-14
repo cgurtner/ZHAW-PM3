@@ -7,7 +7,7 @@ const CuisineFilter = ({ selectedCuisine, onCuisineChange, cuisines }) => {
         onChange={(e) => onCuisineChange(e.target.value)}
       >
         {cuisines.map(cuisine => (
-          <option key={cuisine} value={cuisine}>{cuisine}</option>
+          <option key={cuisine} value={cuisine}>{(cuisine == 'All' ? 'Alle' : cuisine)}</option>
         ))}
       </select>
     </div>

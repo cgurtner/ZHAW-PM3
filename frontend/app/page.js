@@ -90,15 +90,15 @@ const PageNearby = ({ inLocation, fetchAmenity, selectedCuisine, onCuisineChange
   <div className="container mt-12">
     <div className="grid grid-cols-1">
       <div className="flex justify-center text-6xl md:text-8xl mb-12 font-semibold">
-        <h1>Welcome!</h1>
+        <h1>Willkommen!</h1>
       </div>
       <div className="flex justify-center text-center text-2xl md:text-6xl mb-12">
-        <h2>You give us a click, we give you a dining experience!</h2>
+        <h2>Du klickst, wir bieten Dir ein kulinarisches Erlebnis!</h2>
       </div>
       {
         inLocation ? (
           <div className="flex justify-center text-2xl md:text-4xl mb-12 items-center">
-            <h2>Are you here?</h2>&nbsp;
+            <h2>Bist Du hier?</h2>&nbsp;
             <button
               className="text-xl md:text-2xl bg-dark-dh hover:bg-light-dh text-white font-bold py-2 px-4"
               onClick={() => { fetchAmenity(inLocation.id) }}

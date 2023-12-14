@@ -44,7 +44,7 @@ const LocationFetch = ({ setAmenity, selectedCuisine, onCuisineChange, location,
           className="text-4xl bg-dark-dh hover:bg-light-dh text-white font-bold py-4 px-8"
           onClick={getLocation}
         >
-          Search
+          Los geht's!
         </button>
       </div>
       {amenities.length > 0 && (

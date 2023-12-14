@@ -58,7 +58,7 @@ export default function Amenity({ amenity, myLocation, allAmenitiesData }) {
     event.preventDefault();
 
     if (!ratingFields.text.trim()) {
-      setTextareaError('Please enter your rating text.');
+      setTextareaError('Bitte gib einen Bewertungstext ein!');
       return;
     }
     setTextareaError('');
@@ -95,15 +95,19 @@ export default function Amenity({ amenity, myLocation, allAmenitiesData }) {
   if (!showContact) {
     numCols--
   }
+  let classString = 'md:grid-cols-' + numCols;
+  if (numCols < 4) {
+    classString +=  " justify-between";
+  }
 
   return (
     <>
       <div className="flex justify-center text-center text-6xl md:text-8xl mb-12 font-semibold">
         <h1>{amenity.name}</h1>
       </div>
-      <div className={"bg-dark-dh flex mb-6 p-3 text-white grid grid-cols-2 gap-y-3 " + ("md:grid-cols-" + numCols + (numCols < 4 ? " justify-between" : ""))}>
+      <div className={`bg-dark-dh flex mb-6 p-3 text-white grid grid-cols-2 gap-y-3 ${classString}`}>
         <div>
-          <h2 className="font-semibold text-2xl mb-3">Address</h2>
+          <h2 className="font-semibold text-2xl mb-3">Adresse</h2>
           <span className="font-semibold">{amenity.name}</span><br />
           {
             cuisine ? (
@@ -118,7 +122,7 @@ export default function Amenity({ amenity, myLocation, allAmenitiesData }) {
         {
           showContact ? (
             <div>
-              <h2 className="font-semibold text-2xl mb-3">Contact</h2>
+              <h2 className="font-semibold text-2xl mb-3">Kontakt</h2>
               {phone}
               {email}
               {website}
@@ -127,30 +131,30 @@ export default function Amenity({ amenity, myLocation, allAmenitiesData }) {
         }
         {
           hours.length > 0 ? <div>
-            <h2 className="font-semibold text-2xl mb-3">Hours</h2>
+            <h2 className="font-semibold text-2xl mb-3">Öffnungszeiten</h2>
             {openingHours}
           </div> : null
         }
         <div>
-          <h2 className="font-semibold text-2xl mb-3">Rating</h2>
+          <h2 className="font-semibold text-2xl mb-3">Bewertung</h2>
           <div className="flex justify-between">
-            <span>Food:</span>
+            <span>Essen:</span>
             <RatingStars rating={amenity.averages.food} />
           </div>
           <div className="flex justify-between">
-            <span>Service:</span>
+            <span>Bedienung:</span>
             <RatingStars rating={amenity.averages.service} />
           </div>
           <div className="flex justify-between">
-            <span>Comfort:</span>
+            <span>Komfort:</span>
             <RatingStars rating={amenity.averages.comfort} />
           </div>
           <div className="flex justify-between">
-            <span>Location:</span>
+            <span>Standort:</span>
             <RatingStars rating={amenity.averages.location} />
           </div>
           <div className="flex justify-between">
-            <span>Price:</span>
+            <span>$-Leistung:</span>
             <RatingStars rating={amenity.averages.price} />
           </div>
         </div>
@@ -164,7 +168,7 @@ export default function Amenity({ amenity, myLocation, allAmenitiesData }) {
         {
           ratingSaved ? <></> : (
             <div className="bg-light-dh p-3">
-              <h3 className="text-xl mb-3">Leave your rating here!</h3>
+              <h3 className="text-xl mb-3">Bewertung</h3>
               <form>
                 <div className="mb-3">
                   <textarea
@@ -178,30 +182,30 @@ export default function Amenity({ amenity, myLocation, allAmenitiesData }) {
                 </div>
                 <div className="grid grid-cols-2 gap-3">
                   <div className="flex justify-between">
-                    <span>Food:</span>
+                    <span>Essen:</span>
                     <RatingStars rating={ratingFields.food} category={'food'} setRating={setRatingField} />
                   </div>
                   <div className="flex justify-between">
-                    <span>Service:</span>
+                    <span>Bedienung:</span>
                     <RatingStars rating={ratingFields.service} category={'service'} setRating={setRatingField} />
                   </div>
                   <div className="flex justify-between">
-                    <span>Comfort:</span>
+                    <span>Komfort:</span>
                     <RatingStars rating={ratingFields.comfort} category={'comfort'} setRating={setRatingField} />
                   </div>
                   <div className="flex justify-between">
-                    <span>Location:</span>
+                    <span>Standort:</span>
                     <RatingStars rating={ratingFields.location} category={'location'} setRating={setRatingField} />
                   </div>
                   <div className="flex justify-between">
-                    <span>Price:</span>
+                    <span>$-Leistung:</span>
                     <RatingStars
                       rating={ratingFields.price} category={'price'} setRating={setRatingField} />
                   </div>
                 </div>
                 <div className="mt-3 flex justify-end">
                   <button className="bg-dark-dh hover:bg-light-dh text-white py-2 px-4" onClick={submitRating}>
-                    Rate!
+                    Bewerten!
                   </button>
                 </div>
               </form>
