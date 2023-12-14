@@ -29,6 +29,10 @@ export default function Home() {
     const url = (amenity === false && process.env.NEXT_PUBLIC_API_OVERWRITE_NEARBY_COORDS) ? `${process.env.NEXT_PUBLIC_API_CLIENT_URL}nearby?lat=47.4979559&lon=8.7313352&types=${['restaurant', 'cafe', 'fast_food', 'biergarten'].join(',')}&distance=10` :
       `${process.env.NEXT_PUBLIC_API_CLIENT_URL}nearby?lat=${location.latitude}&lon=${location.longitude}&types=${['restaurant', 'cafe', 'fast_food', 'biergarten'].join(',')}&distance=10`
 
+    if (amenity === false && process.env.NEXT_PUBLIC_API_OVERWRITE_NEARBY_COORDS) {
+      setLocation({ 'latitude': 47.49791035705619, 'longitude': 8.731462391719466 });
+    }
+
     const response = await fetch(url);
     let data = await response.json();
     if (data.length > 0) {
