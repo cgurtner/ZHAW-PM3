@@ -45,7 +45,7 @@ export default function Amenity({ amenity, myLocation, allAmenitiesData }) {
     hours.map((line, index) => (
       <p key={'opening-hours-' + index}>{line}</p>
     ))
-  }<br /></> : null
+  }</> : null
 
   const setRatingField = (category, newRating) => {
     setRatingFields(prevRatings => ({
@@ -88,24 +88,14 @@ export default function Amenity({ amenity, myLocation, allAmenitiesData }) {
     }
   };
 
-  let numCols = 4;
-  if (hours.length == 0) {
-    numCols--
-  }
-  if (!showContact) {
-    numCols--
-  }
-  let classString = 'md:grid-cols-' + numCols;
-  if (numCols < 4) {
-    classString +=  " justify-between";
-  }
+  const gridClass = "bg-dark-dh flex mb-6 p-3 text-white grid grid-cols-1 md:grid-cols-4 gap-y-3 justify-between";
 
   return (
     <>
       <div className="flex justify-center text-center text-6xl md:text-8xl mb-12 font-semibold">
         <h1>{amenity.name}</h1>
       </div>
-      <div className={`bg-dark-dh flex mb-6 p-3 text-white grid grid-cols-2 gap-y-3 ${classString}`}>
+      <div className={gridClass}>
         <div>
           <h2 className="font-semibold text-2xl mb-3">Adresse</h2>
           <span className="font-semibold">{amenity.name}</span><br />
@@ -127,13 +117,15 @@ export default function Amenity({ amenity, myLocation, allAmenitiesData }) {
               {email}
               {website}
             </div>
-          ) : null
+          ) : <div></div>
         }
         {
-          hours.length > 0 ? <div>
-            <h2 className="font-semibold text-2xl mb-3">Öffnungszeiten</h2>
-            {openingHours}
-          </div> : null
+          hours.length > 0 ? (
+            <div>
+              <h2 className="font-semibold text-2xl mb-3">Öffnungszeiten</h2>
+              {openingHours}
+            </div>
+          ) : <div></div>
         }
         <div>
           <h2 className="font-semibold text-2xl mb-3">Bewertung</h2>
