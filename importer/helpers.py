@@ -1,6 +1,8 @@
 import requests, random, re, json
 from datetime import datetime
 from urllib.parse import urlencode
+from requests.exceptions import ConnectionError
+import time
 
 def cast(name, type, entry):
     if type == 'int':
@@ -35,20 +37,23 @@ def get_address(entry):
             address[field] = entry[field]
         return address
     else:
-        address = {"addr:city": "City", "addr:housenumber": "3", "addr:postcode": "1234", "addr:street": "Street"}
-        return address
-        # lat = entry.get('lat')
-        # lon = entry.get('lon')
-        # if lat and lon:
-        #     fetched_address = fetch_address(lat, lon)
-        #     return fetched_address
-        # else:
-        #     return None
+        lat = entry.get('lat')
+        lon = entry.get('lon')
+        if lat and lon:
+            fetched_address = fetch_address(lat, lon)
+            return fetched_address
+        else:
+            return None
 
 def fetch_address(lat, lon):
     params = {"lat": lat, "lon": lon, "format": "json"}
     print(f"https://nominatim.openstreetmap.org/reverse?{urlencode(params)}")
-    response = requests.get(f"https://nominatim.openstreetmap.org/reverse?{urlencode(params)}")
+    try:
+        time.sleep(1.5)
+        response = requests.get(f"https://nominatim.openstreetmap.org/reverse?{urlencode(params)}")
+    except ConnectionError as e:
+        print(f"Connection error occurred: {e}")
+        return None
     if response.status_code == 200:
         data = response.json()
         address = data.get('address', {})
