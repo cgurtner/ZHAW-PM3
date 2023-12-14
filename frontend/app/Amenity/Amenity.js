@@ -161,7 +161,7 @@ export default function Amenity({ amenity, myLocation, allAmenitiesData }) {
       </div>
       <Tabs tab={tab} setTab={setTab} />
       {
-        tab == 'compare' ? <AmenityCompare amenity={amenity} amenityList={allAmenitiesData} /> : tab == 'explore' ?
+        tab == 'compare' ? <AmenityCompare amenity={amenity} amenityList={allAmenitiesData.filter(item => item.id != amenity.id)} /> : tab == 'explore' ?
           <AmenityExplore selectedAmenityData={amenity} amenitiesData={allAmenitiesData} /> : <AmenityMapWrapper amenity={amenity} myLocation={myLocation} />
       }
       <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-3">
