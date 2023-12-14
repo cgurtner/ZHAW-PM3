@@ -1,12 +1,12 @@
 #!/bin/bash
 
-VERSION="v0.0.2" # tag with this version needs to be created in the repo
+VERSION="main" # tag with this version needs to be created in the repo
 REPO_URL="https://github.com/cgurtner/ZHAW-PM3"
 
 FRONTEND_IMAGE_NAME="nearbai-frontend"
 API_IMAGE_NAME="nearbai-api"
 
-rm -rf nearbai
+rm -rf nearbai-$VERSION
 
 git clone --branch $VERSION $REPO_URL nearbai-$VERSION
 cd nearbai-$VERSION
@@ -15,9 +15,9 @@ cd frontend
 docker build -f ./Dockerfile.prod -t $FRONTEND_IMAGE_NAME:$VERSION .
 
 cd ../api
-docker build -f ./Dockerfile.prod -t $API_IMAGE_NAME:$VERSION ../api
+docker build -f ./Dockerfile.prod -t $API_IMAGE_NAME:$VERSION .
 
-cd ..
+cd ../../
 rm -rf nearbai-$VERSION
 
 docker save $FRONTEND_IMAGE_NAME:$VERSION | gzip > nearbai-frontend.tar.gz
