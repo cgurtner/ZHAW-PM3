@@ -134,7 +134,7 @@ export default function Amenity({ amenity, myLocation, allAmenitiesData }) {
             <RatingStars rating={amenity.averages.food} />
           </div>
           <div className="flex justify-between">
-            <span>Bedienung:</span>
+            <span>Service:</span>
             <RatingStars rating={amenity.averages.service} />
           </div>
           <div className="flex justify-between">
@@ -146,7 +146,7 @@ export default function Amenity({ amenity, myLocation, allAmenitiesData }) {
             <RatingStars rating={amenity.averages.location} />
           </div>
           <div className="flex justify-between">
-            <span>$-Leistung:</span>
+            <span>Value:</span>
             <RatingStars rating={amenity.averages.price} />
           </div>
         </div>
@@ -164,7 +164,7 @@ export default function Amenity({ amenity, myLocation, allAmenitiesData }) {
               <form>
                 <div className="mb-3">
                   <textarea
-                    className="w-full h-32 p-1 border border-dark-dh bg-light-dh"
+                    className="w-full h-32 p-1 border border-dark-dh bg-light-dh mb-3"
                     placeholder=""
                     defaultValue={ratingFields.text}
                     onChange={(e) => setRatingField('text', e.target.value)}
@@ -172,25 +172,25 @@ export default function Amenity({ amenity, myLocation, allAmenitiesData }) {
                   </textarea>
                   {textareaError && <div className="text-red-500 text-sm mt-1">{textareaError}</div>}
                 </div>
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="flex justify-between">
+                <div className="grid grid-cols-2 gap-3 text-sm">
+                  <div className="flex justify-between items-center">
                     <span>Essen:</span>
                     <RatingStars rating={ratingFields.food} category={'food'} setRating={setRatingField} />
                   </div>
-                  <div className="flex justify-between">
-                    <span>Bedienung:</span>
+                  <div className="flex justify-between items-center">
+                    <span>Service:</span>
                     <RatingStars rating={ratingFields.service} category={'service'} setRating={setRatingField} />
                   </div>
-                  <div className="flex justify-between">
+                  <div className="flex justify-between items-center">
                     <span>Komfort:</span>
                     <RatingStars rating={ratingFields.comfort} category={'comfort'} setRating={setRatingField} />
                   </div>
-                  <div className="flex justify-between">
+                  <div className="flex justify-between items-center">
                     <span>Standort:</span>
                     <RatingStars rating={ratingFields.location} category={'location'} setRating={setRatingField} />
                   </div>
-                  <div className="flex justify-between">
-                    <span>$-Leistung:</span>
+                  <div className="flex justify-between items-center">
+                    <span className="center">Value:</span>
                     <RatingStars
                       rating={ratingFields.price} category={'price'} setRating={setRatingField} />
                   </div>
