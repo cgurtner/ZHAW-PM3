@@ -26,7 +26,9 @@ export default function Home() {
   }
 
   const searchInLocation = async () => {
-    const url = `${process.env.NEXT_PUBLIC_API_CLIENT_URL}nearby?lat=${location.latitude}&lon=${location.longitude}&types=${['restaurant', 'cafe', 'fast_food', 'biergarten'].join(',')}&distance=10`;
+    const url = (amenity === false && process.env.NEXT_PUBLIC_API_OVERWRITE_NEARBY_COORDS) ? `${process.env.NEXT_PUBLIC_API_CLIENT_URL}nearby?lat=47.4979559&lon=8.7313352&types=${['restaurant', 'cafe', 'fast_food', 'biergarten'].join(',')}&distance=10` :
+      `${process.env.NEXT_PUBLIC_API_CLIENT_URL}nearby?lat=${location.latitude}&lon=${location.longitude}&types=${['restaurant', 'cafe', 'fast_food', 'biergarten'].join(',')}&distance=10`
+
     const response = await fetch(url);
     let data = await response.json();
     if (data.length > 0) {
@@ -43,7 +45,7 @@ export default function Home() {
     navigator.geolocation.getCurrentPosition(
       position => {
         const { latitude, longitude } = process.env.NEXT_PUBLIC_API_OVERWRITE_NEARBY_COORDS ?
-          { 'latitude': 47.50023364984366, 'longitude': 8.726595818720604 } :
+          { 'latitude': 47.49788451416509, 'longitude': 8.72646118588123 } :
           position.coords;
         setLocation({ latitude, longitude });
       },
@@ -57,7 +59,7 @@ export default function Home() {
     if (!location) {
       getLocation()
       return
-    }
+    } 
     if (!inLocation) {
       searchInLocation()
     }
