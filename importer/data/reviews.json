@@ -1,370 +1,402 @@
 [
-    {
-      "label": "positive",
-      "text": "Delicious food and great service! Highly recommended."
-    },
-    {
-      "label": "positive",
-      "text": "Amazing experience, from the appetizers to the desserts."
-    },
-    {
-      "label": "positive",
-      "text": "The restaurant exceeded my expectations. Fantastic!"
-    },
-    {
-      "label": "positive",
-      "text": "I love this place! The food is consistently excellent."
-    },
-    {
-      "label": "positive",
-      "text": "Friendly staff and a cozy atmosphere make this my favorite spot."
-    },
-    {
-      "label": "positive",
-      "text": "I had a wonderful time here. The flavors are outstanding."
-    },
-    {
-      "label": "positive",
-      "text": "An absolute gem! I can't get enough of their cuisine."
-    },
-    {
-      "label": "positive",
-      "text": "This restaurant is a must-visit. You won't be disappointed."
-    },
-    {
-      "label": "positive",
-      "text": "I've dined here multiple times, and it's consistently fantastic."
-    },
-    {
-      "label": "positive",
-      "text": "Great value for exceptional quality. 5 stars!"
-    },
-    {
-      "label": "positive",
-      "text": "The service was prompt, and the food was superb."
-    },
-    {
-      "label": "positive",
-      "text": "A delightful experience from start to finish."
-    },
-    {
-      "label": "positive",
-      "text": "The restaurant's ambiance is perfect for a romantic dinner."
-    },
-    {
-      "label": "positive",
-      "text": "The chef's creativity shines through in every dish."
-    },
-    {
-      "label": "positive",
-      "text": "I appreciate the attention to detail in both food and service."
-    },
-    {
-      "label": "positive",
-      "text": "You can't go wrong with anything on the menu. It's all fantastic!"
-    },
-    {
-      "label": "positive",
-      "text": "This place consistently impresses me. Top-notch cuisine."
-    },
-    {
-      "label": "positive",
-      "text": "I had a memorable evening with exceptional food and wine."
-    },
-    {
-      "label": "positive",
-      "text": "The staff is friendly and attentive, making every visit enjoyable."
-    },
-    {
-      "label": "positive",
-      "text": "I've recommended this restaurant to all my friends. It's a hidden gem."
-    },
-    {
-      "label": "positive",
-      "text": "The flavors are a burst of happiness in every bite."
-    },
-    {
-      "label": "positive",
-      "text": "The menu offers a delightful variety of options to choose from."
-    },
-    {
-      "label": "positive",
-      "text": "I can't wait to return and explore more dishes. Fantastic place!"
-    },
-    {
-      "label": "positive",
-      "text": "This restaurant has quickly become my go-to for special occasions."
-    },
-    {
-      "label": "positive",
-      "text": "I appreciate the consistent quality and flavors in every dish."
-    },
-    {
-      "label": "positive",
-      "text": "A culinary delight! This place is a food lover's paradise."
-    },
-    {
-      "label": "positive",
-      "text": "Impressed with the fresh ingredients and creative presentations."
-    },
-    {
-      "label": "positive",
-      "text": "Exceptional dining experience. I can't wait to come back."
-    },
-    {
-      "label": "positive",
-      "text": "The restaurant's atmosphere adds to the overall enjoyment."
-    },
-    {
-      "label": "positive",
-      "text": "Friendly staff, delicious food, and a cozy ambiance."
-    },
-    {
-      "label": "positive",
-      "text": "One of the best dining experiences in town. Highly recommended!"
-    },
-    {
-      "label": "positive",
-      "text": "The dessert menu is a sweet ending to a perfect meal."
-    },
-    {
-      "label": "positive",
-      "text": "A culinary masterpiece. I'm always impressed by their dishes."
-    },
-    {
-      "label": "positive",
-      "text": "This restaurant never disappoints. Consistently excellent."
-    },
-    {
-      "label": "positive",
-      "text": "I can't get enough of their mouthwatering dishes."
-    },
-    {
-      "label": "positive",
-      "text": "The staff goes above and beyond to ensure a great dining experience."
-    },
-    {
-      "label": "positive",
-      "text": "Perfect for date night or a special celebration."
-    },
-    {
-      "label": "positive",
-      "text": "This restaurant is a hidden treasure. You'll be pleasantly surprised."
-    },
-    {
-      "label": "positive",
-      "text": "The presentation of the dishes is almost as impressive as the taste."
-    },
-    {
-      "label": "positive",
-      "text": "I've never had a bad meal here. Truly exceptional."
-    },
-    {
-      "label": "positive",
-      "text": "The attention to detail sets this restaurant apart. Loved it!"
-    },
-    {
-      "label": "positive",
-      "text": "From the first bite to the last, it's a culinary journey."
-    },
-    {
-      "label": "positive",
-      "text": "This restaurant deserves all the praise it receives. Outstanding."
-    },
-    {
-      "label": "positive",
-      "text": "A gastronomic delight that never disappoints."
-    },
-    {
+  {
     "label": "positive",
-      "text": "The wine selection perfectly complements the menu."
-    },
-    {
-        "label": "negative",
-        "text": "I had a terrible experience at this restaurant. The food was cold, and the service was slow."
-    },
-    {
-        "label": "negative",
-        "text": "I wouldn't recommend this place. The quality of the food doesn't match the price."
-    },
-    {
-        "label": "negative",
-        "text": "The service was awful, and the food was tasteless. I won't be coming back."
-    },
-    {
-        "label": "negative",
-        "text": "I was disappointed with my visit. The portions were small, and the flavors were bland."
-    },
-    {
-        "label": "negative",
-        "text": "The restaurant was dirty, and the staff seemed disinterested in serving customers."
-    },
-    {
-        "label": "negative",
-        "text": "I had high hopes, but the food was a letdown. It lacked seasoning and creativity."
-    },
-    {
-        "label": "negative",
-        "text": "The prices here are outrageous for the quality of food you get. Not worth it."
-    },
-    {
-        "label": "negative",
-        "text": "The waitstaff was rude and unprofessional. It ruined the entire dining experience."
-    },
-    {
-        "label": "negative",
-        "text": "I found a hair in my food, and when I complained, they didn't even apologize."
-    },
-    {
-        "label": "negative",
-        "text": "This restaurant used to be good, but it has gone downhill. Avoid it."
-    },
-    {
-        "label": "negative",
-        "text": "I can't believe how bad the service was. We waited forever for our meals."
-    },
-    {
-        "label": "negative",
-        "text": "The restaurant was noisy, and I couldn't have a conversation without shouting."
-    },
-    {
-        "label": "negative",
-        "text": "The menu had limited options, and the food was overcooked."
-    },
-    {
-        "label": "negative",
-        "text": "I got food poisoning from this place. It was a nightmare."
-    },
-    {
-        "label": "negative",
-        "text": "I ordered a salad, and it was wilted and tasted like it had been sitting out all day."
-    },
-    {
-        "label": "negative",
-        "text": "The atmosphere was uncomfortable, and the tables were too close together."
-    },
-    {
-        "label": "negative",
-        "text": "The restaurant was understaffed, and it took forever to get our orders."
-    },
-    {
-        "label": "negative",
-        "text": "I expected better quality for the price I paid. Very disappointed."
-    },
-    {
-        "label": "negative",
-        "text": "I found a bug in my food. That's a deal-breaker for me."
-    },
-    {
-        "label": "negative",
-        "text": "The food was greasy and made me feel sick. Never again."
-    },
-    {
-        "label": "negative",
-        "text": "I had to send my dish back because it was undercooked. Not acceptable."
-    },
-    {
-        "label": "negative",
-        "text": "The restaurant had a strange odor, and it was off-putting."
-    },
-    {
-        "label": "negative",
-        "text": "The server got my order wrong, and when I pointed it out, they argued with me."
-    },
-    {
-        "label": "negative",
-        "text": "The restaurant was dirty, and the tables were sticky. I won't be returning."
-    },
-    {
-        "label": "negative",
-        "text": "The food was way too salty, and I couldn't eat it."
-    },
-    {
-        "label": "negative",
-        "text": "I expected better quality for the price. The food was mediocre at best."
-    },
-    {
-        "label": "negative",
-        "text": "The restaurant was empty, and now I know why. The food was terrible."
-    },
-    {
-        "label": "negative",
-        "text": "I ordered a steak, and it was overcooked and tough to chew."
-    },
-    {
-        "label": "negative",
-        "text": "The service was incredibly slow, and the staff seemed disorganized."
-    },
-    {
-        "label": "negative",
-        "text": "I had to wait 30 minutes just to get a menu. Unacceptable."
-    },
-    {
-        "label": "negative",
-        "text": "The restaurant was out of several menu items. Very disappointing."
-    },
-    {
-        "label": "negative",
-        "text": "The prices are too high for the quality of food you receive."
-    },
-    {
-        "label": "negative",
-        "text": "I couldn't even finish my meal because it was so unappetizing."
-    },
-    {
-        "label": "negative",
-        "text": "The restaurant was chaotic, and the staff seemed overwhelmed."
-    },
-    {
-        "label": "negative",
-        "text": "I had a reservation, but they still made me wait for a table."
-    },
-    {
-        "label": "negative",
-        "text": "The food was cold by the time it arrived at our table."
-    },
-    {
-        "label": "negative",
-        "text": "The restaurant ran out of basic ingredients. How does that happen?"
-    },
-    {
-        "label": "negative",
-        "text": "I had high expectations, and this restaurant was a major letdown."
-    },
-    {
-        "label": "negative",
-        "text": "The restaurant was dirty, and I saw a rat scurrying across the floor."
-    },
-    {
-        "label": "negative",
-        "text": "The restroom was in terrible condition. It reflects poorly on the establishment."
-    },
-    {
-        "label": "negative",
-        "text": "The food was bland and lacked seasoning. I wouldn't recommend it."
-    },
-    {
-        "label": "negative",
-        "text": "I had a reservation, but they gave our table to someone else."
-    },
-    {
-        "label": "negative",
-        "text": "The restaurant was disorganized, and the staff seemed clueless."
-    },
-    {
-        "label": "negative",
-        "text": "I was charged for items I didn't order, and it was a hassle to get it corrected."
-    },
-    {
-        "label": "negative",
-        "text": "I expected a fine dining experience, but it was far from it."
-    },
-    {
-        "label": "negative",
-        "text": "The restaurant was unclean, and it made me lose my appetite."
-    },
-    {
-        "label": "negative",
-        "text": "I found a foreign object in my food. It's inexcusable."
-    }
+    "text": "Ausgezeichnetes Essen und erstklassiger Service. Ein Muss!"
+  },
+  {
+    "label": "positive",
+    "text": "Ein wunderbares kulinarisches Erlebnis. Jeder Bissen war ein Genuss."
+  },
+  {
+    "label": "positive",
+    "text": "Fantastische Atmosphäre und herzliche Gastfreundschaft. Sehr empfehlenswert."
+  },
+  {
+    "label": "positive",
+    "text": "Die Gerichte sind kreativ und wunderschön präsentiert. Ein wahres Geschmackserlebnis."
+  },
+  {
+    "label": "positive",
+    "text": "Ein verstecktes Juwel in der Stadt. Die Qualität der Speisen ist herausragend."
+  },
+  {
+    "label": "positive",
+    "text": "Gemütliches Ambiente und köstliche Speisen. Perfekt für besondere Anlässe."
+  },
+  {
+    "label": "positive",
+    "text": "Einzigartige Aromen und frische Zutaten. Ein unvergessliches Esserlebnis."
+  },
+  {
+    "label": "positive",
+    "text": "Das Personal geht auf alle Wünsche ein. Fühle mich jedes Mal willkommen."
+  },
+  {
+    "label": "positive",
+    "text": "Bestes Restaurant in der Gegend. Die Speisen sind immer frisch und lecker."
+  },
+  {
+    "label": "positive",
+    "text": "Die Desserts sind himmlisch. Ein perfekter Abschluss eines jeden Essens."
+  },
+  {
+    "label": "positive",
+    "text": "Hervorragende Küche mit einem freundlichen Ambiente. Immer ein Vergnügen."
+  },
+  {
+    "label": "positive",
+    "text": "Die frischen Zutaten und die Liebe zum Detail machen jedes Gericht besonders."
+  },
+  {
+    "label": "positive",
+    "text": "Unglaubliche Vielfalt und Qualität. Jeder Besuch ist ein Erlebnis."
+  },
+  {
+    "label": "positive",
+    "text": "Die Speisen sind exquisit, der Service ist unübertroffen. Absolut empfehlenswert."
+  },
+  {
+    "label": "positive",
+    "text": "Eine Oase für Feinschmecker. Exzellente Weinauswahl."
+  },
+  {
+    "label": "positive",
+    "text": "Ein kulinarisches Highlight. Jeder Gang war ein Genuss."
+  },
+  {
+    "label": "positive",
+    "text": "Die beste Pizza in der Stadt. Tolle Atmosphäre und freundliches Personal."
+  },
+  {
+    "label": "positive",
+    "text": "Außergewöhnliche Gerichte, die das Herz erwärmen. Ein Muss für Genießer."
+  },
+  {
+    "label": "positive",
+    "text": "Ein Restaurant, das durch seine Kreativität und Qualität besticht."
+  },
+  {
+    "label": "positive",
+    "text": "Einladendes Ambiente und Speisen, die jedes Herz höher schlagen lassen."
+  },
+  {
+    "label": "positive",
+    "text": "Die perfekte Kombination aus Geschmack und Präsentation. Einfach klasse!"
+  },
+  {
+    "label": "positive",
+    "text": "Gemütlich, lecker und immer ein Besuch wert. Tolles Restaurant!"
+  },
+  {
+    "label": "positive",
+    "text": "Die Steaks sind vom Feinsten. Tolles Fleisch und perfekte Zubereitung."
+  },
+  {
+    "label": "positive",
+    "text": "Erstklassiger Fisch, frisch und perfekt zubereitet. Ein Traum für Fischliebhaber."
+  },
+  {
+    "label": "positive",
+    "text": "Wunderschönes Ambiente, perfekt für ein romantisches Abendessen."
+  },
+  {
+    "label": "positive",
+    "text": "Die hausgemachten Nudeln sind ein Gedicht. Authentische italienische Küche."
+  },
+  {
+    "label": "positive",
+    "text": "Ein fantastischer Ort für ein Familienessen. Jeder findet etwas Leckeres."
+  },
+  {
+    "label": "positive",
+    "text": "Das vegetarische Menü ist ein Traum. Kreativ, lecker und gesund."
+  },
+  {
+    "label": "positive",
+    "text": "Ein Paradies für Veganer. Großartige Auswahl und unglaublicher Geschmack."
+  },
+  {
+    "label": "positive",
+    "text": "Das beste Sushi der Stadt. Frische Zutaten und kunstvolle Präsentation."
+  },
+  {
+    "label": "positive",
+    "text": "Die Atmosphäre ist entspannend und einladend. Ein echtes Highlight."
+  },
+  {
+    "label": "positive",
+    "text": "Begeistert von der authentischen Küche. Jedes Gericht ist ein Meisterwerk."
+  },
+  {
+    "label": "positive",
+    "text": "Eine beeindruckende Auswahl an Weinen, perfekt abgestimmt auf die Speisen."
+  },
+  {
+    "label": "positive",
+    "text": "Eine Oase für Gourmets. Jeder Besuch ist ein Fest für die Sinne."
+  },
+  {
+    "label": "positive",
+    "text": "Die Kombination aus traditionellen und modernen Gerichten ist einzigartig."
+  },
+  {
+    "label": "positive",
+    "text": "Die Desserts sind ein Traum - süß und perfekt zubereitet."
+  },
+  {
+    "label": "positive",
+    "text": "Das Ambiente ist stilvoll und gemütlich. Perfekt für ein Abendessen mit Freunden."
+  },
+  {
+    "label": "positive",
+    "text": "Das Personal ist außergewöhnlich aufmerksam und freundlich."
+  },
+  {
+    "label": "positive",
+    "text": "Ein kulinarisches Erlebnis, das man nicht verpassen sollte. Einfach großartig!"
+  },
+  {
+    "label": "positive",
+    "text": "Die frischen Meeresfrüchte sind hervorragend und immer perfekt zubereitet."
+  },
+  {
+    "label": "positive",
+    "text": "Die kreative Präsentation der Speisen begeistert bei jedem Besuch."
+  },
+  {
+    "label": "positive",
+    "text": "Die ruhige und entspannte Atmosphäre macht das Essen zu einem wahren Genuss."
+  },
+  {
+    "label": "positive",
+    "text": "Eine exzellente Auswahl an vegetarischen Optionen. Frisch und lecker."
+  },
+  {
+    "label": "positive",
+    "text": "Das Restaurant bietet eine perfekte Mischung aus Eleganz und Komfort."
+  },
+  {
+    "label": "positive",
+    "text": "Ein wahrer Genuss für Fleischliebhaber. Die Qualität ist unübertroffen."
+  },
+  {
+    "label": "positive",
+    "text": "Die hausgemachten Desserts sind himmlisch und ein perfekter Abschluss des Essens."
+  },
+  {
+    "label": "positive",
+    "text": "Das Essen ist immer frisch, die Aromen sind ausgewogen und köstlich."
+  },
+  {
+    "label": "positive",
+    "text": "Ein ideales Restaurant für besondere Anlässe. Unvergessliche Erlebnisse garantiert."
+  },
+  {
+    "label": "positive",
+    "text": "Das Bistro bietet eine gemütliche Atmosphäre und hervorragende Gerichte."
+  },
+  {
+    "label": "positive",
+    "text": "Ein perfekter Ort für ein Geschäftsessen. Professioneller Service und exzellentes Essen."
+  },
+  {
+    "label": "negative",
+    "text": "Enttäuschende Erfahrung. Das Essen war ungenießbar und kalt."
+  },
+  {
+    "label": "negative",
+    "text": "Das Personal war unhöflich und unaufmerksam. Sehr frustrierend."
+  },
+  {
+    "label": "negative",
+    "text": "Überteuerte Speisen und Getränke. Nicht das Geld wert."
+  },
+  {
+    "label": "negative",
+    "text": "Die Wartezeit war unerträglich lang, und das Essen war durchschnittlich."
+  },
+  {
+    "label": "negative",
+    "text": "Schlechte Qualität des Essens. Hatte besseres erwartet."
+  },
+  {
+    "label": "negative",
+    "text": "Das Restaurant war laut und überfüllt. Keine angenehme Atmosphäre."
+  },
+  {
+    "label": "negative",
+    "text": "Das Essen schmeckte, als wäre es aufgewärmt. Sehr enttäuschend."
+  },
+  {
+    "label": "negative",
+    "text": "Unfreundliches Personal, das kaum auf unsere Bedürfnisse einging."
+  },
+  {
+    "label": "negative",
+    "text": "Das Ambiente war unangenehm, und die Einrichtung veraltet."
+  },
+  {
+    "label": "negative",
+    "text": "Das Essen war fad und uninspiriert. Hätte mehr erwartet."
+  },
+  {
+    "label": "negative",
+    "text": "Die Portionen waren viel zu klein für den Preis."
+  },
+  {
+    "label": "negative",
+    "text": "Schlechter Service, und das Essen kam kalt an den Tisch."
+  },
+  {
+    "label": "negative",
+    "text": "Das Menü war begrenzt und bot kaum Auswahlmöglichkeiten."
+  },
+  {
+    "label": "negative",
+    "text": "Das Restaurant war schmutzig, besonders die Toiletten."
+  },
+  {
+    "label": "negative",
+    "text": "Das Essen war zu salzig und schlecht zubereitet."
+  },
+  {
+    "label": "negative",
+    "text": "Wir hatten eine Reservierung, mussten aber trotzdem lange warten."
+  },
+  {
+    "label": "negative",
+    "text": "Die Atmosphäre im Restaurant war bedrückend und dunkel."
+  },
+  {
+    "label": "negative",
+    "text": "Die Tische waren klebrig und das Besteck nicht sauber."
+  },
+  {
+    "label": "negative",
+    "text": "Die Gerichte waren überwürzt und nicht wie beschrieben."
+  },
+  {
+    "label": "negative",
+    "text": "Das Personal schien überfordert und war nicht hilfreich."
+  },
+  {
+    "label": "negative",
+    "text": "Das Essen kam zu spät und war kalt. Sehr enttäuschend."
+  },
+  {
+    "label": "negative",
+    "text": "Völlig überteuert für die gebotene Qualität. Nicht empfehlenswert."
+  },
+  {
+    "label": "negative",
+    "text": "Der Service war langsam und unaufmerksam. Wir fühlten uns ignoriert."
+  },
+  {
+    "label": "negative",
+    "text": "Die Speisen waren geschmacklos und uninspiriert. Große Enttäuschung."
+  },
+  {
+    "label": "negative",
+    "text": "Sehr laut und ungemütlich. Konnte mein Essen nicht genießen."
+  },
+  {
+    "label": "negative",
+    "text": "Das Personal war unfreundlich und wenig hilfsbereit."
+  },
+  {
+    "label": "negative",
+    "text": "Das Essen war unterdurchschnittlich, besonders für den hohen Preis."
+  },
+  {
+    "label": "negative",
+    "text": "Lange Wartezeiten trotz geringer Auslastung. Unverständlich."
+  },
+  {
+    "label": "negative",
+    "text": "Die Gerichte waren nicht wie beschrieben. Sehr enttäuschend."
+  },
+  {
+    "label": "negative",
+    "text": "Das Ambiente war trist und nicht einladend."
+  },
+  {
+    "label": "negative",
+    "text": "Das Essen war fettig und ungesund. Keine guten Optionen."
+  },
+  {
+    "label": "negative",
+    "text": "Portionen waren kleiner als erwartet. Preis-Leistung stimmt nicht."
+  },
+  {
+    "label": "negative",
+    "text": "Das Restaurant war schlecht beleuchtet und wirkte schmutzig."
+  },
+  {
+    "label": "negative",
+    "text": "Der Lärmpegel war unerträglich. Konnte mich nicht entspannen."
+  },
+  {
+    "label": "negative",
+    "text": "Das Essen war fade und schlecht zubereitet. Nicht zu empfehlen."
+  },
+  {
+    "label": "negative",
+    "text": "Musste lange auf die Bestellung warten. Service war schlecht."
+  },
+  {
+    "label": "negative",
+    "text": "Die Speisekarte war verwirrend und bot wenig Auswahl."
+  },
+  {
+    "label": "negative",
+    "text": "Die Qualität des Essens entsprach nicht den Erwartungen."
+  },
+  {
+    "label": "negative",
+    "text": "Unfreundliches Personal und schlechter Kundenservice."
+  },
+  {
+    "label": "negative",
+    "text": "Das Restaurant war unangenehm voll und laut."
+  },
+  {
+    "label": "negative",
+    "text": "Die Einrichtung war veraltet und ungemütlich."
+  },
+  {
+    "label": "negative",
+    "text": "Das Essen war nicht frisch und schmeckte nach Fertiggerichten."
+  },
+  {
+    "label": "negative",
+    "text": "Der Service ließ zu wünschen übrig. Wir fühlten uns nicht willkommen."
+  },
+  {
+    "label": "negative",
+    "text": "Schlechtes Preis-Leistungs-Verhältnis. Viel zu teuer."
+  },
+  {
+    "label": "negative",
+    "text": "Die Gerichte waren zu gewöhnlich und ohne jegliche Kreativität."
+  },
+  {
+    "label": "negative",
+    "text": "Die Wartezeit auf das Essen war unzumutbar. Total enttäuscht."
+  },
+  {
+    "label": "negative",
+    "text": "Das Restaurant hatte eine unangenehme Atmosphäre."
+  },
+  {
+    "label": "negative",
+    "text": "Die Portionen waren enttäuschend klein und nicht sättigend."
+  },
+  {
+    "label": "negative",
+    "text": "Unsaubere Tische und schmutziges Geschirr. Unhygienisch."
+  },
+  {
+    "label": "negative",
+    "text": "Das Personal wirkte desinteressiert und unmotiviert."
+  }
 ]
