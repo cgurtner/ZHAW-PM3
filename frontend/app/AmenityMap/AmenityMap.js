@@ -4,7 +4,7 @@ import L from 'leaflet';
 import 'leaflet-routing-machine';
 import 'leaflet/dist/leaflet.css';
 
-export default function AmenityMap({ amenity, myLocation }) {
+export default function AmenityMap({ amenity, myLocation, inLocation }) {
     const mapRef = useRef(null)
     const [mapInstance, setMapInstance] = useState(null)
     const [pointsOfInterest, setPointsOfInterest] = useState([])
@@ -48,10 +48,10 @@ export default function AmenityMap({ amenity, myLocation }) {
             popupAnchor: [1, -34],
             shadowSize: [41, 41]
         });
-
+        const myLocationLatLng = inLocation ? {"latitude": 47.49791035705619, "longitude": 8.731462391719466} : myLocation
         const routingControl = L.Routing.control({
             waypoints: [
-                L.latLng(myLocation.latitude, myLocation.longitude),
+                L.latLng(myLocationLatLng.latitude, myLocationLatLng.longitude),
                 L.latLng(amenity.lat, amenity.lon)
             ],
             routeWhileDragging: true,

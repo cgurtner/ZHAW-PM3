@@ -29,10 +29,6 @@ export default function Home() {
     const url = (amenity === false && process.env.NEXT_PUBLIC_API_OVERWRITE_NEARBY_COORDS) ? `${process.env.NEXT_PUBLIC_API_CLIENT_URL}nearby?lat=47.4979559&lon=8.7313352&types=${['restaurant', 'cafe', 'fast_food', 'biergarten'].join(',')}&distance=10` :
       `${process.env.NEXT_PUBLIC_API_CLIENT_URL}nearby?lat=${location.latitude}&lon=${location.longitude}&types=${['restaurant', 'cafe', 'fast_food', 'biergarten'].join(',')}&distance=10`
 
-    if (amenity === false && process.env.NEXT_PUBLIC_API_OVERWRITE_NEARBY_COORDS) {
-      setLocation({ 'latitude': 47.49791035705619, 'longitude': 8.731462391719466 });
-    }
-
     const response = await fetch(url);
     let data = await response.json();
     if (data.length > 0) {
@@ -61,20 +57,20 @@ export default function Home() {
 
   useEffect(() => {
     if (!location) {
-      getLocation()
-      return
-    } 
-    if (!inLocation) {
-      searchInLocation()
+      getLocation();
+      return;
     }
-  })
+    if (!inLocation) {
+      searchInLocation();
+    }
+  });
 
   return (
     <main>
       <NavBar amenity={amenity} setAmenity={setAmenity} />
       <div className="flex justify-center px-2">
         {amenity ? (
-          <PageAmenity amenity={amenity} location={location} allAmenitiesData={allAmenitiesData} />
+          <PageAmenity amenity={amenity} location={location} allAmenitiesData={allAmenitiesData} inLocation={inLocation} />
         ) : (
           <PageNearby
             setAmenity={setAmenity}
@@ -128,13 +124,14 @@ const PageNearby = ({ inLocation, fetchAmenity, selectedCuisine, onCuisineChange
   </div>
 );
 
-const PageAmenity = ({ amenity, location, allAmenitiesData }) => (
+const PageAmenity = ({ amenity, location, allAmenitiesData, inLocation }) => (
   <div className="container mt-12">
     <div className="grid grid-cols-1">
       <Amenity
         amenity={amenity}
         myLocation={location}
         allAmenitiesData={allAmenitiesData}
+        inLocation={inLocation}
       />
     </div>
   </div>
