@@ -5,6 +5,7 @@ export default function AmenityCompare({ selectedAmenityData, amenitiesData }) {
     const highlightColor = 'rgba(255,99,132,1)';
 
     const categories = ['Food', 'Service', 'Comfort', 'Location', 'Price'];
+    const categoriesLabels = ['Essen', 'Service', 'Komfort', 'Standort', 'Value'];
 
     const scatterData = {
         datasets: amenitiesData.map(amenity => ({
@@ -20,8 +21,8 @@ export default function AmenityCompare({ selectedAmenityData, amenitiesData }) {
             pointHoverBorderWidth: 2,
             pointRadius: 6,
             pointHitRadius: 10,
-            data: categories.map(category => ({
-                x: category,
+            data: categories.map((category, index) => ({
+                x: categoriesLabels[index], 
                 y: amenity.averages[category.toLowerCase()]
             }))
         }))
@@ -31,7 +32,7 @@ export default function AmenityCompare({ selectedAmenityData, amenitiesData }) {
         scales: {
             x: {
                 type: 'category',
-                labels: categories
+                labels: categoriesLabels
             },
             y: {
                 beginAtZero: true

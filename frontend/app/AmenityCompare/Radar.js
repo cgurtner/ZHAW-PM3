@@ -2,7 +2,7 @@ import { Radar } from 'react-chartjs-2';
 
 const RadarChart = ({ amenity, compare }) => {
     const data = {
-        labels: ['Food', 'Service', 'Comfort', 'Location', 'Price'],
+        labels: ['Essen', 'Service', 'Komfort', 'Standort', 'Value'],
         datasets: [
             {
                 label: amenity.name,
