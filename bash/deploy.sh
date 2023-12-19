@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION="v1.0.0" # tag with this version needs to be created in the repo
+VERSION="v1.0.1" # tag with this version needs to be created in the repo
 REPO_URL="https://github.com/cgurtner/ZHAW-PM3"
 
 FRONTEND_IMAGE_NAME="nearbai-frontend"
