@@ -7,7 +7,7 @@ This Lab is an effort of Micheal Seitz (seitzmi1) and Cyrill Gurtner (gurtncyr).
 
 ## Presentation
 
-Our final LNW3 presentation is saved in `ppt/31215_ln3-presentation.pptx`.
+Our final LNW3 presentation is saved in `ppt/231215_ln3-presentation.pptx`.
 
 ## Services
 
