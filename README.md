@@ -1,6 +1,14 @@
 # ZHAW-PM3
 This repository contains the code for the `Software Projects 3 (PM3)` course at the Zurich University of Applied Sciences.
 
+## Team
+
+This Lab is an effort of Micheal Seitz (seitzmi1) and Cyrill Gurtner (gurtncyr).
+
+## Presentation
+
+Our final LNW3 presentation is saved in `ppt/31215_ln3-presentation.pptx`.
+
 ## Services
 
 | URL | Name | Description |
