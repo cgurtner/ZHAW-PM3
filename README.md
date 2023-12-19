@@ -17,13 +17,6 @@ Our final LNW3 presentation is saved in `ppt/31215_ln3-presentation.pptx`.
 | http://localhost:3000 | frontend | React Next.js Frontend |
 | mongodb://mongodb:27017/ | mongodb | MongoDB |
 
-## API
-
-| Endpoint | Description |
-| :-------- | :--- |
-| http://localhost:5000/api/amenity-types | Fetch all types of amenities with how many there are. | 
-| http://localhost:5000/api/explore/<type\> | Fetch which attribute exists how many times for an amenity. |
-
 ## Setup
 
 ### Import
